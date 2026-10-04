@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { locales, type Locale } from "./i18n";
+import { site } from "./site";
 
 /** Title, description, canonical URL and hreflang links for one page. */
 export function pageMetadata(locale: Locale, path: string, title: string, description: string): Metadata {
@@ -11,6 +12,15 @@ export function pageMetadata(locale: Locale, path: string, title: string, descri
       canonical: `/${locale}${path}`,
       languages: { ...languages, "x-default": `/en${path}` },
     },
-    openGraph: { title, description, locale, url: `/${locale}${path}`, type: "website" },
+    // Page openGraph replaces the layout's, so repeat the shared fields here.
+    openGraph: {
+      title,
+      description,
+      locale,
+      url: `/${locale}${path}`,
+      type: "website",
+      siteName: site.name,
+      images: ["/photos/port.jpg"],
+    },
   };
 }

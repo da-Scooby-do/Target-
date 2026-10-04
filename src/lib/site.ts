@@ -1,3 +1,10 @@
+/** Public URL: explicit setting, else Vercel's production domain, else local dev. */
+function siteUrl() {
+  if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, "");
+  if (process.env.VERCEL_PROJECT_PRODUCTION_URL) return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`;
+  return "http://localhost:3000";
+}
+
 /**
  * Company details shown in the header, footer, contact page and emails.
  *
@@ -18,7 +25,7 @@ export const site = {
   phone: "+31 79 000 0000", // TODO: real phone number
   whatsapp: "31790000000", // TODO: WhatsApp number, digits only with country code
   kvk: "00000000", // TODO: real KvK number
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+  url: siteUrl(),
 } as const;
 
 export const phoneHref = `tel:${site.phone.replace(/\s/g, "")}`;
