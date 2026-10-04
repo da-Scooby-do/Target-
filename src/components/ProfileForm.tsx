@@ -42,10 +42,6 @@ export function ProfileForm({ profile, t }: { profile: Profile; t: Dictionary["a
           <input id="p-name" className="tfs-input" autoComplete="name" value={values.full_name} onChange={(e) => set("full_name", e.target.value)} />
         </div>
         <div className="tfs-field">
-          <label className="tfs-label" htmlFor="p-company">{t.company}</label>
-          <input id="p-company" className="tfs-input" autoComplete="organization" value={values.company} onChange={(e) => set("company", e.target.value)} />
-        </div>
-        <div className="tfs-field">
           <label className="tfs-label" htmlFor="p-phone">{t.phone}</label>
           <input id="p-phone" type="tel" dir="ltr" className="tfs-input" autoComplete="tel" value={values.phone} onChange={(e) => set("phone", e.target.value)} />
         </div>

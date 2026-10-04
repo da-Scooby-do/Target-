@@ -1,12 +1,16 @@
 import "server-only";
 import type { Locale } from "@/lib/i18n";
-import type { Dictionary } from "./en";
+import type { Dictionary as BaseDictionary } from "./en";
+import type { UiDictionary } from "./ui/en";
 
-const dictionaries: Record<Locale, () => Promise<Dictionary>> = {
-  en: () => import("./en").then((m) => m.default),
-  nl: () => import("./nl").then((m) => m.default),
-  ar: () => import("./ar").then((m) => m.default),
+/** Website copy plus the app and account-screen copy under `ui`. */
+export type Dictionary = BaseDictionary & { ui: UiDictionary };
+
+const load: Record<Locale, () => Promise<Dictionary>> = {
+  en: async () => ({ ...(await import("./en")).default, ui: (await import("./ui/en")).default }),
+  nl: async () => ({ ...(await import("./nl")).default, ui: (await import("./ui/nl")).default }),
+  ar: async () => ({ ...(await import("./ar")).default, ui: (await import("./ui/ar")).default }),
 };
 
-export const getDictionary = (locale: Locale) => dictionaries[locale]();
-export type { Dictionary };
+export const getDictionary = (locale: Locale) => load[locale]();
+export type { UiDictionary };

@@ -1,0 +1,14 @@
+"use client";
+
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+
+/** Re-fetches the server data of the current page every so often, so the dashboard stays live. */
+export function AutoRefresh({ seconds = 30 }: { seconds?: number }) {
+  const router = useRouter();
+  useEffect(() => {
+    const timer = setInterval(() => document.visibilityState === "visible" && router.refresh(), seconds * 1000);
+    return () => clearInterval(timer);
+  }, [router, seconds]);
+  return null;
+}

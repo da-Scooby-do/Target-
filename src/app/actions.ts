@@ -131,7 +131,7 @@ export async function submitQuote(input: QuoteInput): Promise<FormResult> {
     ["Notes", data.notes || empty],
     ["Language", locale.toUpperCase()],
   ];
-  const adminLink = `${site.url}/en/admin/quotes/${reference}`;
+  const adminLink = `${site.url}/en/app/admin/quotes/${reference}`;
   const internal = renderTable(`New quote request ${reference}`, supabaseConfigured ? [...rows, ["Price it", adminLink]] : rows);
 
   if (!inbox) {

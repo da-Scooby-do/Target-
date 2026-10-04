@@ -180,8 +180,8 @@ export function QuoteForm({ locale, t, services, initialService, initial = {} }:
             className="tfs-btn tfs-btn--primary"
             href={
               signedIn
-                ? href(locale, `/portal/quotes/${reference}`)
-                : `${href(locale, "/login")}?email=${encodeURIComponent(values.email)}&next=${encodeURIComponent(href(locale, `/portal/quotes/${reference}`))}`
+                ? href(locale, `/app/quotes/${reference}`)
+                : `${href(locale, "/login")}?email=${encodeURIComponent(values.email)}&next=${encodeURIComponent(href(locale, `/app/quotes/${reference}`))}`
             }
           >
             {signedIn ? t.success.portalLink : t.success.loginLink}

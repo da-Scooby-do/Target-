@@ -38,7 +38,7 @@ export async function respondToQuote(input: { reference: string; accept: boolean
     }
   }
 
-  revalidatePath("/[lang]/portal", "layout");
+  revalidatePath("/[lang]/app", "layout");
   return { ok: true as const, status };
 }
 
@@ -63,6 +63,6 @@ export async function updateProfile(input: z.input<typeof profileSchema>) {
       locale: parsed.data.locale,
     })
     .eq("id", profile.id);
-  revalidatePath("/[lang]/portal", "layout");
+  revalidatePath("/[lang]/app", "layout");
   return { ok: !error };
 }

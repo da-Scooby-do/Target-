@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
   const indexable = process.env.VERCEL_ENV ? process.env.VERCEL_ENV === "production" : true;
   return {
     rules: indexable
-      ? { userAgent: "*", allow: "/", disallow: ["/*/portal", "/*/admin", "/*/login", "/auth/"] }
+      ? { userAgent: "*", allow: "/", disallow: ["/*/app", "/*/login", "/*/signup", "/*/forgot-password", "/*/reset-password", "/auth/"] }
       : { userAgent: "*", disallow: "/" },
     sitemap: `${site.url}/sitemap.xml`,
   };

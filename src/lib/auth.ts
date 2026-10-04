@@ -22,6 +22,34 @@ export const getProfile = cache(async (): Promise<Profile | null> => {
   return (profile as Profile | null) ?? null;
 });
 
+export type Membership = { companyId: string; companyName: string; role: "owner" | "member" };
+
+/** The company the signed-in user belongs to, and whether they own it. */
+export const getMembership = cache(async (): Promise<Membership | null> => {
+  const profile = await getProfile();
+  if (!profile) return null;
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("company_members")
+    .select("role, companies(id, name)")
+    .eq("user_id", profile.id)
+    .maybeSingle();
+  const company = data?.companies as unknown as { id: string; name: string } | null;
+  if (!data || !company) return null;
+  return { companyId: company.id, companyName: company.name, role: data.role as Membership["role"] };
+});
+
+/**
+ * PostgREST filter for "my company's records" on quotes and shipments. Row security already
+ * limits customers to this; staff can read everything, so their own app pages need it too.
+ */
+export async function ownScope(): Promise<string> {
+  const profile = await getProfile();
+  const membership = await getMembership();
+  if (!profile) return "customer_id.is.null,customer_id.not.is.null";
+  return membership ? `customer_id.eq.${profile.id},company_id.eq.${membership.companyId}` : `customer_id.eq.${profile.id}`;
+}
+
 /** Send logged-out visitors to the login page and back here afterwards. */
 export async function requireProfile(locale: Locale, next: string): Promise<Profile> {
   const profile = await getProfile();
@@ -29,9 +57,9 @@ export async function requireProfile(locale: Locale, next: string): Promise<Prof
   return profile;
 }
 
-export async function requireStaff(next: string): Promise<Profile> {
-  const profile = await requireProfile("en", next);
-  if (profile.role !== "staff") redirect(href("en", "/portal"));
+export async function requireStaff(locale: Locale, next: string): Promise<Profile> {
+  const profile = await requireProfile(locale, next);
+  if (profile.role !== "staff") redirect(href(locale, "/app"));
   return profile;
 }
 

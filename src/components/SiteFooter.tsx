@@ -36,10 +36,9 @@ export function SiteFooter({ locale, dict }: { locale: Locale; dict: Dictionary 
           </h2>
           <ul>
             <li><Link href={href(locale, "/about")}>{dict.nav.about}</Link></li>
-            <li><Link href={href(locale, "/industries")}>{dict.app.nav.industries}</Link></li>
-            <li><Link href={href(locale, "/insights")}>{dict.app.nav.insights}</Link></li>
-            <li><Link href={href(locale, "/locations")}>{dict.app.utility.locations}</Link></li>
             <li><Link href={href(locale, "/contact")}>{dict.nav.contact}</Link></li>
+            <li><Link href={href(locale, "/help")}>{dict.app.help.metaTitle}</Link></li>
+            <li><Link href={href(locale, "/privacy")}>{dict.nav.privacy}</Link></li>
           </ul>
         </nav>
 
@@ -48,11 +47,10 @@ export function SiteFooter({ locale, dict }: { locale: Locale; dict: Dictionary 
             {dict.app.utility.myTfs}
           </h2>
           <ul>
+            <li><Link href={href(locale, "/signup")}>{dict.ui.site.getStarted}</Link></li>
+            <li><Link href={href(locale, "/login")}>{dict.ui.site.login}</Link></li>
+            <li><Link href={href(locale, "/track")}>{dict.ui.site.track}</Link></li>
             <li><Link href={href(locale, "/quote")}>{dict.nav.quote}</Link></li>
-            <li><Link href={href(locale, "/track")}>{dict.app.utility.track}</Link></li>
-            <li><Link href={href(locale, "/portal")}>{dict.app.utility.myTfs}</Link></li>
-            <li><Link href={href(locale, "/help")}>{dict.app.help.metaTitle}</Link></li>
-            <li><Link href={href(locale, "/privacy")}>{dict.nav.privacy}</Link></li>
           </ul>
         </nav>
 

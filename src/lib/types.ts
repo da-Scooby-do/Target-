@@ -37,6 +37,10 @@ export type Quote = {
   quoted_at: string | null;
   responded_at: string | null;
   created_at: string;
+  company_id?: string | null;
+  packages?: import("./packages").PackageLine[] | null;
+  incoterm?: string | null;
+  customer_reference?: string | null;
 };
 
 export type Shipment = {

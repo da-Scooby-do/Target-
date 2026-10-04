@@ -318,6 +318,16 @@ create policy "companies: owner updates" on public.companies
   using (id = (select public.my_company_id()) and (select public.is_company_owner()))
   with check (id = (select public.my_company_id()));
 
+-- People with an open invitation can see the name of the company that invited them.
+create policy "companies: invitees read" on public.companies
+  for select to authenticated using (
+    exists (
+      select 1 from public.invitations i
+      where i.company_id = companies.id and i.accepted_at is null
+        and lower(i.email) = lower((select auth.jwt()) ->> 'email')
+    )
+  );
+
 create policy "members: same company and staff read" on public.company_members
   for select to authenticated using (company_id = (select public.my_company_id()) or (select public.is_staff()));
 

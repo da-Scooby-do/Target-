@@ -1,22 +1,15 @@
 import type { MetadataRoute } from "next";
 import { locales } from "@/lib/i18n";
 import { serviceSlugs } from "@/lib/services";
-import { industrySlugs } from "@/content/industries";
-import { insightSlugs } from "@/content/insights";
 import { site } from "@/lib/site";
 
 const paths = [
   "",
   "/services",
   ...serviceSlugs.map((s) => `/services/${s}`),
-  "/industries",
-  ...industrySlugs.map((s) => `/industries/${s}`),
-  "/insights",
-  ...insightSlugs.map((s) => `/insights/${s}`),
   "/quote",
   "/track",
   "/help",
-  "/locations",
   "/about",
   "/contact",
   "/privacy",

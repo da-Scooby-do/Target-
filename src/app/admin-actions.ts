@@ -65,15 +65,15 @@ export async function setQuotePrice(input: z.input<typeof priceSchema>): Promise
     const mail = renderMessage({
       title: fill(t.priceSubject, vars),
       paragraphs: [`${t.confirmGreeting} ${q.name},`, fill(t.priceBody, vars), fill(t.priceValid, vars)],
-      cta: { label: t.viewQuote, url: `${site.url}/${locale}/portal/quotes/${q.reference}` },
+      cta: { label: t.viewQuote, url: `${site.url}/${locale}/app/quotes/${q.reference}` },
       signoff: t.confirmSignoff,
       rtl: locale === "ar",
     });
     await sendMail({ to: q.email, subject: fill(t.priceSubject, vars), replyTo: site.email, ...mail });
   }
 
-  revalidatePath("/[lang]/admin", "layout");
-  revalidatePath("/[lang]/portal", "layout");
+  revalidatePath("/[lang]/app", "layout");
+  revalidatePath("/[lang]/app", "layout");
   return { ok: true };
 }
 
@@ -129,8 +129,8 @@ export async function bookShipment(input: z.input<typeof bookSchema>): Promise<R
     await sendMail({ to: q.email, subject: fill(t.bookedSubject, vars), replyTo: site.email, ...mail });
   }
 
-  revalidatePath("/[lang]/admin", "layout");
-  revalidatePath("/[lang]/portal", "layout");
+  revalidatePath("/[lang]/app", "layout");
+  revalidatePath("/[lang]/app", "layout");
   return { ok: true, reference: shipment.reference };
 }
 
@@ -185,8 +185,8 @@ export async function addMilestone(input: z.input<typeof eventSchema>): Promise<
     }
   }
 
-  revalidatePath("/[lang]/admin", "layout");
-  revalidatePath("/[lang]/portal", "layout");
+  revalidatePath("/[lang]/app", "layout");
+  revalidatePath("/[lang]/app", "layout");
   return { ok: true };
 }
 
@@ -195,8 +195,8 @@ export async function updateEta(input: { reference: string; eta: string }): Prom
   if (!parsed.success) return { ok: false, error: "Check the date." };
   const { supabase } = await staffClient();
   const { error } = await supabase.from("shipments").update({ eta: parsed.data.eta || null }).eq("reference", parsed.data.reference);
-  revalidatePath("/[lang]/admin", "layout");
-  revalidatePath("/[lang]/portal", "layout");
+  revalidatePath("/[lang]/app", "layout");
+  revalidatePath("/[lang]/app", "layout");
   return error ? { ok: false, error: "Could not save the date." } : { ok: true };
 }
 
@@ -217,8 +217,8 @@ export async function registerDocument(input: { reference: string; path: string;
     content_type: parsed.data.type,
     uploaded_by: profile.id,
   });
-  revalidatePath("/[lang]/admin", "layout");
-  revalidatePath("/[lang]/portal", "layout");
+  revalidatePath("/[lang]/app", "layout");
+  revalidatePath("/[lang]/app", "layout");
   return error ? { ok: false, error: "Could not save the document." } : { ok: true };
 }
 
@@ -230,7 +230,7 @@ export async function deleteDocument(input: { id: string }): Promise<Result> {
   if (!doc) return { ok: false, error: "Document not found." };
   await supabase.storage.from("documents").remove([doc.storage_path]);
   const { error } = await supabase.from("documents").delete().eq("id", parsed.data.id);
-  revalidatePath("/[lang]/admin", "layout");
-  revalidatePath("/[lang]/portal", "layout");
+  revalidatePath("/[lang]/app", "layout");
+  revalidatePath("/[lang]/app", "layout");
   return error ? { ok: false, error: "Could not delete." } : { ok: true };
 }

@@ -9,7 +9,7 @@ import { createClient } from "@/lib/supabase/server";
  */
 export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl;
-  const next = safeNext(searchParams.get("next"), "/en/portal");
+  const next = safeNext(searchParams.get("next"), "/en/app");
   const lang = next.split("/")[1] || "en";
   const supabase = await createClient();
 
