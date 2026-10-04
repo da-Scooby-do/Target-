@@ -2585,3 +2585,51 @@
   font-size: 13px;
   font-weight: 500;
 }
+
+/* ---------------------------------------------------------------- customer app: no sidebar, links in the top bar */
+
+.app-top__nav {
+  display: none;
+}
+@media (min-width: 1024px) {
+  .app[data-simple] .app-body {
+    margin-inline-start: 0;
+  }
+  .app[data-simple] .app-top__brand {
+    display: block;
+    margin-inline-end: var(--space-6);
+  }
+  .app-top__nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+  }
+  .app-top__nav a {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: 40px;
+    padding-inline: var(--space-3);
+    border-radius: var(--radius-md);
+    color: var(--ink-700);
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+  }
+  .app-top__nav a:hover {
+    background: var(--mist-100);
+    color: var(--ink-950);
+  }
+  .app-top__nav a[aria-current="page"] {
+    color: var(--ink-950);
+    box-shadow: inset 0 -2px 0 var(--accent-400);
+    border-radius: 0;
+  }
+  .app[data-simple] .app-main > .page {
+    margin-inline: auto;
+  }
+}
+@media (min-width: 900px) {
+  .stat-grid--six {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

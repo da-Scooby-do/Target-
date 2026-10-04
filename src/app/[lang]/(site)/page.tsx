@@ -8,7 +8,7 @@ import { TrackBox } from "@/components/TrackBox";
 import { getDictionary } from "@/dictionaries";
 import { hasLocale, href } from "@/lib/i18n";
 import { pageMetadata } from "@/lib/metadata";
-import { serviceMeta, serviceSlugs } from "@/lib/services";
+import { serviceAction, serviceMeta, serviceSlugs } from "@/lib/services";
 import { site } from "@/lib/site";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]">) {
@@ -224,7 +224,7 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
                   </div>
                   <div className="tile__row">
                     <h3 className="tile__title">
-                      <Link href={href(lang, `/services/${slug}`)} className="stretched-link">
+                      <Link href={href(lang, serviceAction[slug].path)} className="stretched-link">
                         {item.title}
                       </Link>
                     </h3>

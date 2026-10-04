@@ -58,3 +58,12 @@ export const serviceMeta: Record<ServiceSlug, ServiceMeta> = {
 };
 
 export const quotableServices = serviceSlugs.filter((s) => serviceMeta[s].quotable);
+
+/** Where a service takes people when they click it: straight to the place where they can act. */
+export const serviceAction: Record<ServiceSlug, { path: string; label: "requestQuote" | "openMarketplace" | "seeEvents" | "contactUs" }> = {
+  "shipping-forwarding": { path: "/quote?service=shipping-forwarding", label: "requestQuote" },
+  "logistics-supply-chain": { path: "/quote?service=logistics-supply-chain", label: "requestQuote" },
+  "international-trade-sourcing": { path: "/marketplace", label: "openMarketplace" },
+  "conference-economic-events": { path: "/events", label: "seeEvents" },
+  "trade-investment-partnerships": { path: "/contact", label: "contactUs" },
+};

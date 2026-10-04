@@ -25,6 +25,7 @@ const ui: UiDictionary = {
     signedInAs: "Ingelogd als",
     staff: "Medewerker",
     sections: {
+      history: "Mijn bestellingen",
       work: "Verzending",
       market: "Marktplaats",
       company: "Bedrijf",

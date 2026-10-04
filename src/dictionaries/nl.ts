@@ -12,6 +12,8 @@ const nl: Dictionary = {
     contactUs: "Neem contact op",
     ourServices: "Onze diensten",
     learnMore: "Meer informatie",
+    openMarketplace: "Naar de marktplaats",
+    seeEvents: "Bekijk evenementen",
     menu: "Menu",
     closeMenu: "Menu sluiten",
     language: "Taal",

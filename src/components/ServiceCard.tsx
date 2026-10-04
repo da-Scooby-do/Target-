@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { IconTile } from "./Icon";
-import { serviceMeta, type ServiceSlug } from "@/lib/services";
+import { serviceAction, serviceMeta, type ServiceSlug } from "@/lib/services";
 import { href, type Locale } from "@/lib/i18n";
 import type { Dictionary } from "@/dictionaries";
 
@@ -18,6 +18,7 @@ export function ServiceCard({
 }) {
   const meta = serviceMeta[slug];
   const item = dict.services.items[slug];
+  const action = serviceAction[slug];
   const Heading = headingLevel === 2 ? "h2" : "h3";
   return (
     <article className="tfs-card tfs-service">
@@ -32,8 +33,8 @@ export function ServiceCard({
       <IconTile name={meta.icon} />
       <Heading className="tfs-h3">{item.title}</Heading>
       <p>{item.short}</p>
-      <Link href={href(locale, `/services/${slug}`)}>
-        {dict.common.learnMore}
+      <Link href={href(locale, action.path)}>
+        {dict.common[action.label]}
         <span className="visually-hidden">: {item.title}</span>
       </Link>
     </article>

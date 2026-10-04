@@ -13,6 +13,8 @@ const en = {
     contactUs: "Contact us",
     ourServices: "Our services",
     learnMore: "Learn more",
+    openMarketplace: "Open the marketplace",
+    seeEvents: "See events",
     menu: "Menu",
     closeMenu: "Close menu",
     language: "Language",

@@ -6,7 +6,7 @@ import { CtaBand, Hero, Section } from "@/components/sections";
 import { getDictionary } from "@/dictionaries";
 import { hasLocale, href, locales } from "@/lib/i18n";
 import { pageMetadata } from "@/lib/metadata";
-import { isServiceSlug, serviceMeta, serviceSlugs } from "@/lib/services";
+import { isServiceSlug, serviceAction, serviceMeta, serviceSlugs } from "@/lib/services";
 
 export const dynamicParams = false;
 
@@ -40,10 +40,11 @@ export default async function ServicePage({ params }: PageProps<"/[lang]/service
   const meta = serviceMeta[slug];
   const others = serviceSlugs.filter((s) => s !== slug);
 
-  const quote = { href: href(lang, `/quote?service=${slug}`), label: dict.common.requestQuote };
+  const action = serviceAction[slug];
   const contact = { href: href(lang, "/contact"), label: dict.common.contactUs };
-  // Events and partnerships have no quote flow: their primary action is Contact.
-  const [primary, secondary] = meta.quotable ? [quote, contact] : [contact, undefined];
+  // The main button goes where the service happens: quote form, marketplace, events or contact.
+  const primary = { href: href(lang, action.path), label: dict.common[action.label] };
+  const secondary = action.label === "contactUs" ? undefined : contact;
 
   return (
     <>

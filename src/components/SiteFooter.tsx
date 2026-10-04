@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { href, type Locale } from "@/lib/i18n";
-import { serviceSlugs } from "@/lib/services";
+import { serviceAction, serviceSlugs } from "@/lib/services";
 import { mapsHref, phoneHref, site, whatsappHref } from "@/lib/site";
 import type { Dictionary } from "@/dictionaries";
 
@@ -24,7 +24,7 @@ export function SiteFooter({ locale, dict }: { locale: Locale; dict: Dictionary 
           <ul>
             {serviceSlugs.map((slug) => (
               <li key={slug}>
-                <Link href={href(locale, `/services/${slug}`)}>{dict.services.items[slug].title}</Link>
+                <Link href={href(locale, serviceAction[slug].path)}>{dict.services.items[slug].title}</Link>
               </li>
             ))}
           </ul>

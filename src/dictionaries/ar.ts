@@ -12,6 +12,8 @@ const ar: Dictionary = {
     contactUs: "تواصل معنا",
     ourServices: "خدماتنا",
     learnMore: "اعرف المزيد",
+    openMarketplace: "افتح السوق",
+    seeEvents: "عرض الفعاليات",
     menu: "القائمة",
     closeMenu: "إغلاق القائمة",
     language: "اللغة",

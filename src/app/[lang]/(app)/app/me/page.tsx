@@ -32,59 +32,34 @@ export default async function ProfileHub({ params }: PageProps<"/[lang]/app/me">
     .map((w) => w[0]?.toUpperCase())
     .join("");
 
+  const admin: Item[] = [
+    { to: href("en", "/app/admin"), label: n.adminOverview, icon: "shield" },
+    { to: href("en", "/app/admin/orders"), label: n.adminOrders, icon: "cart" },
+    { to: href("en", "/app/admin/quotes"), label: n.adminQuotes, icon: "file-text" },
+    { to: href("en", "/app/admin/shipments"), label: n.adminShipments, icon: "truck" },
+    { to: href("en", "/app/admin/events"), label: n.adminEvents, icon: "conference" },
+    { to: href("en", "/app/admin/prices"), label: n.adminPrices, icon: "tag" },
+    { to: href("en", "/app/admin/products"), label: n.adminProducts, icon: "package" },
+    { to: href("en", "/app/admin/suppliers"), label: n.adminSuppliers, icon: "store" },
+  ];
+
+  // Customers get no dashboard: just their order history and their settings.
   const groups: { title: string; items: Item[] }[] = [
+    ...(profile.role === "staff" ? [{ title: t.sections.admin, items: admin }] : []),
     {
-      title: t.sections.work,
+      title: t.sections.history,
       items: [
-        { to: a(""), label: n.dashboard, icon: "grid" },
-        { to: a("/new"), label: n.newShipment, icon: "plus" },
+        { to: a("/orders"), label: n.orders, icon: "package" },
         { to: a("/quotes"), label: n.quotes, icon: "file-text" },
         { to: a("/shipments"), label: n.shipments, icon: "truck" },
-      ],
-    },
-    {
-      title: t.sections.market,
-      items: [
-        { to: a("/shop"), label: n.marketplace, icon: "store" },
-        { to: a("/cart"), label: n.cart, icon: "cart" },
-        { to: a("/orders"), label: n.orders, icon: "package" },
-        { to: a("/supplier"), label: n.sell, icon: "tag" },
-      ],
-    },
-    {
-      title: n.events,
-      items: [
-        { to: href(lang, "/events"), label: n.events, icon: "conference" },
         { to: a("/events"), label: n.myEvents, icon: "calendar" },
       ],
     },
     {
-      title: t.sections.company,
-      items: [
-        { to: a("/team"), label: n.team, icon: "users" },
-        { to: a("/addresses"), label: n.addresses, icon: "map-pin" },
-      ],
-    },
-    ...(profile.role === "staff"
-      ? [
-          {
-            title: t.sections.admin,
-            items: [
-              { to: href("en", "/app/admin"), label: n.adminOverview, icon: "shield" },
-              { to: href("en", "/app/admin/orders"), label: n.adminOrders, icon: "cart" },
-              { to: href("en", "/app/admin/prices"), label: n.adminPrices, icon: "tag" },
-              { to: href("en", "/app/admin/products"), label: n.adminProducts, icon: "package" },
-              { to: href("en", "/app/admin/suppliers"), label: n.adminSuppliers, icon: "store" },
-              { to: href("en", "/app/admin/events"), label: n.adminEvents, icon: "conference" },
-              { to: href("en", "/app/admin/quotes"), label: n.adminQuotes, icon: "file-text" },
-            ],
-          },
-        ]
-      : []),
-    {
       title: t.sections.settings,
       items: [
         { to: a("/account"), label: n.account, icon: "settings" },
+        { to: a("/supplier"), label: n.sell, icon: "tag" },
         { to: href(lang, "/help"), label: t.help, icon: "message" },
         { to: href(lang), label: t.website, icon: "globe" },
       ],

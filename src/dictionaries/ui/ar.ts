@@ -25,6 +25,7 @@ const ui: UiDictionary = {
     signedInAs: "مسجّل الدخول باسم",
     staff: "موظف",
     sections: {
+      history: "طلباتي",
       work: "الشحن",
       market: "السوق",
       company: "الشركة",

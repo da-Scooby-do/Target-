@@ -27,6 +27,7 @@ const ui = {
     signedInAs: "Signed in as",
     staff: "Staff",
     sections: {
+      history: "My orders",
       work: "Shipping",
       market: "Marketplace",
       company: "Company",
