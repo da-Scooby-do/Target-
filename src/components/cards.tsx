@@ -41,7 +41,7 @@ export function InsightCard({
   const item = insights[slug];
   const text = item.text[locale];
   return (
-    <article className="tfs-card tfs-service insight-card">
+    <article className="tfs-card insight-card">
       <span className="tfs-service__media">
         <Image
           src={item.image}

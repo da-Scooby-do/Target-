@@ -1,17 +1,16 @@
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { HeroTabs } from "@/components/HeroTabs";
-import { Icon, IconTile } from "@/components/Icon";
-import { ServiceCard } from "@/components/ServiceCard";
-import { IndustryCard, InsightCard } from "@/components/cards";
-import { CtaBand, Hero, PhotoCard, Section, SectionHeader } from "@/components/sections";
-import { industrySlugs } from "@/content/industries";
+import { Icon } from "@/components/Icon";
+import { InsightCard } from "@/components/cards";
+import { industries, industrySlugs } from "@/content/industries";
 import { insightSlugs } from "@/content/insights";
 import { getDictionary } from "@/dictionaries";
 import { hasLocale, href } from "@/lib/i18n";
 import { pageMetadata } from "@/lib/metadata";
-import { serviceSlugs } from "@/lib/services";
-import { site, whatsappHref } from "@/lib/site";
+import { serviceMeta, serviceSlugs } from "@/lib/services";
+import { site } from "@/lib/site";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]">) {
   const { lang } = await params;
@@ -32,180 +31,186 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
 
   return (
     <>
-      <Hero
-        display
-        eyebrow={t.hero.eyebrow}
-        heading={site.tagline}
-        lead={t.hero.lead}
-        image="/photos/port.jpg"
-        imageAlt={t.hero.photoAlt}
-        overlay={0.4}
-        mirrorRtl
-        widget={<HeroTabs locale={lang} t={app.hero} modes={dict.quote.modes} />}
-      />
-
-      <Section labelledBy="services-heading">
-        <SectionHeader
-          id="services-heading"
-          eyebrow={t.services.eyebrow}
-          heading={t.services.heading}
-          text={t.services.text}
-        />
-        <div className="tfs-services">
-          {serviceSlugs.map((slug) => (
-            <ServiceCard key={slug} slug={slug} locale={lang} dict={dict} />
-          ))}
+      {/* Full-bleed photo hero with the track / quote card, DSV-style. */}
+      <section className="home-hero tfs-dark" aria-labelledby="home-title">
+        <Image src="/photos/port.jpg" alt={t.hero.photoAlt} fill priority sizes="100vw" className="home-hero__img" />
+        <div className="container home-hero__inner">
+          <p className="tfs-eyebrow">{t.hero.eyebrow}</p>
+          <h1 id="home-title" className="home-hero__title">
+            {site.tagline}
+          </h1>
+          <p className="home-hero__lead">{t.hero.lead}</p>
+          <HeroTabs locale={lang} t={app.hero} modes={dict.quote.modes} />
         </div>
-      </Section>
+      </section>
 
-      <Section labelledBy="portal-heading">
-        <SectionHeader
-          id="portal-heading"
-          eyebrow={app.homePortal.eyebrow}
-          heading={app.homePortal.heading}
-          text={app.homePortal.text}
-        />
-        <div className="tfs-bento">
-          <article className="tfs-card tfs-span-7">
-            <h3 className="tfs-h3">{t.how.card.heading}</h3>
-            <p>{t.how.card.text}</p>
-            <div className="tfs-card tfs-card--light">
-              <ol className="tfs-timeline">
-                {t.how.card.steps.map((step, i) => (
-                  <li key={step.title} data-state={i === 0 ? "done" : i === 1 ? "current" : "todo"}>
-                    <b>{step.title}</b>
-                    <span>{step.detail}</span>
-                  </li>
-                ))}
-              </ol>
+      <section className="block" aria-labelledby="services-heading">
+        <div className="container">
+          <div className="block__head">
+            <div>
+              <p className="tfs-eyebrow">{t.services.eyebrow}</p>
+              <h2 id="services-heading" className="block__title">
+                {t.services.heading}
+              </h2>
             </div>
-          </article>
-          <article className="tfs-card tfs-span-5">
-            <ul className="feature-list">
-              {app.homePortal.features.map((feature, i) => (
-                <li key={feature.title}>
-                  <IconTile name={["check", "truck", "file-text"][i]} />
-                  <div>
-                    <h3 className="feature-list__title">{feature.title}</h3>
-                    <p>{feature.text}</p>
+            <Link href={href(lang, "/services")} className="arrow-link">
+              {app.nav.allServices}
+            </Link>
+          </div>
+          <ul className="tile-grid">
+            {serviceSlugs.map((slug) => {
+              const meta = serviceMeta[slug];
+              const item = dict.services.items[slug];
+              return (
+                <li key={slug} className="tile">
+                  <div className="tile__media">
+                    <Image
+                      src={meta.image}
+                      alt={meta.isPhoto ? item.imageAlt : ""}
+                      fill
+                      sizes="(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw"
+                    />
                   </div>
+                  <div className="tile__row">
+                    <h3 className="tile__title">
+                      <Link href={href(lang, `/services/${slug}`)} className="stretched-link">
+                        {item.title}
+                      </Link>
+                    </h3>
+                    <Icon name="arrow-right" size={20} flipRtl className="tile__arrow" />
+                  </div>
+                  <p className="tile__text">{item.short}</p>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </section>
+
+      <section className="block block--tint" aria-labelledby="portal-heading">
+        <div className="container split">
+          <div className="split__text">
+            <p className="tfs-eyebrow">{app.homePortal.eyebrow}</p>
+            <h2 id="portal-heading" className="block__title">
+              {app.homePortal.heading}
+            </h2>
+            <p className="block__lead">{app.homePortal.text}</p>
+            <ul className="tick-list">
+              {app.homePortal.features.map((f) => (
+                <li key={f.title}>
+                  <Icon name="check" size={20} />
+                  <span>
+                    <strong>{f.title}.</strong> {f.text}
+                  </span>
                 </li>
               ))}
             </ul>
-            <div className="tfs-row status-row" aria-hidden="true">
-              {(["booked", "in_transit", "customs", "delivered"] as const).map((s) => (
-                <span
-                  key={s}
-                  className={`tfs-badge tfs-badge--${s === "customs" ? "amber" : s === "delivered" ? "green" : "blue"}`}
-                >
-                  {app.statuses.shipment[s]}
-                </span>
-              ))}
-            </div>
-            <div>
-              <Link className="tfs-btn tfs-btn--secondary" href={href(lang, "/portal")}>
+            <div className="tfs-row">
+              <Link className="tfs-btn tfs-btn--primary" href={href(lang, "/portal")}>
                 {app.homePortal.cta}
               </Link>
+              <Link className="tfs-btn tfs-btn--secondary" href={href(lang, "/quote")}>
+                {dict.common.requestQuote}
+              </Link>
             </div>
-          </article>
-          <PhotoCard
-            span={5}
-            image="/photos/cargo-aircraft.jpg"
-            alt={t.how.modes.photoAlt}
-            eyebrow={t.how.modes.eyebrow}
-            heading={t.how.modes.heading}
-          />
-          <article className="tfs-card tfs-span-7">
-            <h3 className="tfs-h3">{t.how.oneContact.heading}</h3>
-            <p>{t.how.oneContact.text}</p>
-            <ul className="mode-list">
-              {t.how.oneContact.modes.map((mode, i) => (
-                <li key={mode}>
-                  <span className="tfs-icon-tile">
-                    <Icon name={["ship", "plane", "truck", "customs"][i]} className="tfs-icon--ink" />
-                  </span>
-                  {mode}
+          </div>
+          {/* Illustration of the portal built from real components, not a screenshot. */}
+          <div className="product-shot" aria-hidden="true">
+            <div className="product-shot__bar">
+              <span className="tfs-ref" dir="ltr">TFS-S-2026-7K3F9P</span>
+              <span className="tfs-badge tfs-badge--blue">{app.statuses.shipment.in_transit}</span>
+            </div>
+            <p className="tfs-route">{app.homePortal.sampleRoute}</p>
+            <ol className="tfs-timeline">
+              <li data-state="done">
+                <b>{app.statuses.shipment.booked}</b>
+              </li>
+              <li data-state="done">
+                <b>{app.statuses.shipment.picked_up}</b>
+              </li>
+              <li data-state="current">
+                <b>{app.statuses.shipment.in_transit}</b>
+              </li>
+              <li data-state="todo">
+                <b>{app.statuses.shipment.customs}</b>
+              </li>
+              <li data-state="todo">
+                <b>{app.statuses.shipment.delivered}</b>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <section className="block" aria-labelledby="industries-heading">
+        <div className="container split split--media">
+          <div className="split__media">
+            <Image
+              src="/photos/warehouse.jpg"
+              alt={t.how.location.photoAlt}
+              fill
+              sizes="(min-width: 1024px) 560px, 100vw"
+            />
+          </div>
+          <div className="split__text">
+            <p className="tfs-eyebrow">{app.homeIndustries.eyebrow}</p>
+            <h2 id="industries-heading" className="block__title">
+              {app.homeIndustries.heading}
+            </h2>
+            <p className="block__lead">{app.homeIndustries.text}</p>
+            <ul className="row-list">
+              {industrySlugs.map((slug) => (
+                <li key={slug}>
+                  <Link href={href(lang, `/industries/${slug}`)}>
+                    <Icon name={industries[slug].icon} size={22} />
+                    <span>{industries[slug].text[lang].title}</span>
+                    <Icon name="arrow-right" size={18} flipRtl className="row-list__arrow" />
+                  </Link>
                 </li>
               ))}
             </ul>
-          </article>
+          </div>
         </div>
-      </Section>
+      </section>
 
-      <Section labelledBy="industries-heading">
-        <div className="section-head-row">
-          <SectionHeader
-            id="industries-heading"
-            eyebrow={app.homeIndustries.eyebrow}
-            heading={app.homeIndustries.heading}
-            text={app.homeIndustries.text}
-          />
-          <Link href={href(lang, "/industries")} className="text-link">
-            {app.nav.allIndustries}
-          </Link>
+      <section className="block block--tint" aria-labelledby="insights-heading">
+        <div className="container">
+          <div className="block__head">
+            <div>
+              <p className="tfs-eyebrow">{app.homeInsights.eyebrow}</p>
+              <h2 id="insights-heading" className="block__title">
+                {app.homeInsights.heading}
+              </h2>
+            </div>
+            <Link href={href(lang, "/insights")} className="arrow-link">
+              {app.insights.back}
+            </Link>
+          </div>
+          <div className="card-grid card-grid--3">
+            {insightSlugs.map((slug) => (
+              <InsightCard key={slug} slug={slug} locale={lang} labels={app.insights} />
+            ))}
+          </div>
         </div>
-        <div className="card-grid card-grid--5">
-          {industrySlugs.map((slug) => (
-            <IndustryCard key={slug} slug={slug} locale={lang} learnMore={dict.common.learnMore} />
-          ))}
-        </div>
-      </Section>
+      </section>
 
-      <Section labelledBy="insights-heading">
-        <div className="section-head-row">
-          <SectionHeader
-            id="insights-heading"
-            eyebrow={app.homeInsights.eyebrow}
-            heading={app.homeInsights.heading}
-            text={app.homeInsights.text}
-          />
-          <Link href={href(lang, "/insights")} className="text-link">
-            {app.insights.back}
-          </Link>
+      <section className="cta-banner tfs-dark" aria-labelledby="cta-heading">
+        <Image src="/photos/container-ship.jpg" alt="" fill sizes="100vw" className="cta-banner__img" />
+        <div className="container cta-banner__inner">
+          <h2 id="cta-heading" className="block__title">
+            {t.cta.heading}
+          </h2>
+          <p className="block__lead">{t.cta.text}</p>
+          <div className="tfs-row">
+            <Link className="tfs-btn tfs-btn--primary" href={href(lang, "/quote")}>
+              {dict.common.requestQuote}
+            </Link>
+            <Link className="tfs-btn tfs-btn--secondary" href={href(lang, "/contact")}>
+              {dict.common.contactUs}
+            </Link>
+          </div>
         </div>
-        <div className="card-grid card-grid--3">
-          {insightSlugs.map((slug) => (
-            <InsightCard key={slug} slug={slug} locale={lang} labels={app.insights} />
-          ))}
-        </div>
-      </Section>
-
-      <Section labelledBy="help-heading">
-        <h2 id="help-heading" className="tfs-h2 section__head">
-          {app.homeHelp.heading}
-        </h2>
-        <div className="card-grid card-grid--3">
-          {[
-            { href: href(lang, "/help"), icon: "message", ...app.homeHelp.faq },
-            { href: href(lang, "/contact"), icon: "mail", ...app.homeHelp.contact },
-            { href: whatsappHref, icon: "phone", external: true, ...app.homeHelp.whatsapp },
-          ].map((item) => (
-            <article key={item.title} className="tfs-card link-card">
-              <IconTile name={item.icon} />
-              <h3 className="tfs-h3">
-                <a
-                  href={item.href}
-                  className="stretched-link"
-                  {...("external" in item ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                >
-                  {item.title}
-                </a>
-              </h3>
-              <p>{item.text}</p>
-            </article>
-          ))}
-        </div>
-      </Section>
-
-      <CtaBand
-        eyebrow={t.cta.eyebrow}
-        heading={t.cta.heading}
-        text={t.cta.text}
-        image="/photos/container-ship.jpg"
-        imageAlt={t.cta.photoAlt}
-        primary={{ href: href(lang, "/quote"), label: dict.common.requestQuote }}
-        secondary={{ href: href(lang, "/contact"), label: dict.common.contactUs }}
-      />
+      </section>
     </>
   );
 }

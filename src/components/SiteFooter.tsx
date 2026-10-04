@@ -8,7 +8,7 @@ import type { Dictionary } from "@/dictionaries";
 export function SiteFooter({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   const year = new Date().getFullYear();
   return (
-    <footer className="site-footer">
+    <footer className="site-footer tfs-dark">
       <div className="container site-footer__grid">
         <div className="site-footer__brand">
           <p className="site-footer__name">{site.name}</p>

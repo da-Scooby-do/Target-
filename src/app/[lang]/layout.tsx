@@ -12,6 +12,7 @@ import { site } from "@/lib/site";
 import "../tokens.css";
 import "../tfs.css";
 import "../site.css";
+import "../theme.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
 const readex = localFont({
@@ -58,7 +59,7 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
 
   return (
     <html lang={lang} dir={dir} className={`${inter.variable} ${readex.variable}`}>
-      <body className="tfs tfs-dark" dir={dir}>
+      <body className="tfs" dir={dir}>
         <a className="skip-link" href="#main">
           {dict.common.skipToContent}
         </a>

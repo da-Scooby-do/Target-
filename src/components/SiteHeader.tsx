@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { Icon } from "./Icon";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { useSignedIn } from "./useSignedIn";
-import { href, type Locale } from "@/lib/i18n";
+import { href, localeLabels, locales, type Locale } from "@/lib/i18n";
 import { site } from "@/lib/site";
 
 export type MenuItem = { href: string; title: string; text?: string; icon: string };
@@ -82,36 +82,6 @@ export function SiteHeader({ locale, labels, services, industries }: Props) {
 
   return (
     <header className="site-header" ref={headerRef}>
-      <div className="utility-bar">
-        <div className="container utility-bar__inner">
-          <nav aria-label={labels.mainNav} className="utility-bar__links">
-            <Link href={href(locale, "/track")}>
-              <Icon name="search" size={16} />
-              {labels.utility.track}
-            </Link>
-            <Link href={href(locale, "/quote")}>
-              <Icon name="file-text" size={16} />
-              {labels.utility.quote}
-            </Link>
-            <Link href={href(locale, "/locations")}>
-              <Icon name="map-pin" size={16} />
-              {labels.utility.locations}
-            </Link>
-            <Link href={href(locale, "/help")}>
-              <Icon name="message" size={16} />
-              {labels.utility.help}
-            </Link>
-          </nav>
-          <div className="utility-bar__end">
-            <LanguageSwitcher current={locale} label={labels.language} compact />
-            <Link href={account.href} className="utility-bar__account">
-              <Icon name="user" size={16} />
-              {signedIn === null ? labels.utility.login : account.label}
-            </Link>
-          </div>
-        </div>
-      </div>
-
       <div className="container site-header__bar">
         {/* No logo file yet: the design system says to set the name in h3 type until one is supplied. */}
         <Link href={href(locale)} className="site-header__brand" aria-label={`${site.name}, ${labels.home}`}>
@@ -159,6 +129,15 @@ export function SiteHeader({ locale, labels, services, industries }: Props) {
         </nav>
 
         <div className="site-header__actions">
+          <Link href={href(locale, "/track")} className="header-link">
+            <Icon name="search" size={18} />
+            {labels.utility.track}
+          </Link>
+          <LanguageMenu locale={locale} label={labels.language} />
+          <Link href={account.href} className="header-link">
+            <Icon name="user" size={18} />
+            {signedIn === null ? labels.utility.login : account.label}
+          </Link>
           <Link className="tfs-btn tfs-btn--primary tfs-btn--sm" href={href(locale, "/quote")}>
             {labels.requestQuote}
           </Link>
@@ -266,6 +245,35 @@ export function SiteHeader({ locale, labels, services, industries }: Props) {
         </div>
       </div>
     </header>
+  );
+}
+
+/** Small dropdown showing the current language; each option links to the same page in that language. */
+function LanguageMenu({ locale, label }: { locale: Locale; label: string }) {
+  const pathname = usePathname() ?? `/${locale}`;
+  const rest = pathname.split("/").slice(2).join("/");
+  return (
+    <details className="lang-menu">
+      <summary aria-label={label}>
+        <Icon name="globe" size={18} />
+        <span lang={locale}>{localeLabels[locale]}</span>
+        <Icon name="chevron-down" size={14} />
+      </summary>
+      <ul>
+        {locales.map((l) => (
+          <li key={l}>
+            <Link
+              href={`/${l}${rest ? `/${rest}` : ""}`}
+              lang={l}
+              hrefLang={l}
+              aria-current={l === locale ? "true" : undefined}
+            >
+              {localeLabels[l]}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </details>
   );
 }
 

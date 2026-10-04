@@ -37,7 +37,8 @@ export const serviceMeta: Record<ServiceSlug, ServiceMeta> = {
   },
   "international-trade-sourcing": {
     icon: "globe",
-    image: "/illustrations/hero-routes.svg",
+    // TODO: stand-in until a photo of this service exists; decorative, so isPhoto stays false.
+    image: "/photos/port.jpg",
     isPhoto: false,
     quotable: true,
   },
@@ -49,7 +50,8 @@ export const serviceMeta: Record<ServiceSlug, ServiceMeta> = {
   },
   "trade-investment-partnerships": {
     icon: "partnership",
-    image: "/illustrations/bg-arcs.svg",
+    // TODO: stand-in until a photo of this service exists; decorative, so isPhoto stays false.
+    image: "/photos/cargo-aircraft.jpg",
     isPhoto: false,
     quotable: false,
   },
