@@ -60,6 +60,7 @@ export function AppShell({
     { href: a("/shipments"), label: t.nav.shipments, icon: "truck" },
     { href: a("/shop"), label: t.nav.marketplace, icon: "store" },
     { href: a("/orders"), label: t.nav.orders, icon: "cart" },
+    { href: a("/events"), label: t.nav.myEvents, icon: "calendar" },
     { href: a("/addresses"), label: t.nav.addresses, icon: "map-pin" },
     { href: a("/team"), label: t.nav.team, icon: "users" },
     { href: a("/account"), label: t.nav.account, icon: "settings" },
@@ -73,6 +74,7 @@ export function AppShell({
     { href: a("/admin/products"), label: t.nav.adminProducts, icon: "package" },
     { href: a("/admin/prices"), label: t.nav.adminPrices, icon: "tag" },
     { href: a("/admin/suppliers"), label: t.nav.adminSuppliers, icon: "store" },
+    { href: a("/admin/events"), label: t.nav.adminEvents, icon: "conference" },
   ];
   const isActive = (item: NavItem) =>
     item.exact ? pathname === item.href : pathname === item.href || pathname.startsWith(`${item.href}/`);

@@ -40,8 +40,8 @@ export function TabBar({ locale, labels, signedIn }: { locale: Locale; labels: T
       key: "events",
       label: labels.events,
       icon: "conference",
-      to: p("/services/conference-economic-events"),
-      active: rest.startsWith("/services/conference-economic-events"),
+      to: p("/events"),
+      active: rest.startsWith("/events") || rest.startsWith("/services/conference-economic-events") || rest.startsWith("/app/events"),
     },
     {
       key: "profile",

@@ -26,6 +26,7 @@ type Labels = {
   getStarted: string;
   openApp: string;
   marketplace: string;
+  events: string;
   cart: string;
   cartCount: string;
 };
@@ -48,6 +49,7 @@ export function SiteHeader({ locale, labels }: { locale: Locale; labels: Labels 
   const links = [
     { href: href(locale, "/services"), label: labels.services },
     { href: href(locale, "/marketplace"), label: labels.marketplace },
+    { href: href(locale, "/events"), label: labels.events },
     { href: href(locale, "/about"), label: labels.about },
     { href: href(locale, "/contact"), label: labels.contact },
     { href: href(locale, "/help"), label: labels.help },

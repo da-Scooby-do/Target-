@@ -18,6 +18,8 @@ const REVEAL = [
   ".cine main .tfs-card",
   ".cine main .split__media",
   ".cine main .faq-item",
+  ".cine main .event-card",
+  ".cine main .event-facts li",
   ".cine main .cine-reveal",
 ].join(",");
 

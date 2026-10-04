@@ -52,6 +52,13 @@ export default async function ProfileHub({ params }: PageProps<"/[lang]/app/me">
       ],
     },
     {
+      title: n.events,
+      items: [
+        { to: href(lang, "/events"), label: n.events, icon: "conference" },
+        { to: a("/events"), label: n.myEvents, icon: "calendar" },
+      ],
+    },
+    {
       title: t.sections.company,
       items: [
         { to: a("/team"), label: n.team, icon: "users" },
@@ -68,6 +75,7 @@ export default async function ProfileHub({ params }: PageProps<"/[lang]/app/me">
               { to: href("en", "/app/admin/prices"), label: n.adminPrices, icon: "tag" },
               { to: href("en", "/app/admin/products"), label: n.adminProducts, icon: "package" },
               { to: href("en", "/app/admin/suppliers"), label: n.adminSuppliers, icon: "store" },
+              { to: href("en", "/app/admin/events"), label: n.adminEvents, icon: "conference" },
               { to: href("en", "/app/admin/quotes"), label: n.adminQuotes, icon: "file-text" },
             ],
           },
