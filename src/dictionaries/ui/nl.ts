@@ -13,6 +13,41 @@ const ui: UiDictionary = {
     openApp: "App openen",
     marketplace: "Marktplaats",
   },
+  tabs: {
+    label: "Hoofdmenu",
+    shipping: "Verzending",
+    marketplace: "Marktplaats",
+    events: "Evenementen",
+    profile: "Profiel",
+  },
+  me: {
+    title: "Profiel",
+    signedInAs: "Ingelogd als",
+    staff: "Medewerker",
+    sections: {
+      work: "Verzending",
+      market: "Marktplaats",
+      company: "Bedrijf",
+      settings: "Instellingen",
+      admin: "Beheer",
+    },
+    language: "Taal",
+    help: "Helpcentrum",
+    website: "Website",
+  },
+  cine: {
+    scroll: "Scroll om te ontdekken",
+    ticker: [
+      "Zeevracht",
+      "Luchtvracht",
+      "Wegtransport",
+      "Douaneafhandeling",
+      "Opslag",
+      "Wereldwijde inkoop",
+      "Bouwmaterialen",
+      "Handelsevenementen",
+    ],
+  },
   landing: {
     eyebrow: "Verzending, logistiek en handel",
     lead: "Vraag prijzen aan, boek zendingen en volg elke stap op één plek. Met uw hele team, in het Nederlands, Engels of Arabisch.",
@@ -38,9 +73,18 @@ const ui: UiDictionary = {
     ],
     stepsHeading: "Zo werkt het",
     steps: [
-      { title: "Maak uw account aan", text: "Gratis, in minder dan een minuut." },
-      { title: "Vraag een zending aan", text: "Route, pakketten en data in vier korte stappen." },
-      { title: "Accepteer de prijs en volg", text: "Wij boeken en u volgt elke stap." },
+      {
+        title: "Maak uw account aan",
+        text: "Gratis, in minder dan een minuut.",
+      },
+      {
+        title: "Vraag een zending aan",
+        text: "Route, pakketten en data in vier korte stappen.",
+      },
+      {
+        title: "Accepteer de prijs en volg",
+        text: "Wij boeken en u volgt elke stap.",
+      },
     ],
     servicesHeading: "Wat we regelen",
     ctaHeading: "Klaar om te verzenden?",
@@ -55,7 +99,11 @@ const ui: UiDictionary = {
     google: "Doorgaan met Google",
     backToSite: "Terug naar de website",
     asideHeading: "Uw logistiek in één app",
-    asidePoints: ["Prijzen online accepteren", "Elke zending volgen", "Samenwerken met uw team"],
+    asidePoints: [
+      "Prijzen online accepteren",
+      "Elke zending volgen",
+      "Samenwerken met uw team",
+    ],
     login: {
       title: "Welkom terug",
       subtitle: "Log in op uw TFS-account.",
@@ -64,10 +112,13 @@ const ui: UiDictionary = {
       submitting: "Bezig met inloggen…",
       noAccount: "Nieuw bij TFS?",
       signUpLink: "Account aanmaken",
-      errorInvalid: "E-mailadres en wachtwoord komen niet overeen. Probeer het opnieuw of stel uw wachtwoord opnieuw in.",
-      errorUnconfirmed: "Bevestig eerst uw e-mailadres. We stuurden u een link bij het aanmelden.",
+      errorInvalid:
+        "E-mailadres en wachtwoord komen niet overeen. Probeer het opnieuw of stel uw wachtwoord opnieuw in.",
+      errorUnconfirmed:
+        "Bevestig eerst uw e-mailadres. We stuurden u een link bij het aanmelden.",
       errorGeneric: "Inloggen lukte niet. Probeer het zo opnieuw.",
-      linkError: "Die link is verlopen of al gebruikt. Log in of vraag een nieuwe link aan.",
+      linkError:
+        "Die link is verlopen of al gebruikt. Log in of vraag een nieuwe link aan.",
     },
     signup: {
       title: "Maak uw account aan",
@@ -89,8 +140,10 @@ const ui: UiDictionary = {
       errorRequired: "Vul dit veld in.",
       errorEmail: "Vul een volledig e-mailadres in, zoals naam@bedrijf.nl.",
       errorTerms: "Ga akkoord om verder te gaan.",
-      errorGeneric: "Uw account kon niet worden aangemaakt. Probeer het zo opnieuw.",
-      invited: "U bent uitgenodigd voor een team. Meld u aan met het e-mailadres waarnaar de uitnodiging is gestuurd en u komt automatisch in het team.",
+      errorGeneric:
+        "Uw account kon niet worden aangemaakt. Probeer het zo opnieuw.",
+      invited:
+        "U bent uitgenodigd voor een team. Meld u aan met het e-mailadres waarnaar de uitnodiging is gestuurd en u komt automatisch in het team.",
     },
     verify: {
       title: "Kijk in uw mailbox",
@@ -101,10 +154,12 @@ const ui: UiDictionary = {
     },
     forgot: {
       title: "Wachtwoord opnieuw instellen",
-      subtitle: "Vul uw e-mailadres in en we sturen u een link om een nieuw wachtwoord te kiezen.",
+      subtitle:
+        "Vul uw e-mailadres in en we sturen u een link om een nieuw wachtwoord te kiezen.",
       submit: "Link versturen",
       sentTitle: "Kijk in uw mailbox",
-      sentText: "Als er een account is voor {email}, is er een link naar u onderweg.",
+      sentText:
+        "Als er een account is voor {email}, is er een link naar u onderweg.",
       back: "Terug naar inloggen",
     },
     reset: {
@@ -197,7 +252,8 @@ const ui: UiDictionary = {
       quickTrack: "Volgen op referentie",
       quickInvite: "Collega uitnodigen",
       emptyTitle: "Laten we uw eerste zending op weg helpen",
-      emptyText: "Vertel ons de route en lading. We sturen u hier en per e-mail een prijs.",
+      emptyText:
+        "Vertel ons de route en lading. We sturen u hier en per e-mail een prijs.",
       emptyCta: "Zending aanvragen",
       viewAll: "Alles bekijken",
     },
@@ -220,7 +276,14 @@ const ui: UiDictionary = {
       removePackage: "Pakket verwijderen",
       quantity: "Aantal",
       type: "Soort",
-      types: { pallet: "Pallet", box: "Doos", crate: "Kist", container20: "20ft-container", container40: "40ft-container", other: "Anders" },
+      types: {
+        pallet: "Pallet",
+        box: "Doos",
+        crate: "Kist",
+        container20: "20ft-container",
+        container40: "40ft-container",
+        other: "Anders",
+      },
       weight: "Gewicht per stuk (kg)",
       length: "L (cm)",
       width: "B (cm)",
@@ -242,12 +305,14 @@ const ui: UiDictionary = {
       submit: "Aanvraag versturen",
       submitting: "Bezig met versturen…",
       successTitle: "Aanvraag verstuurd",
-      successText: "We maken een prijs voor {ref}. U krijgt een melding en een e-mail zodra de prijs klaar is.",
+      successText:
+        "We maken een prijs voor {ref}. U krijgt een melding en een e-mail zodra de prijs klaar is.",
       viewQuote: "Aanvraag bekijken",
       another: "Nog een aanvragen",
       errorRequired: "Vul dit veld in.",
       errorPackages: "Voeg minstens één pakket met een aantal toe.",
-      errorServer: "Er ging iets mis en uw aanvraag is niet verstuurd. Probeer het opnieuw.",
+      errorServer:
+        "Er ging iets mis en uw aanvraag is niet verstuurd. Probeer het opnieuw.",
     },
     quotes: {
       title: "Offertes",
@@ -259,7 +324,8 @@ const ui: UiDictionary = {
     shipments: {
       title: "Zendingen",
       subtitle: "Alles wat u bij ons heeft geboekt.",
-      empty: "Nog geen zendingen. Geaccepteerde offertes worden zendingen zodra we ze boeken.",
+      empty:
+        "Nog geen zendingen. Geaccepteerde offertes worden zendingen zodra we ze boeken.",
       progress: "Voortgang",
     },
     detail: {
@@ -286,19 +352,23 @@ const ui: UiDictionary = {
       phone: "Telefoon",
       save: "Adres opslaan",
       cancel: "Annuleren",
-      empty: "Nog geen opgeslagen adressen. Voeg er een toe om zendingen sneller in te vullen.",
+      empty:
+        "Nog geen opgeslagen adressen. Voeg er een toe om zendingen sneller in te vullen.",
       saved: "Adres opgeslagen.",
-      error: "Het adres kon niet worden opgeslagen. Controleer de velden en probeer het opnieuw.",
+      error:
+        "Het adres kon niet worden opgeslagen. Controleer de velden en probeer het opnieuw.",
     },
     team: {
       title: "Team",
-      subtitle: "Iedereen bij {company} ziet dezelfde offertes, zendingen en adressen.",
+      subtitle:
+        "Iedereen bij {company} ziet dezelfde offertes, zendingen en adressen.",
       members: "Leden",
       you: "u",
       owner: "Eigenaar",
       member: "Lid",
       inviteTitle: "Collega uitnodigen",
-      inviteHelp: "Uw collega krijgt een e-mail. Wie zich met dat adres aanmeldt of inlogt, komt in uw team.",
+      inviteHelp:
+        "Uw collega krijgt een e-mail. Wie zich met dat adres aanmeldt of inlogt, komt in uw team.",
       email: "Zakelijk e-mailadres",
       send: "Uitnodiging versturen",
       sending: "Bezig met versturen…",
@@ -307,22 +377,27 @@ const ui: UiDictionary = {
       invitedOn: "Uitgenodigd op {date}",
       revoke: "Intrekken",
       remove: "Verwijderen",
-      confirmRemove: "{name} uit het team verwijderen? Eigen aanvragen blijven zichtbaar, die van het team niet meer.",
-      onlyOwner: "Alleen de eigenaar van het team kan mensen uitnodigen of verwijderen.",
+      confirmRemove:
+        "{name} uit het team verwijderen? Eigen aanvragen blijven zichtbaar, die van het team niet meer.",
+      onlyOwner:
+        "Alleen de eigenaar van het team kan mensen uitnodigen of verwijderen.",
       inviteEmail: {
-        subject: "{name} nodigt u uit voor {company} bij Target Facility Service",
+        subject:
+          "{name} nodigt u uit voor {company} bij Target Facility Service",
         text: "{name} wil offertes, zendingen en documenten met u delen in de Target Facility Service-app. Maak een account aan (of log in) met dit e-mailadres om lid te worden van {company}.",
         cta: "Word lid van het team",
         signoff: "Met vriendelijke groet,",
       },
       forYouTitle: "U bent uitgenodigd",
-      forYouText: "Word lid van {company} om hun offertes en zendingen te delen.",
+      forYouText:
+        "Word lid van {company} om hun offertes en zendingen te delen.",
       accept: "Lid worden",
       errors: {
         already: "Deze persoon zit al in uw team.",
         email: "Vul een volledig e-mailadres in.",
         generic: "Dat lukte niet. Probeer het opnieuw.",
-        transfer: "U bent eigenaar van een team met andere leden. Vraag ons eerst het eigenaarschap over te dragen.",
+        transfer:
+          "U bent eigenaar van een team met andere leden. Vraag ons eerst het eigenaarschap over te dragen.",
       },
     },
     account: {
@@ -334,14 +409,18 @@ const ui: UiDictionary = {
       country: "Land",
       saveCompany: "Bedrijf opslaan",
       companySaved: "Bedrijfsgegevens opgeslagen.",
-      companyError: "Opslaan is niet gelukt. Controleer de velden en probeer het opnieuw.",
-      onlyOwner: "Alleen de eigenaar van het team kan bedrijfsgegevens wijzigen.",
+      companyError:
+        "Opslaan is niet gelukt. Controleer de velden en probeer het opnieuw.",
+      onlyOwner:
+        "Alleen de eigenaar van het team kan bedrijfsgegevens wijzigen.",
       security: "Wachtwoord",
       newPassword: "Nieuw wachtwoord",
       changePassword: "Wachtwoord wijzigen",
       passwordSaved: "Wachtwoord gewijzigd.",
-      passwordError: "Het wachtwoord kon niet worden gewijzigd. Gebruik minimaal 8 tekens.",
-      googleAccount: "U logt in met Google. U kunt hier ook een wachtwoord instellen.",
+      passwordError:
+        "Het wachtwoord kon niet worden gewijzigd. Gebruik minimaal 8 tekens.",
+      googleAccount:
+        "U logt in met Google. U kunt hier ook een wachtwoord instellen.",
     },
   },
 };

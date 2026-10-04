@@ -28,6 +28,7 @@ export default async function AppLayout({ children, params }: LayoutProps<"/[lan
       orderStatuses={dict.market.orders.statuses}
       language={dict.common.language}
       cartLabels={{ open: dict.market.cart.open, count: dict.market.cart.count }}
+      tabLabels={dict.ui.tabs}
       user={{
         name: profile.full_name || profile.email.split("@")[0],
         email: profile.email,

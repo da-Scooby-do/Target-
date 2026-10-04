@@ -77,19 +77,22 @@ export function Hero({
   widget,
 }: HeroProps) {
   return (
-    <div className="container hero-wrap">
-      <section
-        className={`tfs-hero${isPhoto ? " tfs-hero--photo" : " tfs-hero--graphic"}`}
-        style={{ ["--tfs-overlay" as string]: overlay }}
-      >
+    <section
+      className={`cine-banner${isPhoto ? "" : " cine-banner--graphic"}${display ? " cine-banner--tall" : ""}`}
+      style={{ ["--tfs-overlay" as string]: overlay }}
+    >
+      <div className="cine-banner__media">
         <BackgroundImage src={image} alt={imageAlt} priority mirrorRtl={mirrorRtl} />
+      </div>
+      <div className="cine-banner__shade" aria-hidden="true" />
+      <div className="container cine-banner__inner">
         <p className="tfs-eyebrow">{eyebrow}</p>
-        <h1 className={display ? "tfs-display" : "tfs-h1"}>{heading}</h1>
-        <p className="tfs-lead">{lead}</p>
-        {actions ? <div className="tfs-row">{actions}</div> : null}
+        <h1 className="cine-banner__title">{heading}</h1>
+        <p className="cine-banner__lead">{lead}</p>
+        {actions ? <div className="tfs-row cine-banner__actions">{actions}</div> : null}
         {widget}
-      </section>
-    </div>
+      </div>
+    </section>
   );
 }
 

@@ -8,6 +8,7 @@ import { LanguageMenu } from "../LanguageMenu";
 import { useDismiss } from "../useDismiss";
 import { NotificationBell } from "./NotificationBell";
 import { CartButton } from "../market/CartButton";
+import { TabBar, type TabLabels } from "../TabBar";
 import type { Dictionary } from "@/dictionaries/en";
 import type { UiDictionary } from "@/dictionaries/ui/en";
 import { href, type Locale } from "@/lib/i18n";
@@ -25,6 +26,7 @@ export function AppShell({
   orderStatuses,
   language,
   cartLabels,
+  tabLabels,
   user,
   children,
 }: {
@@ -34,6 +36,7 @@ export function AppShell({
   orderStatuses: Record<OrderStatus, string>;
   language: string;
   cartLabels: { open: string; count: string };
+  tabLabels: TabLabels;
   user: User;
   children: ReactNode;
 }) {
@@ -188,6 +191,7 @@ export function AppShell({
           {children}
         </main>
       </div>
+      <TabBar locale={locale} labels={tabLabels} signedIn />
     </div>
   );
 }

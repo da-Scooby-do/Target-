@@ -1,7 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Fragment } from "react";
 import { notFound } from "next/navigation";
 import { Icon } from "@/components/Icon";
+import { HeroSlides } from "@/components/HeroSlides";
 import { TrackBox } from "@/components/TrackBox";
 import { getDictionary } from "@/dictionaries";
 import { hasLocale, href } from "@/lib/i18n";
@@ -20,6 +22,7 @@ export async function generateMetadata({ params }: PageProps<"/[lang]">) {
 }
 
 const featureIcons = ["file-text", "truck", "users"];
+const heroImages = ["/photos/container-ship.jpg", "/photos/port.jpg", "/photos/cargo-aircraft.jpg", "/photos/warehouse.jpg"];
 
 /** The four marketplace categories, as in the database. */
 const marketCats = [
@@ -38,32 +41,38 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
 
   return (
     <>
-      {/* App-first hero: what you can do, two clear actions, and the app itself on the right. */}
-      <section className="landing-hero" aria-labelledby="home-title">
-        <div className="container landing-hero__grid">
-          <div className="landing-hero__text">
-            <p className="tfs-eyebrow">{t.eyebrow}</p>
-            <h1 id="home-title" className="landing-hero__title">
-              {site.tagline}
+      {/* Cinematic opening: full-screen photos that slowly zoom and cross-fade, the promise, and the app itself. */}
+      <section className="cine-hero" aria-labelledby="home-title">
+        <HeroSlides images={heroImages} />
+        <div className="cine-hero__shade" aria-hidden="true" />
+        <div className="container cine-hero__grid">
+          <div className="cine-hero__text">
+            <p className="tfs-eyebrow cine-hero__eyebrow">{t.eyebrow}</p>
+            <h1 id="home-title" className="cine-hero__title">
+              {site.tagline.split(" ").map((word, i) => (
+                <Fragment key={i}>
+                  <span className="cine-word" style={{ ["--i" as string]: i }}>
+                    {word}
+                  </span>{" "}
+                </Fragment>
+              ))}
             </h1>
-            <p className="landing-hero__lead">{t.lead}</p>
-            <div className="tfs-row">
-              <Link className="tfs-btn tfs-btn--primary tfs-btn--lg" href={href(lang, "/signup")}>
+            <p className="cine-hero__lead">{t.lead}</p>
+            <div className="tfs-row cine-hero__actions">
+              <Link className="tfs-btn tfs-btn--primary tfs-btn--lg btn-shine" href={href(lang, "/signup")}>
                 {t.ctaPrimary}
+                <Icon name="arrow-right" size={18} flipRtl />
               </Link>
-              <Link className="tfs-btn tfs-btn--secondary tfs-btn--lg" href={href(lang, "/login")}>
-                {t.ctaSecondary}
+              <Link className="tfs-btn tfs-btn--lg btn-glass" href={href(lang, "/marketplace")}>
+                <Icon name="store" size={18} />
+                {dict.market.landing.cta}
               </Link>
             </div>
-            <p className="landing-hero__trust">
-              <Icon name="check" size={18} />
-              {t.trustLine}
-            </p>
             <TrackBox locale={lang} label={t.trackLabel} t={dict.app.hero} />
           </div>
 
-          {/* Illustration of the app, built from real components rather than a screenshot. */}
-          <div className="app-preview" aria-hidden="true">
+          {/* Illustration of the app, built from real components rather than a screenshot. Leans toward the pointer. */}
+          <div className="app-preview" aria-hidden="true" data-tilt>
             <div className="app-preview__top">
               <span className="app-preview__dot" />
               <span className="app-preview__dot" />
@@ -86,7 +95,7 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
                   <span className="tfs-badge tfs-badge--blue">{s.shipment.in_transit}</span>
                 </div>
                 <p className="app-preview__route">{dict.app.homePortal.sampleRoute}</p>
-                <div className="progress" role="presentation">
+                <div className="progress progress--live" role="presentation">
                   <span style={{ inlineSize: "60%" }} />
                 </div>
                 <ol className="app-preview__steps">
@@ -105,7 +114,23 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
             </div>
           </div>
         </div>
+        <a href="#features-heading" className="scroll-cue">
+          <span>{dict.ui.cine.scroll}</span>
+          <Icon name="chevron-down" size={18} />
+        </a>
       </section>
+
+      {/* Moving strip of what we do. */}
+      <div className="ticker" aria-hidden="true">
+        <div className="ticker__track">
+          {[...dict.ui.cine.ticker, ...dict.ui.cine.ticker].map((word, i) => (
+            <span key={i}>
+              {word}
+              <i />
+            </span>
+          ))}
+        </div>
+      </div>
 
       <section className="block" aria-labelledby="features-heading">
         <div className="container">

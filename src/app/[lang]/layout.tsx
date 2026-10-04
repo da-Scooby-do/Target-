@@ -11,6 +11,7 @@ import "../tfs.css";
 import "../site.css";
 import "../theme.css";
 import "../app.css";
+import "../cinema.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
 const readex = localFont({
@@ -38,7 +39,7 @@ export async function generateMetadata({ params }: LayoutProps<"/[lang]">): Prom
   };
 }
 
-export const viewport: Viewport = { themeColor: "#02090d" };
+export const viewport: Viewport = { themeColor: "#02090d", viewportFit: "cover" };
 
 /** Document shell shared by the website, the account screens and the app. */
 export default async function RootLayout({ children, params }: LayoutProps<"/[lang]">) {

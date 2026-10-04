@@ -15,6 +15,41 @@ const ui = {
     openApp: "Open app",
     marketplace: "Marketplace",
   },
+  tabs: {
+    label: "Main",
+    shipping: "Shipping",
+    marketplace: "Marketplace",
+    events: "Events",
+    profile: "Profile",
+  },
+  me: {
+    title: "Profile",
+    signedInAs: "Signed in as",
+    staff: "Staff",
+    sections: {
+      work: "Shipping",
+      market: "Marketplace",
+      company: "Company",
+      settings: "Settings",
+      admin: "Admin",
+    },
+    language: "Language",
+    help: "Help centre",
+    website: "Website",
+  },
+  cine: {
+    scroll: "Scroll to explore",
+    ticker: [
+      "Sea freight",
+      "Air freight",
+      "Road transport",
+      "Customs clearance",
+      "Warehousing",
+      "Global sourcing",
+      "Building materials",
+      "Trade events",
+    ],
+  },
   landing: {
     eyebrow: "Shipping, logistics and trade",
     lead: "Request prices, book shipments and follow every milestone in one place. Your whole team, in English, Dutch or Arabic.",
@@ -41,8 +76,14 @@ const ui = {
     stepsHeading: "How it works",
     steps: [
       { title: "Create your account", text: "Free, in under a minute." },
-      { title: "Request a shipment", text: "Route, packages and dates in four short steps." },
-      { title: "Accept the price and track", text: "We book it and you follow every step." },
+      {
+        title: "Request a shipment",
+        text: "Route, packages and dates in four short steps.",
+      },
+      {
+        title: "Accept the price and track",
+        text: "We book it and you follow every step.",
+      },
     ],
     servicesHeading: "What we handle",
     ctaHeading: "Ready to ship?",
@@ -57,7 +98,11 @@ const ui = {
     google: "Continue with Google",
     backToSite: "Back to website",
     asideHeading: "Your logistics, in one app",
-    asidePoints: ["Accept prices online", "Track every shipment", "Share with your team"],
+    asidePoints: [
+      "Accept prices online",
+      "Track every shipment",
+      "Share with your team",
+    ],
     login: {
       title: "Welcome back",
       subtitle: "Log in to your TFS account.",
@@ -66,10 +111,13 @@ const ui = {
       submitting: "Logging in…",
       noAccount: "New to TFS?",
       signUpLink: "Create an account",
-      errorInvalid: "That email and password don't match. Try again or reset your password.",
-      errorUnconfirmed: "Confirm your email first. We sent you a link when you signed up.",
+      errorInvalid:
+        "That email and password don't match. Try again or reset your password.",
+      errorUnconfirmed:
+        "Confirm your email first. We sent you a link when you signed up.",
       errorGeneric: "We couldn't log you in. Try again in a moment.",
-      linkError: "That link has expired or was already used. Log in or request a new link.",
+      linkError:
+        "That link has expired or was already used. Log in or request a new link.",
     },
     signup: {
       title: "Create your account",
@@ -86,13 +134,15 @@ const ui = {
       submitting: "Creating account…",
       haveAccount: "Already have an account?",
       loginLink: "Log in",
-      errorExists: "There is already an account with this email. Log in instead.",
+      errorExists:
+        "There is already an account with this email. Log in instead.",
       errorWeak: "Choose a longer password (at least 8 characters).",
       errorRequired: "Fill in this field.",
       errorEmail: "Enter a full email address, like name@company.com.",
       errorTerms: "Please agree to continue.",
       errorGeneric: "We couldn't create your account. Try again in a moment.",
-      invited: "You've been invited to a team. Sign up with the email the invitation was sent to and you'll join automatically.",
+      invited:
+        "You've been invited to a team. Sign up with the email the invitation was sent to and you'll join automatically.",
     },
     verify: {
       title: "Check your email",
@@ -103,10 +153,12 @@ const ui = {
     },
     forgot: {
       title: "Reset your password",
-      subtitle: "Enter your email and we'll send you a link to choose a new password.",
+      subtitle:
+        "Enter your email and we'll send you a link to choose a new password.",
       submit: "Send reset link",
       sentTitle: "Check your email",
-      sentText: "If there is an account for {email}, a reset link is on its way.",
+      sentText:
+        "If there is an account for {email}, a reset link is on its way.",
       back: "Back to log in",
     },
     reset: {
@@ -199,7 +251,8 @@ const ui = {
       quickTrack: "Track by reference",
       quickInvite: "Invite a colleague",
       emptyTitle: "Let's get your first shipment moving",
-      emptyText: "Tell us the route and cargo. We'll send you a price here and by email.",
+      emptyText:
+        "Tell us the route and cargo. We'll send you a price here and by email.",
       emptyCta: "Request a shipment",
       viewAll: "View all",
     },
@@ -222,7 +275,14 @@ const ui = {
       removePackage: "Remove package",
       quantity: "Qty",
       type: "Type",
-      types: { pallet: "Pallet", box: "Box", crate: "Crate", container20: "20' container", container40: "40' container", other: "Other" },
+      types: {
+        pallet: "Pallet",
+        box: "Box",
+        crate: "Crate",
+        container20: "20' container",
+        container40: "40' container",
+        other: "Other",
+      },
       weight: "Weight per piece (kg)",
       length: "L (cm)",
       width: "W (cm)",
@@ -244,12 +304,14 @@ const ui = {
       submit: "Send request",
       submitting: "Sending…",
       successTitle: "Request sent",
-      successText: "We're pricing {ref}. You'll get a notification and an email when the price is ready.",
+      successText:
+        "We're pricing {ref}. You'll get a notification and an email when the price is ready.",
       viewQuote: "View request",
       another: "Request another",
       errorRequired: "Fill in this field.",
       errorPackages: "Add at least one package with a quantity.",
-      errorServer: "Something went wrong and your request was not sent. Try again.",
+      errorServer:
+        "Something went wrong and your request was not sent. Try again.",
     },
     quotes: {
       title: "Quotes",
@@ -261,7 +323,8 @@ const ui = {
     shipments: {
       title: "Shipments",
       subtitle: "Everything you've booked with us.",
-      empty: "No shipments yet. Accepted quotes become shipments once we book them.",
+      empty:
+        "No shipments yet. Accepted quotes become shipments once we book them.",
       progress: "Progress",
     },
     detail: {
@@ -294,13 +357,15 @@ const ui = {
     },
     team: {
       title: "Team",
-      subtitle: "Everyone in {company} sees the same quotes, shipments and addresses.",
+      subtitle:
+        "Everyone in {company} sees the same quotes, shipments and addresses.",
       members: "Members",
       you: "you",
       owner: "Owner",
       member: "Member",
       inviteTitle: "Invite a colleague",
-      inviteHelp: "They'll get an email. When they sign up or log in with that address, they join your team.",
+      inviteHelp:
+        "They'll get an email. When they sign up or log in with that address, they join your team.",
       email: "Work email",
       send: "Send invitation",
       sending: "Sending…",
@@ -309,10 +374,12 @@ const ui = {
       invitedOn: "Invited {date}",
       revoke: "Revoke",
       remove: "Remove",
-      confirmRemove: "Remove {name} from the team? They keep their own requests but lose access to the team's.",
+      confirmRemove:
+        "Remove {name} from the team? They keep their own requests but lose access to the team's.",
       onlyOwner: "Only the team owner can invite or remove people.",
       inviteEmail: {
-        subject: "{name} invited you to join {company} on Target Facility Service",
+        subject:
+          "{name} invited you to join {company} on Target Facility Service",
         text: "{name} wants to share quotes, shipments and documents with you in the Target Facility Service app. Create your account (or log in) with this email address to join {company}.",
         cta: "Join the team",
         signoff: "Kind regards,",
@@ -324,7 +391,8 @@ const ui = {
         already: "That person is already on your team.",
         email: "Enter a full email address.",
         generic: "That didn't work. Try again.",
-        transfer: "You own a team with other members. Ask us to transfer ownership first.",
+        transfer:
+          "You own a team with other members. Ask us to transfer ownership first.",
       },
     },
     account: {
@@ -342,8 +410,10 @@ const ui = {
       newPassword: "New password",
       changePassword: "Change password",
       passwordSaved: "Password changed.",
-      passwordError: "Could not change the password. Use at least 8 characters.",
-      googleAccount: "You log in with Google. You can also set a password here.",
+      passwordError:
+        "Could not change the password. Use at least 8 characters.",
+      googleAccount:
+        "You log in with Google. You can also set a password here.",
     },
   },
 };
