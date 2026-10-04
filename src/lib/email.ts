@@ -65,3 +65,31 @@ ${intro ? `<p style="margin:0 0 16px">${escapeHtml(intro)}</p>` : ""}
   const text = [title, "", intro ?? "", ...rows.map(([l, v]) => `${l}: ${v}`)].join("\n");
   return { html, text };
 }
+
+/** Customer-facing email: a few short paragraphs and one button, right-to-left for Arabic. */
+export function renderMessage(opts: {
+  title: string;
+  paragraphs: string[];
+  cta?: { label: string; url: string };
+  reference?: string;
+  signoff: string;
+  rtl?: boolean;
+}) {
+  const dir = opts.rtl ? "rtl" : "ltr";
+  const align = opts.rtl ? "right" : "left";
+  const html = `<div dir="${dir}" style="font-family:Inter,Arial,sans-serif;font-size:15px;line-height:1.6;color:#02090d;max-width:560px;text-align:${align}">
+<h1 style="font-size:20px;font-weight:500;margin:0 0 16px">${escapeHtml(opts.title)}</h1>
+${opts.reference ? `<p style="margin:0 0 16px;font-size:18px;font-weight:500" dir="ltr">${escapeHtml(opts.reference)}</p>` : ""}
+${opts.paragraphs.map((p) => `<p style="margin:0 0 16px">${escapeHtml(p)}</p>`).join("")}
+${
+  opts.cta
+    ? `<p style="margin:24px 0"><a href="${escapeHtml(opts.cta.url)}" style="display:inline-block;background:#02090d;color:#ffffff;text-decoration:none;padding:12px 24px;border-radius:8px;font-weight:500">${escapeHtml(opts.cta.label)}</a></p>`
+    : ""
+}
+<p style="margin:24px 0 0;color:#46545a">${escapeHtml(opts.signoff)}<br>Target Facility Service</p>
+</div>`;
+  const text = [opts.title, opts.reference ?? "", ...opts.paragraphs, opts.cta ? `${opts.cta.label}: ${opts.cta.url}` : "", "", opts.signoff, "Target Facility Service"]
+    .filter((l) => l !== undefined)
+    .join("\n\n");
+  return { html, text };
+}

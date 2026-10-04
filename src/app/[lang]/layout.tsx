@@ -3,9 +3,11 @@ import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 import { notFound } from "next/navigation";
 import { SiteFooter } from "@/components/SiteFooter";
-import { SiteHeader } from "@/components/SiteHeader";
-import { getDictionary } from "@/dictionaries";
-import { dirFor, hasLocale, locales } from "@/lib/i18n";
+import { SiteHeader, type MenuItem } from "@/components/SiteHeader";
+import { industries, industrySlugs } from "@/content/industries";
+import { getDictionary, type Dictionary } from "@/dictionaries";
+import { dirFor, hasLocale, href, locales, type Locale } from "@/lib/i18n";
+import { serviceMeta, type ServiceSlug } from "@/lib/services";
 import { site } from "@/lib/site";
 import "../tokens.css";
 import "../tfs.css";
@@ -20,6 +22,15 @@ const readex = localFont({
 });
 
 export const dynamicParams = false;
+
+function menuServices(locale: Locale, dict: Dictionary, slugs: ServiceSlug[]): MenuItem[] {
+  return slugs.map((slug) => ({
+    href: href(locale, `/services/${slug}`),
+    title: dict.services.items[slug].title,
+    text: dict.services.items[slug].short,
+    icon: serviceMeta[slug].icon,
+  }));
+}
 
 export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
@@ -55,15 +66,27 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
           locale={lang}
           labels={{
             home: dict.nav.home,
-            services: dict.nav.services,
-            about: dict.nav.about,
-            contact: dict.nav.contact,
-            quote: dict.common.requestQuote,
             menu: dict.common.menu,
             closeMenu: dict.common.closeMenu,
             language: dict.common.language,
             mainNav: dict.common.mainNav,
+            requestQuote: dict.common.requestQuote,
+            utility: dict.app.utility,
+            nav: dict.app.nav,
           }}
+          services={{
+            transport: menuServices(lang, dict, ["shipping-forwarding", "logistics-supply-chain"]),
+            trade: menuServices(lang, dict, [
+              "international-trade-sourcing",
+              "conference-economic-events",
+              "trade-investment-partnerships",
+            ]),
+          }}
+          industries={industrySlugs.map((slug) => ({
+            href: href(lang, `/industries/${slug}`),
+            title: industries[slug].text[lang].title,
+            icon: industries[slug].icon,
+          }))}
         />
         <main id="main" tabIndex={-1}>
           {children}

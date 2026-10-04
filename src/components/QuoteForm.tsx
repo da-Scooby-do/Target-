@@ -39,28 +39,31 @@ type Props = {
   t: Dictionary["quote"];
   services: { slug: string; title: string }[];
   initialService?: string;
+  /** Prefill from the home page tabs (route) and the customer's profile (contact). */
+  initial?: Partial<Pick<Values, "from" | "to" | "mode" | "name" | "email" | "company" | "phone">>;
 };
 
-export function QuoteForm({ locale, t, services, initialService }: Props) {
+export function QuoteForm({ locale, t, services, initialService, initial = {} }: Props) {
   const [step, setStep] = useState(0);
   const [values, setValues] = useState<Values>({
     service: initialService ?? services[0].slug,
-    mode: "sea",
-    from: "",
-    to: "",
+    mode: initial.mode ?? "sea",
+    from: initial.from ?? "",
+    to: initial.to ?? "",
     readyDate: "",
     cargo: "",
     weight: "",
-    name: "",
-    company: "",
-    email: "",
-    phone: "",
+    name: initial.name ?? "",
+    company: initial.company ?? "",
+    email: initial.email ?? "",
+    phone: initial.phone ?? "",
     notes: "",
     consent: false,
   });
   const [errors, setErrors] = useState<Partial<Record<FieldName, string>>>({});
   const [serverError, setServerError] = useState<string | null>(null);
   const [reference, setReference] = useState<string | null>(null);
+  const [signedIn, setSignedIn] = useState(false);
   const [pending, startTransition] = useTransition();
   const startedAt = useRef(0);
   const honeypot = useRef<HTMLInputElement>(null);
@@ -119,6 +122,7 @@ export function QuoteForm({ locale, t, services, initialService }: Props) {
         const result = await submitQuote(payload);
         if (result.ok) {
           setReference(result.reference ?? "");
+          setSignedIn(Boolean(result.signedIn));
           return;
         }
         if (result.error === "invalid" && result.fields?.length) {
@@ -164,7 +168,24 @@ export function QuoteForm({ locale, t, services, initialService }: Props) {
           </p>
         </div>
         <p>{t.success.text}</p>
-        <div>
+        <p>
+          {signedIn
+            ? t.success.portalText
+            : t.success.loginText.split("{email}")[0]}
+          {signedIn ? null : <strong dir="ltr">{values.email}</strong>}
+          {signedIn ? null : t.success.loginText.split("{email}")[1]}
+        </p>
+        <div className="tfs-row">
+          <Link
+            className="tfs-btn tfs-btn--primary"
+            href={
+              signedIn
+                ? href(locale, `/portal/quotes/${reference}`)
+                : `${href(locale, "/login")}?email=${encodeURIComponent(values.email)}&next=${encodeURIComponent(href(locale, `/portal/quotes/${reference}`))}`
+            }
+          >
+            {signedIn ? t.success.portalLink : t.success.loginLink}
+          </Link>
           <button type="button" className="tfs-btn tfs-btn--secondary" onClick={reset}>
             {t.success.another}
           </button>

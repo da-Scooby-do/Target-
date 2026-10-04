@@ -59,6 +59,8 @@ type HeroProps = {
   overlay?: number;
   mirrorRtl?: boolean;
   actions?: ReactNode;
+  /** Extra block under the text, e.g. the track/quote tabs. */
+  widget?: ReactNode;
 };
 
 export function Hero({
@@ -72,6 +74,7 @@ export function Hero({
   overlay = 0.6,
   mirrorRtl = false,
   actions,
+  widget,
 }: HeroProps) {
   return (
     <div className="container hero-wrap">
@@ -84,6 +87,7 @@ export function Hero({
         <h1 className={display ? "tfs-display" : "tfs-h1"}>{heading}</h1>
         <p className="tfs-lead">{lead}</p>
         {actions ? <div className="tfs-row">{actions}</div> : null}
+        {widget}
       </section>
     </div>
   );

@@ -5,6 +5,7 @@ import { Hero, Section } from "@/components/sections";
 import { getDictionary } from "@/dictionaries";
 import { hasLocale, href } from "@/lib/i18n";
 import { pageMetadata } from "@/lib/metadata";
+import { getProfile } from "@/lib/auth";
 import { quotableServices } from "@/lib/services";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/quote">) {
@@ -20,7 +21,11 @@ export default async function QuotePage({ params, searchParams }: PageProps<"/[l
   const dict = await getDictionary(lang);
   const t = dict.quote;
 
-  const requested = (await searchParams).service;
+  const query = await searchParams;
+  const requested = query.service;
+  const str = (v: unknown, max = 200) => (typeof v === "string" ? v.slice(0, max) : undefined);
+  const mode = ["sea", "air", "road", "unsure"].includes(str(query.mode) ?? "") ? (query.mode as "sea" | "air" | "road" | "unsure") : undefined;
+  const profile = await getProfile();
   const initialService =
     typeof requested === "string" && (quotableServices as string[]).includes(requested) ? requested : undefined;
 
@@ -41,6 +46,15 @@ export default async function QuotePage({ params, searchParams }: PageProps<"/[l
             locale={lang}
             t={t}
             initialService={initialService}
+            initial={{
+              from: str(query.from),
+              to: str(query.to),
+              mode,
+              name: profile?.full_name ?? undefined,
+              email: profile?.email,
+              company: profile?.company ?? undefined,
+              phone: profile?.phone ?? undefined,
+            }}
             services={quotableServices.map((slug) => ({ slug, title: dict.services.items[slug].title }))}
           />
           <aside className="tfs-card quote-aside" aria-labelledby="next-heading">

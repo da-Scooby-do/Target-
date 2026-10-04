@@ -8,10 +8,13 @@ import { confirmationsEnabled, inbox, renderTable, sendMail } from "@/lib/email"
 import { hasLocale, type Locale } from "@/lib/i18n";
 import { quotableServices } from "@/lib/services";
 import { site } from "@/lib/site";
+import { getProfile } from "@/lib/auth";
+import { supabaseConfigured } from "@/lib/supabase/config";
+import { createClient } from "@/lib/supabase/server";
 import { looksLikeBot, rateLimited, tooFast } from "@/lib/spam";
 
 export type FormResult =
-  | { ok: true; reference?: string }
+  | { ok: true; reference?: string; signedIn?: boolean }
   | { ok: false; error: "invalid" | "server" | "tooFast"; fields?: string[] };
 
 const text = (max: number) => z.string().trim().max(max);
@@ -79,7 +82,36 @@ export async function submitQuote(input: QuoteInput): Promise<FormResult> {
   if (rateLimited(await clientIp())) return { ok: false, error: "server" };
 
   const locale: Locale = hasLocale(data.locale) ? data.locale : "en";
-  const reference = newReference();
+  let reference = newReference();
+  let signedIn = false;
+
+  // Store the request so it shows in My TFS and the admin. Logged-in customers are linked automatically.
+  if (supabaseConfigured) {
+    const supabase = await createClient();
+    signedIn = Boolean(await getProfile());
+    const { data: stored, error } = await supabase.rpc("create_quote", {
+      payload: {
+        email: data.email,
+        name: data.name,
+        company: data.company,
+        phone: data.phone,
+        service: data.service,
+        mode: data.mode,
+        origin: data.from,
+        destination: data.to,
+        ready_date: data.readyDate,
+        cargo: data.cargo,
+        weight: data.weight,
+        notes: data.notes,
+        locale,
+      },
+    });
+    if (error) {
+      console.error("[quote] create_quote failed", error.message);
+      return { ok: false, error: "server" };
+    }
+    reference = stored as string;
+  }
   const empty = "-";
 
   // Internal email is always in English (the admin language).
@@ -99,7 +131,8 @@ export async function submitQuote(input: QuoteInput): Promise<FormResult> {
     ["Notes", data.notes || empty],
     ["Language", locale.toUpperCase()],
   ];
-  const internal = renderTable(`New quote request ${reference}`, rows);
+  const adminLink = `${site.url}/en/admin/quotes/${reference}`;
+  const internal = renderTable(`New quote request ${reference}`, supabaseConfigured ? [...rows, ["Price it", adminLink]] : rows);
 
   if (!inbox) {
     console.error("[quote] INBOX_EMAIL is not set");
@@ -112,7 +145,8 @@ export async function submitQuote(input: QuoteInput): Promise<FormResult> {
     subject: `Quote request ${reference}: ${data.from} → ${data.to}`,
     ...internal,
   });
-  if (!sent) return { ok: false, error: "server" };
+  // Once stored in the database the request is safe even if the notification email fails.
+  if (!sent && !supabaseConfigured) return { ok: false, error: "server" };
 
   if (confirmationsEnabled) {
     const dict = await getDictionary(locale);
@@ -132,7 +166,7 @@ export async function submitQuote(input: QuoteInput): Promise<FormResult> {
     });
   }
 
-  return { ok: true, reference };
+  return { ok: true, reference, signedIn };
 }
 
 export async function submitContact(input: ContactInput): Promise<FormResult> {
