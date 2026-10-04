@@ -56,6 +56,16 @@ const market: MarketDictionary = {
     errorCurrency: "Bestel producten in één valuta tegelijk.",
     errorGeneric: "Uw bestelling is niet geplaatst. Probeer het zo opnieuw.",
     loginToOrder: "Log in om te bestellen",
+    guestTitle: "Bijna klaar",
+    guestText: "Log in of maak een gratis account om uw bestelling te plaatsen. Het duurt een minuut en uw winkelwagen blijft bewaard.",
+    createAccount: "Gratis account maken",
+    howTitle: "Zo werkt bestellen",
+    how: [
+      "Zet producten in uw winkelwagen.",
+      "Plaats de bestelling met uw gratis account. Er wordt nu niets afgeschreven.",
+      "Wij bevestigen de transportprijs en sturen u een factuur.",
+      "Wij leveren op uw locatie en u volgt de bestelling in uw account.",
+    ],
   },
   orders: {
     title: "Bestellingen",

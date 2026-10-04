@@ -16,8 +16,18 @@ type Address = { id: string; label: string; contact_name: string | null; street:
 const addressText = (a: Address) =>
   [a.contact_name, a.street, [a.postcode, a.city].filter(Boolean).join(" "), a.country].filter(Boolean).join(", ");
 
-/** Cart lines with quantities, then the checkout form. */
-export function CartView({ locale, t, addresses }: { locale: Locale; t: MarketDictionary; addresses: Address[] }) {
+/** Cart lines with quantities, then the checkout form (or, for guests, the way to log in and order). */
+export function CartView({
+  locale,
+  t,
+  addresses,
+  guest = false,
+}: {
+  locale: Locale;
+  t: MarketDictionary;
+  addresses: Address[];
+  guest?: boolean;
+}) {
   const router = useRouter();
   const id = useId();
   const cart = useCart();
@@ -35,7 +45,7 @@ export function CartView({ locale, t, addresses }: { locale: Locale; t: MarketDi
           <Icon name="cart" size={28} />
         </span>
         <p>{c.empty}</p>
-        <Link href={href(locale, "/app/shop")} className="tfs-btn tfs-btn--primary">
+        <Link href={href(locale, guest ? "/marketplace" : "/app/shop")} className="tfs-btn tfs-btn--primary">
           {c.browse}
         </Link>
       </div>
@@ -68,7 +78,7 @@ export function CartView({ locale, t, addresses }: { locale: Locale; t: MarketDi
                   )}
                 </span>
                 <div className="cart-line__info">
-                  <Link href={href(locale, `/app/shop/${l.id}`)} className="cart-line__name">
+                  <Link href={href(locale, `${guest ? "/marketplace" : "/app/shop"}/${l.id}`)} className="cart-line__name">
                     {l.name}
                   </Link>
                   <small>
@@ -112,6 +122,32 @@ export function CartView({ locale, t, addresses }: { locale: Locale; t: MarketDi
         <p className="muted">{c.shippingNote}</p>
       </section>
 
+      {guest ? (
+        <section className="panel checkout" aria-labelledby={`${id}-guest`}>
+          <h2 id={`${id}-guest`} className="panel-title">
+            {c.guestTitle}
+          </h2>
+          <p>{c.guestText}</p>
+          <Link
+            href={`${href(locale, "/signup")}?next=${encodeURIComponent(href(locale, "/app/cart"))}`}
+            className="tfs-btn tfs-btn--primary tfs-btn--block"
+          >
+            {c.createAccount}
+          </Link>
+          <Link
+            href={`${href(locale, "/login")}?next=${encodeURIComponent(href(locale, "/app/cart"))}`}
+            className="tfs-btn tfs-btn--secondary tfs-btn--block"
+          >
+            {c.loginToOrder}
+          </Link>
+          <h3 className="tfs-label">{c.howTitle}</h3>
+          <ol className="how-list">
+            {c.how.map((step) => (
+              <li key={step}>{step}</li>
+            ))}
+          </ol>
+        </section>
+      ) : (
       <form
         className="panel checkout"
         noValidate
@@ -196,6 +232,7 @@ export function CartView({ locale, t, addresses }: { locale: Locale; t: MarketDi
           {busy ? c.placing : c.place}
         </button>
       </form>
+      )}
     </div>
   );
 }

@@ -217,6 +217,16 @@ export async function ProductDetail({
           ) : (
             <p className={`tfs-badge tfs-badge--gray`}>{dict.market.product.statuses[p.status]}</p>
           )}
+          {p.status === "active" ? (
+            <section className="how-box" aria-label={t.cart.howTitle}>
+              <h2 className="panel-subtitle">{t.cart.howTitle}</h2>
+              <ol className="how-list">
+                {t.cart.how.map((step) => (
+                  <li key={step}>{step}</li>
+                ))}
+              </ol>
+            </section>
+          ) : null}
           {p.description ? (
             <section>
               <h2 className="panel-subtitle">{t.description}</h2>

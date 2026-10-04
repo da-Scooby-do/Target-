@@ -16,7 +16,7 @@ export default async function ProductPage({ params }: PageProps<"/[lang]/marketp
   const { lang, id } = await params;
   if (!hasLocale(lang)) notFound();
   const dict = await getDictionary(lang);
-  const detail = await ProductDetail({ locale: lang, dict, id, base: "/marketplace", cartHref: href(lang, "/app/cart") });
+  const detail = await ProductDetail({ locale: lang, dict, id, base: "/marketplace", cartHref: href(lang, "/cart") });
   if (!detail) notFound();
   return (
     <section className="block block--tight">

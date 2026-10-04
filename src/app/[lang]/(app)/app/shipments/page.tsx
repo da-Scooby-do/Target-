@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Icon } from "@/components/Icon";
 import { notFound } from "next/navigation";
 import { AutoRefresh } from "@/components/app/AutoRefresh";
 import { ShipmentCard } from "@/components/app/ShipmentCard";
@@ -51,6 +52,17 @@ export default async function ShipmentsPage({ params, searchParams }: PageProps<
           <h1 className="page-title">{t.title}</h1>
           <p className="page-sub">{t.subtitle}</p>
         </div>
+        {/* The Shipping tab is the shipping hub: new requests and quotes start here. */}
+        <div className="tfs-row">
+          <Link href={href(lang, "/app/quotes")} className="tfs-btn tfs-btn--secondary">
+            <Icon name="file-text" size={18} />
+            {dict.ui.app.nav.quotes}
+          </Link>
+          <Link href={href(lang, "/app/new")} className="tfs-btn tfs-btn--primary">
+            <Icon name="plus" size={18} />
+            {dict.common.requestQuote}
+          </Link>
+        </div>
       </div>
       <nav className="chip-row" aria-label={t.title}>
         {filters.map((f) => (
@@ -73,7 +85,20 @@ export default async function ShipmentsPage({ params, searchParams }: PageProps<
           ))}
         </ul>
       ) : (
-        <p className="panel empty">{t.empty}</p>
+        <div className="empty-hero">
+          <span className="empty-hero__icon">
+            <Icon name="ship" size={28} />
+          </span>
+          <p>{t.empty}</p>
+          <div className="tfs-row">
+            <Link href={href(lang, "/app/new")} className="tfs-btn tfs-btn--primary">
+              {dict.common.requestQuote}
+            </Link>
+            <Link href={href(lang, "/track")} className="tfs-btn tfs-btn--secondary">
+              {dict.app.track.metaTitle}
+            </Link>
+          </div>
+        </div>
       )}
     </div>
   );

@@ -44,7 +44,7 @@ body.tfs:has(.cine) {
 .tfs .cine .tfs-lead {
   color: var(--slate-200);
 }
-.tfs .cine main a:not(.tfs-btn):not(.stretched-link):not(.cat-chip):not(.market-cat):not(.tile-link) {
+.tfs .cine main a:where(:not(.tfs-btn, .stretched-link, .cat-chip, .market-cat, .tile-link, .path-card)) {
   color: var(--accent-400);
 }
 .tfs .cine .tfs-label {
@@ -1375,6 +1375,19 @@ html[data-scrolled="1"] .tfs .cine .site-header {
 .tfs .cine .event-register .tfs-label {
   color: var(--ink-950);
 }
+/* Form fields on the white panel: the dark site makes borders white, so set them back. */
+.tfs .cine .event-register .tfs-input,
+.tfs .cine .event-register .tfs-select,
+.tfs .cine .event-register .tfs-textarea {
+  border-color: var(--slate-400);
+  background-color: var(--white);
+  color: var(--ink-950);
+}
+.tfs .cine .event-register .tfs-input:focus-visible,
+.tfs .cine .event-register .tfs-select:focus-visible,
+.tfs .cine .event-register .tfs-textarea:focus-visible {
+  outline-color: var(--ink-700);
+}
 .tfs .cine .event-register p {
   color: var(--slate-600);
 }
@@ -1654,4 +1667,181 @@ html[data-scrolled="1"] .tfs .cine .site-header {
 }
 .drawer-profile small {
   opacity: 0.7;
+}
+
+/* ---------------------------------------------------------------- "how it works" steps (product page, guest cart) */
+
+.how-list {
+  counter-reset: how;
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.how-list li {
+  counter-increment: how;
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: var(--space-3);
+  align-items: start;
+  line-height: 1.5;
+}
+.how-list li::before {
+  content: counter(how);
+  display: grid;
+  place-items: center;
+  inline-size: 28px;
+  block-size: 28px;
+  border-radius: 50%;
+  border: 1.5px solid var(--accent-400);
+  color: var(--accent-400);
+  font-size: 13px;
+  font-weight: 700;
+}
+.tfs .cine .how-box,
+.how-box {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-6);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.03);
+}
+.app .how-box {
+  border-color: var(--line);
+  background: var(--mist-50);
+}
+.checkout .how-list {
+  font-size: 14px;
+}
+.guest-cart .tfs-h2 {
+  margin-block-end: var(--space-6);
+}
+
+/* ---------------------------------------------------------------- home: "What do you need?" choices */
+
+.path-grid {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  margin: var(--space-8) 0 0;
+  padding: 0;
+  list-style: none;
+}
+.tfs .cine .path-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  block-size: 100%;
+  padding: var(--space-6);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02));
+  color: var(--white);
+  text-decoration: none;
+  transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+}
+.tfs .cine .path-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent-400);
+  background: linear-gradient(160deg, rgba(111, 199, 194, 0.12), rgba(255, 255, 255, 0.03));
+}
+.path-card__icon {
+  display: grid;
+  place-items: center;
+  inline-size: 52px;
+  block-size: 52px;
+  margin-block-end: var(--space-2);
+  border-radius: 14px;
+  background: rgba(111, 199, 194, 0.12);
+  color: var(--accent-400);
+}
+.path-card__title {
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.path-card__text {
+  flex: 1;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.5;
+}
+.path-card__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-block-start: var(--space-3);
+  color: var(--accent-400);
+  font-weight: 600;
+}
+@media (max-width: 639px) {
+  .path-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3);
+  }
+  .tfs .cine .path-card {
+    padding: var(--space-4);
+  }
+  .path-card__icon {
+    inline-size: 44px;
+    block-size: 44px;
+  }
+  .path-card__title {
+    font-size: 16px;
+  }
+  .path-card__text {
+    font-size: 14px;
+  }
+}
+/* Guest cart: the app's white panels on the dark site. */
+.tfs .cine .guest-cart .panel {
+  color: var(--slate-600);
+}
+.tfs .cine .guest-cart .panel-title,
+.tfs .cine .guest-cart .tfs-label,
+.tfs .cine .guest-cart .cart-line__total,
+.tfs .cine .guest-cart .cart-sum b,
+.tfs .cine .guest-cart .cart-sum {
+  color: var(--ink-950);
+}
+.tfs .cine .guest-cart .panel a:not(.tfs-btn) {
+  color: var(--ink-950);
+}
+.tfs .cine .guest-cart .panel p {
+  color: var(--slate-600);
+}
+.tfs .cine .guest-cart .tfs-input {
+  border-color: var(--slate-400);
+  background-color: var(--white);
+  color: var(--ink-950);
+}
+.tfs .cine .guest-cart .tfs-btn--primary {
+  background: var(--ink-950);
+  color: var(--white);
+}
+.tfs .cine .guest-cart .tfs-btn--secondary {
+  border-color: var(--ink-700);
+  color: var(--ink-950);
+  background: transparent;
+}
+.tfs .cine .guest-cart .muted {
+  color: var(--slate-600);
+}
+.tfs .cine .guest-cart .icon-btn {
+  color: var(--slate-600);
+}
+
+.path-card__title {
+  color: var(--white);
+}
+/* Success notes are light green: keep their text dark on the dark site. */
+.tfs .cine .form-alert--success,
+.tfs .cine .form-alert--success p {
+  color: var(--status-green-fg, #14532d);
+}
+.tfs .cine .form-alert--success a {
+  color: var(--ink-950);
+  font-weight: 600;
 }

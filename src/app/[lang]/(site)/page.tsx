@@ -21,7 +21,14 @@ export async function generateMetadata({ params }: PageProps<"/[lang]">) {
   };
 }
 
-const featureIcons = ["file-text", "truck", "users"];
+const featureIcons = ["file-text", "truck", "user"];
+/** "What do you need?" choices, in the order of the copy in landing.paths. */
+const pathLinks = [
+  { icon: "ship", to: "/quote" },
+  { icon: "store", to: "/marketplace" },
+  { icon: "search", to: "/track" },
+  { icon: "conference", to: "/events" },
+];
 const heroImages = ["/photos/container-ship.jpg", "/photos/port.jpg", "/photos/cargo-aircraft.jpg", "/photos/warehouse.jpg"];
 
 /** The four marketplace categories, as in the database. */
@@ -59,7 +66,7 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
             </h1>
             <p className="cine-hero__lead">{t.lead}</p>
             <div className="tfs-row cine-hero__actions">
-              <Link className="tfs-btn tfs-btn--primary tfs-btn--lg btn-shine" href={href(lang, "/signup")}>
+              <Link className="tfs-btn tfs-btn--primary tfs-btn--lg btn-shine" href={href(lang, "/quote")}>
                 {t.ctaPrimary}
                 <Icon name="arrow-right" size={18} flipRtl />
               </Link>
@@ -131,6 +138,32 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
           ))}
         </div>
       </div>
+
+      {/* The four things customers come for, one tap each. */}
+      <section className="block block--tight" aria-labelledby="choose-heading">
+        <div className="container">
+          <h2 id="choose-heading" className="block__title">
+            {t.chooseHeading}
+          </h2>
+          <ul className="path-grid">
+            {t.paths.map((path, i) => (
+              <li key={path.title}>
+                <Link href={href(lang, pathLinks[i].to)} className="path-card">
+                  <span className="path-card__icon">
+                    <Icon name={pathLinks[i].icon} size={26} />
+                  </span>
+                  <span className="path-card__title">{path.title}</span>
+                  <span className="path-card__text">{path.text}</span>
+                  <span className="path-card__cta">
+                    {path.cta}
+                    <Icon name="arrow-right" size={16} flipRtl />
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
 
       <section className="block" aria-labelledby="features-heading">
         <div className="container">
@@ -246,7 +279,7 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
           </h2>
           <p className="block__lead">{t.ctaText}</p>
           <div className="tfs-row">
-            <Link className="tfs-btn tfs-btn--primary" href={href(lang, "/signup")}>
+            <Link className="tfs-btn tfs-btn--primary" href={href(lang, "/quote")}>
               {t.ctaPrimary}
             </Link>
             <Link className="tfs-btn tfs-btn--secondary" href={href(lang, "/contact")}>

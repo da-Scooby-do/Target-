@@ -99,7 +99,7 @@ export function SiteHeader({ locale, labels }: { locale: Locale; labels: Labels 
             <span>{labels.track}</span>
           </Link>
           <LanguageMenu locale={locale} label={labels.language} />
-          <CartButton href={href(locale, "/app/cart")} label={labels.cart} countLabel={labels.cartCount} />
+          <CartButton href={href(locale, account ? "/app/cart" : "/cart")} label={labels.cart} countLabel={labels.cartCount} />
           {account ? (
             <>
               {account.isStaff ? (
@@ -128,7 +128,7 @@ export function SiteHeader({ locale, labels }: { locale: Locale; labels: Labels 
         </div>
 
         <span className="site-header__cart-mobile">
-          <CartButton href={href(locale, "/app/cart")} label={labels.cart} countLabel={labels.cartCount} />
+          <CartButton href={href(locale, account ? "/app/cart" : "/cart")} label={labels.cart} countLabel={labels.cartCount} />
         </span>
         <button
           type="button"

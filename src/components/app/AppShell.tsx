@@ -57,9 +57,11 @@ export function AppShell({
   // Customers have no dashboard: a top bar with a few links. Staff get the admin sidebar.
   const simple = !user.isStaff;
   const home = simple ? a("/me") : href("en", "/app/admin");
+  // Same four places as the phone tab bar.
   const customerLinks: NavItem[] = [
-    { href: a("/shop"), label: t.nav.marketplace, icon: "store" },
-    { href: a("/orders"), label: t.nav.orders, icon: "package" },
+    { href: a("/shipments"), label: tabLabels.shipping, icon: "ship" },
+    { href: a("/shop"), label: tabLabels.marketplace, icon: "store" },
+    { href: href(locale, "/events"), label: tabLabels.events, icon: "conference" },
     { href: a("/me"), label: tabLabels.profile, icon: "user" },
   ];
   const admin: NavItem[] = [

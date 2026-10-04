@@ -364,7 +364,7 @@ const ar: Dictionary = {
       locations: "المواقع",
       help: "المساعدة",
       login: "تسجيل الدخول",
-      myTfs: "حسابي في TFS",
+      myTfs: "حسابك",
       logout: "تسجيل الخروج",
       admin: "الإدارة",
     },
@@ -407,7 +407,7 @@ const ar: Dictionary = {
       quoteButton: "متابعة",
     },
     homePortal: {
-      eyebrow: "حسابي في TFS",
+      eyebrow: "حسابك",
       heading: "شحناتك عبر الإنترنت",
       text: "سجّل الدخول لترى عروض أسعارك، وتقبل الأسعار، وتتابع كل شحنة، مع مستنداتك في مكان واحد.",
       features: [
@@ -438,7 +438,7 @@ const ar: Dictionary = {
       metaTitle: "تتبع شحنة",
       eyebrow: "التتبع",
       heading: "أين شحنتي؟",
-      lead: "أدخل الرقم المرجعي للشحنة لمعرفة آخر حالة. لا حاجة إلى تسجيل الدخول.",
+      lead: "أدخل الرقم المرجعي من رسالة الحجز (يبدأ بـ TFS-S) لمعرفة مكان شحنتك. لا حاجة إلى تسجيل الدخول.",
       notFoundHeading: "لم نعثر على هذا الرقم المرجعي",
       notFoundText: "تحقق من الرقم في بريد الحجز. أرقام الشحنات تبدأ بـ TFS-S. أما أرقام عروض الأسعار (TFS-Q) فتظهر في حسابك في TFS.",
       route: "المسار",
@@ -452,7 +452,7 @@ const ar: Dictionary = {
     },
     login: {
       metaTitle: "تسجيل الدخول",
-      eyebrow: "حسابي في TFS",
+      eyebrow: "حسابك",
       heading: "تسجيل الدخول إلى حسابك",
       lead: "أدخل بريدك الإلكتروني وسنرسل لك رابطًا لتسجيل الدخول. لا حاجة إلى كلمة مرور.",
       email: "البريد الإلكتروني",
@@ -467,7 +467,7 @@ const ar: Dictionary = {
       unavailable: "تسجيل الدخول غير متاح بعد. يرجى التواصل معنا.",
     },
     portal: {
-      metaTitle: "حسابي في TFS",
+      metaTitle: "حسابك",
       nav: { dashboard: "نظرة عامة", quotes: "عروض الأسعار", shipments: "الشحنات", profile: "الملف الشخصي", newQuote: "عرض سعر جديد" },
       greeting: "مرحبًا بعودتك",
       greetingNamed: "مرحبًا بعودتك، {name}",

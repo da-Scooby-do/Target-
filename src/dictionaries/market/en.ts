@@ -58,6 +58,16 @@ const market = {
     errorCurrency: "Order products in one currency at a time.",
     errorGeneric: "Your order was not placed. Try again in a moment.",
     loginToOrder: "Log in to order",
+    guestTitle: "Almost done",
+    guestText: "To place your order, log in or create a free account. It takes a minute and your cart stays saved.",
+    createAccount: "Create free account",
+    howTitle: "How ordering works",
+    how: [
+      "Add products to your cart.",
+      "Place the order with your free account. Nothing is charged now.",
+      "We confirm the transport price and send you an invoice.",
+      "We deliver to your site and you follow the order in your account.",
+    ],
   },
   orders: {
     title: "Orders",
