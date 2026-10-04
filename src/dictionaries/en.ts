@@ -1,0 +1,350 @@
+/**
+ * English copy. This is the source dictionary: nl.ts and ar.ts must have
+ * exactly the same keys (TypeScript checks this).
+ */
+const en = {
+  meta: {
+    siteDescription:
+      "Shipping, logistics and international trade services from Zoetermeer, the Netherlands. Request a quote and our team sends you a price.",
+  },
+  common: {
+    skipToContent: "Skip to content",
+    requestQuote: "Request a quote",
+    contactUs: "Contact us",
+    ourServices: "Our services",
+    learnMore: "Learn more",
+    menu: "Menu",
+    closeMenu: "Close menu",
+    language: "Language",
+    mainNav: "Main",
+  },
+  nav: {
+    home: "Home",
+    services: "Services",
+    about: "About",
+    contact: "Contact",
+    quote: "Request a quote",
+    privacy: "Privacy policy",
+  },
+  footer: {
+    contactHeading: "Contact",
+    companyHeading: "Company",
+    kvk: "KvK",
+    rights: "All rights reserved.",
+  },
+  home: {
+    metaTitle: "Shipping, logistics and trade from the Netherlands",
+    hero: {
+      eyebrow: "Shipping, logistics and trade",
+      lead: "Freight, logistics and trade services from one team in Zoetermeer, the Netherlands.",
+      photoAlt: "Container port at blue hour with ships and cranes",
+    },
+    services: {
+      eyebrow: "What we do",
+      heading: "Five services, one team",
+      text: "From a single shipment to a long-term trade partnership, you deal with the same people from start to finish.",
+    },
+    how: {
+      eyebrow: "How it works",
+      heading: "A price from a person, not a calculator",
+      text: "Tell us what you need to move. Our team looks at your route and cargo and sends you a price.",
+      card: {
+        heading: "From request to booking",
+        text: "No account and no automated estimates. Every request is priced by our team.",
+        steps: [
+          { title: "You send a request", detail: "Route, cargo and ready date" },
+          { title: "We price it", detail: "Our team checks the route and cargo" },
+          { title: "You get a price by email", detail: "Ask questions or accept it" },
+          { title: "We book and arrange it", detail: "One contact until delivery" },
+        ],
+      },
+      modes: {
+        eyebrow: "Sea, air and road",
+        heading: "The right mode for the cargo and the deadline",
+        photoAlt: "Cargo aircraft being loaded at night",
+      },
+      oneContact: {
+        heading: "One contact for the whole route",
+        text: "Sea, air or road, customs and paperwork: we arrange it and keep you informed.",
+        modes: ["Sea freight", "Air freight", "Road transport", "Customs"],
+      },
+      location: {
+        eyebrow: "Zoetermeer, the Netherlands",
+        heading: "Based between Rotterdam and The Hague",
+        photoAlt: "Warehouse aisle with racked pallets",
+      },
+    },
+    cta: {
+      eyebrow: "Get started",
+      heading: "Tell us what you need to move",
+      text: "We reply to every request with a price. No account needed.",
+      photoAlt: "Container ship at sea at dusk",
+    },
+  },
+  services: {
+    metaTitle: "Services",
+    eyebrow: "Services",
+    heading: "What we can do for you",
+    lead: "Five services, run by one team. Pick the one that fits, or contact us and we'll work out the right mix with you.",
+    whatWeHandle: "What we handle",
+    otherServices: "Other services",
+    ctaQuoteHeading: "Ready for a price?",
+    ctaQuoteText: "Send us your route and cargo. We reply with a price by email.",
+    ctaContactHeading: "Let's talk about your plans",
+    ctaContactText: "Tell us what you have in mind and we'll get back to you.",
+    items: {
+      "shipping-forwarding": {
+        title: "Shipping & Forwarding",
+        short: "Sea, air and road freight, booked and followed door to door.",
+        lead: "We book your cargo by sea, air or road and follow it from pickup to delivery.",
+        imageAlt: "Container ship at sea at dusk",
+        body: "Whether you ship a full container or a few pallets, we find the right route and carrier, prepare the paperwork and keep you informed along the way.",
+        points: [
+          "Full and shared container loads by sea",
+          "Air freight for urgent cargo",
+          "Road transport within Europe",
+          "Export and import documents and customs clearance",
+        ],
+      },
+      "logistics-supply-chain": {
+        title: "Logistics & Supply Chain",
+        short: "Storage, distribution and planning from Zoetermeer.",
+        lead: "Storage, distribution and planning, so your goods are where they need to be.",
+        imageAlt: "Warehouse aisle with racked pallets",
+        body: "We help you plan the flow of goods between suppliers, warehouses and customers, and arrange storage and onward transport when you need it.",
+        points: [
+          "Warehousing and short-term storage",
+          "Distribution to your customers",
+          "Planning of regular shipments",
+          "Coordination between suppliers and carriers",
+        ],
+      },
+      "international-trade-sourcing": {
+        title: "International Trade & Global Sourcing",
+        short: "We find suppliers and follow the order until delivery.",
+        lead: "We find reliable suppliers and follow your order from first contact to delivery.",
+        imageAlt: "",
+        body: "Looking for a product or a supplier abroad? We search, compare and check suppliers, and handle the order, the shipment and the paperwork.",
+        points: [
+          "Searching and comparing suppliers",
+          "Order follow-up and quality checks",
+          "Shipping the goods to you",
+          "Trade documents and import requirements",
+        ],
+      },
+      "conference-economic-events": {
+        title: "Conference & Economic Events",
+        short: "Trade conferences and business delegations.",
+        lead: "Trade conferences and business delegations that connect companies across markets.",
+        imageAlt: "Empty conference hall facing a stage",
+        body: "We organise and support conferences, trade missions and business meetings that bring companies and partners from different markets together.",
+        points: [
+          "Trade conferences and business forums",
+          "Business delegations and trade missions",
+          "Meetings with potential partners",
+          "Planning and on-site coordination",
+        ],
+      },
+      "trade-investment-partnerships": {
+        title: "Trade Investment & International Partnerships",
+        short: "Introductions between investors and partners.",
+        lead: "Introductions between companies, investors and partners in different markets.",
+        imageAlt: "",
+        body: "We connect companies with investors and partners abroad and support the first steps of working together.",
+        points: [
+          "Finding partners in new markets",
+          "Introductions to investors",
+          "Support with first meetings and negotiations",
+          "Advice on entering a new market",
+        ],
+      },
+    },
+  },
+  quote: {
+    metaTitle: "Request a quote",
+    eyebrow: "Request a quote",
+    heading: "Tell us what you need to move",
+    lead: "Fill in the form and our team sends you a price by email. No account needed.",
+    steps: ["Service", "Route & cargo", "Contact", "Review"],
+    fields: {
+      service: "Service",
+      mode: "Transport mode",
+      from: "From",
+      fromPlaceholder: "City or port, country",
+      to: "To",
+      toPlaceholder: "City or port, country",
+      readyDate: "Ready date",
+      readyDateHelp: "When can the cargo be picked up? Optional.",
+      cargo: "Cargo",
+      cargoPlaceholder: "What are you shipping, how much, and how is it packed?",
+      cargoHelp: "Weight and dimensions help us price faster.",
+      weight: "Total weight and size",
+      weightPlaceholder: "e.g. 2 pallets, 800 kg, 1.2 × 0.8 × 1.5 m",
+      weightHelp: "Optional.",
+      name: "Your name",
+      company: "Company",
+      companyHelp: "Optional.",
+      email: "Email",
+      phone: "Phone or WhatsApp",
+      phoneHelp: "Optional. Include the country code.",
+      notes: "Anything else we should know?",
+      notesHelp: "Optional.",
+      consent: "I agree that Target Facility Service uses these details to answer my request.",
+      privacyLink: "Read our privacy policy",
+    },
+    modes: {
+      sea: "Sea freight",
+      air: "Air freight",
+      road: "Road transport",
+      unsure: "Not sure yet",
+    },
+    errors: {
+      required: "Fill in this field.",
+      email: "Enter a full email address, like name@company.com.",
+      consent: "Tick the box so we can use your details.",
+      server: "Something went wrong and your request was not sent. Try again, or email us directly.",
+      tooFast: "That was quick. Wait a moment and try again.",
+    },
+    back: "Back",
+    continue: "Continue",
+    send: "Send request",
+    sending: "Sending…",
+    review: {
+      heading: "Check your request",
+      edit: "Edit",
+      empty: "Not given",
+    },
+    success: {
+      heading: "Thank you, we have your request",
+      reference: "Your reference number",
+      text: "We'll send your price by email. Keep the reference number for any questions.",
+      another: "Send another request",
+    },
+    sidebar: {
+      heading: "What happens next",
+      steps: [
+        "Our team reads your request.",
+        "We check the route, cargo and options.",
+        "You receive a price by email.",
+      ],
+      otherServices:
+        "Interested in events or trade partnerships? Those start with a conversation.",
+    },
+  },
+  about: {
+    metaTitle: "About us",
+    eyebrow: "About us",
+    heading: "A trade and logistics partner in Zoetermeer",
+    lead: "Target Facility Service connects companies with markets abroad: we move goods, find suppliers and bring partners together.",
+    story: {
+      heading: "Who we are",
+      paragraphs: [
+        "Target Facility Service V.O.F is a logistics and trade company based in Zoetermeer, the Netherlands. We help companies ship goods, find suppliers and partners abroad, and grow in new markets.",
+        "We work in English, Dutch and Arabic, so you can talk to us in the language you are most comfortable with.",
+      ],
+    },
+    values: {
+      eyebrow: "How we work",
+      heading: "Plain answers, one contact",
+      items: [
+        {
+          title: "A real price",
+          text: "Every request is priced by our team. We don't show estimates that change later.",
+        },
+        {
+          title: "One contact",
+          text: "The person who sends your price stays your contact until the job is done.",
+        },
+        {
+          title: "Three languages",
+          text: "Talk to us in English, Dutch or Arabic, by email, phone or WhatsApp.",
+        },
+      ],
+    },
+    photoAlt: "Container port at blue hour with ships and cranes",
+  },
+  contact: {
+    metaTitle: "Contact",
+    eyebrow: "Contact",
+    heading: "Get in touch",
+    lead: "Questions, plans or a shipment to discuss? Send us a message or reach us directly.",
+    details: {
+      heading: "Contact details",
+      address: "Address",
+      email: "Email",
+      phone: "Phone",
+      whatsapp: "WhatsApp",
+      whatsappLabel: "Message us on WhatsApp",
+      map: "Open in Google Maps",
+    },
+    form: {
+      heading: "Send us a message",
+      name: "Your name",
+      email: "Email",
+      phone: "Phone",
+      phoneHelp: "Optional.",
+      subject: "Subject",
+      message: "Message",
+      consent: "I agree that Target Facility Service uses these details to answer my message.",
+      send: "Send message",
+      sending: "Sending…",
+      success: "Thank you. We have your message and will reply by email.",
+      another: "Send another message",
+    },
+    quoteHint: {
+      heading: "Need a price?",
+      text: "For a shipment, logistics or sourcing request, the quote form gets you a price fastest.",
+    },
+  },
+  privacy: {
+    metaTitle: "Privacy policy",
+    heading: "Privacy policy",
+    updated: "Last updated: October 2026",
+    sections: [
+      {
+        heading: "Who we are",
+        text: "This website is run by Target Facility Service V.O.F, Zoetermeer, the Netherlands. We are responsible for the personal data you send us through this website.",
+      },
+      {
+        heading: "What we collect",
+        text: "When you request a quote or send a message, we receive the details you fill in: your name, email address, and optionally your company, phone number and the details of your shipment or question.",
+      },
+      {
+        heading: "Why we use it",
+        text: "We use your details only to answer your request or message and, if you become a customer, to carry out the work you ask us to do. We do not sell your details or use them for advertising.",
+      },
+      {
+        heading: "How long we keep it",
+        text: "We keep requests that don't lead to an order for up to 12 months. Details needed for an order are kept as long as the law requires for business records.",
+      },
+      {
+        heading: "Who else sees it",
+        text: "Your request is delivered to us by email through an email service provider. We only share details with carriers or partners when this is needed to carry out your order.",
+      },
+      {
+        heading: "Cookies",
+        text: "This website does not use tracking or advertising cookies.",
+      },
+      {
+        heading: "Your rights",
+        text: "You can ask us to see, correct or delete your personal data at any time by emailing us. You can also file a complaint with the Dutch Data Protection Authority (Autoriteit Persoonsgegevens).",
+      },
+    ],
+  },
+  notFound: {
+    heading: "We can't find that page",
+    text: "The page may have moved. Try the home page or our services.",
+    home: "Go to the home page",
+  },
+  email: {
+    confirmSubject: "We have your quote request",
+    confirmGreeting: "Hello",
+    confirmBody:
+      "Thank you for your request. Our team will look at your route and cargo and send you a price by email.",
+    confirmReference: "Your reference number",
+    confirmSignoff: "Kind regards,",
+  },
+};
+
+export default en;
+export type Dictionary = typeof en;

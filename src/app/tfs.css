@@ -1,0 +1,210 @@
+/* Target Facility Service: component classes. All values come from tokens.css. Logical properties only, so RTL mirrors by setting dir="rtl". */
+.tfs,.tfs *{box-sizing:border-box}
+.tfs{font-family:var(--font-sans,Inter,system-ui,sans-serif);font-size:16px;line-height:1.6;color:var(--slate-600);margin:0}
+.tfs[dir=rtl],.tfs [dir=rtl]{font-family:var(--font-arabic,"Readex Pro",Tahoma,sans-serif);font-size:18px;line-height:1.8;letter-spacing:0}
+.tfs [dir=rtl] *{letter-spacing:0!important;text-transform:none!important;font-family:inherit!important}
+.tfs-mist{background:var(--mist-50)}.tfs-white{background:var(--white)}.tfs-inkbg{background:var(--ink-950)}
+.tfs-pad{padding:var(--space-6)}
+.tfs-row{display:flex;flex-wrap:wrap;gap:var(--space-4);align-items:center}
+.tfs-h2{font-family:var(--font-sans);font-weight:400;font-size:36px;line-height:1.15;letter-spacing:-.02em;color:var(--ink-950);margin:0}
+.tfs-h3{font-family:var(--font-sans);font-weight:500;font-size:24px;line-height:1.25;color:var(--ink-950);margin:0}
+.tfs-app-h2{font-family:var(--font-sans);font-weight:500;font-size:18px;line-height:1.4;color:var(--ink-950);margin:0}
+.tfs-eyebrow{font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-700);margin:0}
+.tfs-small{font-size:14px;line-height:1.5}
+.tfs a{color:var(--ink-700)}
+
+/* Button */
+.tfs-btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--space-2);min-height:44px;padding-block:var(--space-3);padding-inline:var(--space-6);border-radius:var(--radius-md);border:2px solid transparent;font:500 15px/1 var(--font-sans,Inter,sans-serif);cursor:pointer;text-decoration:none;white-space:nowrap}
+.tfs-btn--primary{background:var(--ink-950);color:var(--white)}
+.tfs-btn--primary:hover{background:var(--ink-800)}
+.tfs-btn--secondary{background:transparent;border-color:var(--ink-700);color:var(--ink-700)}
+.tfs-btn--secondary:hover{background:var(--ink-700);color:var(--white)}
+.tfs-btn--sm{min-height:36px;padding-block:var(--space-2);padding-inline:var(--space-4);font-size:14px}
+.tfs-btn:focus-visible,.tfs-input:focus-visible,.tfs-select:focus-visible{outline:2px solid var(--ink-700);outline-offset:2px}
+.tfs-inkbg .tfs-btn:focus-visible,.tfs-inkbg .tfs-input:focus-visible{outline-color:var(--accent-400)}
+.tfs-inkbg .tfs-btn--secondary{border-color:var(--white);color:var(--white)}
+.tfs-btn[disabled]{opacity:.5;cursor:not-allowed}
+
+/* Field */
+.tfs-field{display:flex;flex-direction:column;gap:var(--space-2);min-width:0}
+.tfs-label{font-size:14px;font-weight:500;color:var(--ink-950)}
+.tfs-input,.tfs-select{width:100%;min-height:44px;padding-block:var(--space-3);padding-inline:var(--space-4);border:1px solid var(--slate-400);border-radius:var(--radius-md);background:var(--white);color:var(--ink-950);font:400 16px/1.25 inherit;font-family:inherit}
+.tfs-input::placeholder{color:var(--slate-400)}
+.tfs-select{appearance:none;padding-inline-end:var(--space-12);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%2302090d' stroke-width='2'%3E%3Cpath d='m4 6 4 4 4-4'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center}
+[dir=rtl] .tfs-select,.tfs-select[dir=rtl]{background-position:left 16px center}
+.tfs-help{font-size:14px;color:var(--slate-600)}
+.tfs-field--error .tfs-input,.tfs-field--error .tfs-select{border-color:var(--status-red-fg);border-width:2px}
+.tfs-field--error .tfs-help{color:var(--status-red-fg)}
+
+/* Status badge */
+.tfs-badge{display:inline-flex;align-items:center;gap:6px;padding-block:var(--space-1);padding-inline:var(--space-3);border-radius:var(--radius-full);font-size:14px;font-weight:500;line-height:1.4;white-space:nowrap}
+.tfs-badge::before{content:"";inline-size:8px;block-size:8px;border-radius:var(--radius-full);background:currentColor}
+.tfs-badge--gray{background:var(--status-gray-bg);color:var(--status-gray-fg)}
+.tfs-badge--blue{background:var(--status-blue-bg);color:var(--status-blue-fg)}
+.tfs-badge--amber{background:var(--status-amber-bg);color:var(--status-amber-fg)}
+.tfs-badge--green{background:var(--status-green-bg);color:var(--status-green-fg)}
+.tfs-badge--red{background:var(--status-red-bg);color:var(--status-red-fg)}
+
+/* Card base */
+.tfs-card{background:var(--white);border-radius:var(--radius-lg);box-shadow:var(--shadow-card);padding:var(--space-6)}
+.tfs-card--flat{box-shadow:none;border:1px solid var(--line)}
+
+/* Service card */
+.tfs-services{display:grid;grid-template-columns:repeat(6,1fr);gap:var(--space-6)}
+.tfs-services>*{grid-column:span 2}
+.tfs-services>*:nth-child(4){grid-column:2/span 2}
+.tfs-service{display:flex;flex-direction:column;gap:var(--space-3);border-block-start:4px solid var(--accent-400)}
+.tfs-service p{margin:0}
+.tfs-service a{margin-block-start:auto;font-weight:500;text-decoration:none}
+.tfs-service a::after{content:" \2192"}
+[dir=rtl] .tfs-service a::after,.tfs-service[dir=rtl] a::after{content:" \2190"}
+
+/* Track box */
+.tfs-track{display:flex;flex-direction:column;gap:var(--space-4);max-inline-size:560px}
+.tfs-track__row{display:flex;gap:var(--space-3);flex-wrap:wrap}
+.tfs-track__row .tfs-input{flex:1 1 220px}
+
+/* Stats strip */
+.tfs-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-6);background:var(--ink-950);padding-block:var(--space-8);padding-inline:var(--space-8);border-radius:var(--radius-lg)}
+.tfs-stat__num{font:400 48px/1 var(--font-sans);color:var(--accent-400)}
+.tfs-stat__label{font-size:14px;color:var(--slate-200);margin-block-start:var(--space-2)}
+
+/* Testimonial */
+.tfs-quote{display:flex;flex-direction:column;gap:var(--space-4);max-inline-size:520px;margin:0}
+.tfs-quote blockquote{margin:0;font-size:18px;line-height:1.6;color:var(--ink-950)}
+.tfs-quote__rule{inline-size:48px;block-size:4px;background:var(--accent-400)}
+.tfs-quote figcaption b{display:block;color:var(--ink-950);font-weight:500}
+
+/* Language switcher */
+.tfs-lang{display:inline-flex;gap:var(--space-1);padding:var(--space-1);border:1px solid rgba(255,255,255,.3);border-radius:var(--radius-md)}
+.tfs-lang a{padding-block:6px;padding-inline:var(--space-3);border-radius:6px;font-size:14px;font-weight:500;color:var(--white);text-decoration:none;line-height:1.4}
+.tfs-lang a[aria-current=true]{background:var(--white);color:var(--ink-950)}
+.tfs-lang a[lang=ar]{font-family:var(--font-arabic)}
+
+/* Stepper (quote form) */
+.tfs-steps{display:flex;gap:var(--space-2);list-style:none;margin:0;padding:0}
+.tfs-steps li{flex:1;display:flex;flex-direction:column;gap:var(--space-2);font-size:14px;font-weight:500;color:var(--slate-600);border-block-start:4px solid var(--line);padding-block-start:var(--space-2)}
+.tfs-steps li[data-state=done]{border-color:var(--ink-950);color:var(--ink-950)}
+.tfs-steps li[aria-current=step]{border-color:var(--accent-400);color:var(--ink-950);font-weight:500}
+.tfs-form{display:flex;flex-direction:column;gap:var(--space-6)}
+.tfs-form__grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4)}
+.tfs-form__actions{display:flex;justify-content:space-between;gap:var(--space-4)}
+
+/* Quote card */
+.tfs-qcard{display:flex;flex-direction:column;gap:var(--space-4)}
+.tfs-qcard__head{display:flex;justify-content:space-between;align-items:center;gap:var(--space-4)}
+.tfs-ref{font-weight:500;color:var(--ink-950);font-variant-numeric:tabular-nums}
+.tfs-route{display:flex;align-items:center;gap:var(--space-2);color:var(--ink-950);font-weight:500}
+.tfs-meta{display:flex;flex-wrap:wrap;gap:var(--space-6);font-size:14px;margin:0}
+.tfs-meta dt{color:var(--slate-600)}.tfs-meta dd{margin:0;color:var(--ink-950);font-weight:500}
+.tfs-price{font:500 24px/1.2 var(--font-sans);color:var(--ink-950)}
+
+/* Shipment timeline */
+.tfs-timeline{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.tfs-timeline li{position:relative;padding-inline-start:var(--space-8);padding-block-end:var(--space-6)}
+.tfs-timeline li::before{content:"";position:absolute;inset-inline-start:0;inset-block-start:4px;inline-size:16px;block-size:16px;border-radius:var(--radius-full);background:var(--white);border:2px solid var(--slate-400)}
+.tfs-timeline li::after{content:"";position:absolute;inset-inline-start:7px;inset-block:24px 0;inline-size:2px;background:var(--line)}
+.tfs-timeline li:last-child{padding-block-end:0}.tfs-timeline li:last-child::after{display:none}
+.tfs-timeline li[data-state=done]::before{background:var(--status-green-fg);border-color:var(--status-green-fg)}
+.tfs-timeline li[data-state=done]::after{background:var(--status-green-fg)}
+.tfs-timeline li[data-state=current]::before{background:var(--white);border:5px solid var(--status-blue-fg)}
+.tfs-timeline b{display:block;color:var(--ink-950);font-weight:500}
+.tfs-timeline li[data-state=todo] b{color:var(--slate-600);font-weight:500}
+.tfs-timeline span{font-size:14px}
+
+/* Admin */
+.tfs-admin .tfs-card{box-shadow:none;border:1px solid var(--line)}
+.tfs-filters{display:flex;gap:var(--space-3);flex-wrap:wrap;align-items:end;margin-block-end:var(--space-4)}
+.tfs-filters .tfs-field{flex:0 1 200px}
+.tfs-table{width:100%;border-collapse:collapse;font-size:14px;background:var(--white);border:1px solid var(--line);border-radius:var(--radius-lg);overflow:hidden}
+.tfs-table th{text-align:start;font-weight:500;color:var(--slate-600);background:var(--mist-50);padding:var(--space-3) var(--space-4);border-block-end:1px solid var(--line)}
+.tfs-table td{padding:var(--space-3) var(--space-4);border-block-end:1px solid var(--line);color:var(--ink-950)}
+.tfs-table tr:last-child td{border-block-end:0}
+.tfs-table tbody tr:hover td{background:var(--mist-50)}
+.tfs-panel{display:flex;flex-direction:column;gap:var(--space-4);max-inline-size:440px}
+.tfs-total{display:flex;justify-content:space-between;align-items:baseline;border-block-start:1px solid var(--line);padding-block-start:var(--space-4)}
+.tfs-lines{display:grid;grid-template-columns:1fr 120px;gap:var(--space-3);align-items:center}
+
+/* ---- Dark public site ---- */
+.tfs-dark{background:var(--ink-950);color:var(--slate-200)}
+.tfs-dark .tfs-h2,.tfs-dark .tfs-h3,.tfs-dark .tfs-label,.tfs-dark .tfs-ref{color:var(--white)}
+.tfs-dark .tfs-help{color:var(--slate-200)}
+.tfs-dark a{color:var(--white)}
+.tfs-dark .tfs-eyebrow{color:var(--accent-400)}
+.tfs-dark .tfs-card{background:var(--ink-900);border:1px solid var(--line-dark);box-shadow:none;border-radius:var(--radius-xl);padding:var(--space-8)}
+.tfs-dark .tfs-btn--secondary{border-color:var(--white);color:var(--white)}
+.tfs-dark .tfs-btn--secondary:hover{background:var(--white);color:var(--ink-950)}
+.tfs-dark .tfs-btn:focus-visible,.tfs-dark .tfs-input:focus-visible,.tfs-dark .tfs-select:focus-visible{outline-color:var(--accent-400)}
+.tfs-dark .tfs-input,.tfs-dark .tfs-select{border-color:var(--white)}
+.tfs-dark .tfs-service{border-block-start:1px solid var(--line-dark)}
+.tfs-dark .tfs-service a{color:var(--accent-400)}
+.tfs-dark .tfs-quote blockquote,.tfs-dark .tfs-quote figcaption b{color:var(--white)}
+.tfs-dark .tfs-stats{background:var(--ink-900);border:1px solid var(--line-dark);border-radius:var(--radius-xl)}
+/* light inset: a portal-style card shown on the dark site (forms, tracking result, UI mock-ups) */
+.tfs-dark .tfs-card.tfs-card--light{background:var(--white);border:0;border-radius:var(--radius-lg);padding:var(--space-6);color:var(--slate-600)}
+.tfs-dark .tfs-card--light .tfs-h3,.tfs-dark .tfs-card--light .tfs-label,.tfs-dark .tfs-card--light .tfs-ref{color:var(--ink-950)}
+.tfs-dark .tfs-card--light .tfs-help{color:var(--slate-600)}
+.tfs-dark .tfs-card--light a{color:var(--ink-700)}
+.tfs-dark .tfs-card--light .tfs-input,.tfs-dark .tfs-card--light .tfs-select{border-color:var(--slate-400)}
+.tfs-dark .tfs-card--light .tfs-btn--secondary{border-color:var(--ink-700);color:var(--ink-700)}
+.tfs-icon-tile{display:inline-flex;align-items:center;justify-content:center;inline-size:48px;block-size:48px;border-radius:var(--radius-md);background:var(--mist-50)}
+
+/* Section header */
+.tfs-sechead{display:flex;flex-direction:column;gap:var(--space-3);max-inline-size:720px}
+.tfs-sechead p{margin:0;font-size:18px}
+.tfs-lead{font-size:18px;font-weight:400;line-height:1.6;margin:0}
+
+/* Hero */
+.tfs-hero{position:relative;display:flex;flex-direction:column;gap:var(--space-6);padding:var(--space-16) var(--space-8);min-block-size:480px;justify-content:center;background-color:var(--ink-950);background-size:85% auto;background-repeat:no-repeat;background-position:right center;border-radius:var(--radius-xl);overflow:hidden}
+[dir=rtl] .tfs-hero,.tfs-hero[dir=rtl]{background-position:left center}
+.tfs-hero>*{max-inline-size:480px}
+.tfs-display{font:400 64px/1.05 var(--font-sans);letter-spacing:-.03em;color:var(--white);margin:0}
+.tfs-h1{font:400 48px/1.1 var(--font-sans);letter-spacing:-.03em;color:var(--white);margin:0}
+
+/* Bento grid */
+.tfs-bento{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--space-6)}
+.tfs-bento>*{grid-column:span 4;display:flex;flex-direction:column;gap:var(--space-4);min-width:0}
+.tfs-bento>.tfs-span-7{grid-column:span 7}.tfs-bento>.tfs-span-5{grid-column:span 5}.tfs-bento>.tfs-span-6{grid-column:span 6}.tfs-bento>.tfs-span-12{grid-column:span 12}
+.tfs-bento p{margin:0}
+.tfs-bento .tfs-card--light{margin-block-start:auto}
+
+/* CTA band */
+.tfs-cta{display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--space-6);padding-block:var(--space-16)!important}
+.tfs-cta .tfs-h2{font-size:48px}
+
+/* Photo card and section backgrounds */
+.tfs-photo{position:relative;display:flex;flex-direction:column;justify-content:flex-end;gap:var(--space-2);min-block-size:320px;padding:var(--space-8);border-radius:var(--radius-xl);overflow:hidden;background:var(--ink-900) center/cover no-repeat;border:1px solid var(--line-dark);color:var(--slate-200)}
+.tfs-photo::before{content:"";position:absolute;inset:0;background:var(--ink-950);opacity:var(--tfs-overlay,.55)}
+.tfs-photo>*{position:relative;margin:0}
+.tfs-photo .tfs-h3{color:var(--white)}
+.tfs-photo--empty::before{opacity:0}
+.tfs-photo--empty{border-style:dashed;justify-content:center;align-items:center;text-align:center}
+.tfs-bg{background-size:cover;background-position:center;border-radius:var(--radius-xl);padding:var(--space-16) var(--space-8)}
+.tfs-hero--photo{background-size:cover}
+.tfs-hero--photo::before{content:"";position:absolute;inset:0;background:var(--ink-950);opacity:var(--tfs-overlay,.6);max-inline-size:none}
+.tfs-hero--photo>*{position:relative}
+.tfs-photo--graphic::before{opacity:0}
+
+/* White primary button on the dark site; dark primary on light grounds */
+.tfs-dark .tfs-btn--primary,.tfs-inkbg .tfs-btn--primary{background:var(--white);color:var(--ink-950)}
+.tfs-dark .tfs-btn--primary:hover,.tfs-inkbg .tfs-btn--primary:hover{background:var(--mist-100)}
+.tfs-dark .tfs-card--light .tfs-btn--primary{background:var(--ink-950);color:var(--white)}
+.tfs-dark .tfs-card--light .tfs-btn--primary:hover{background:var(--ink-800)}
+.tfs-dark .tfs-card--light .tfs-steps li[aria-current=step]{border-color:var(--ink-700)}
+.tfs-steps li[aria-current=step]{border-color:var(--ink-700)}
+.tfs-quote__rule{background:var(--ink-700)}
+.tfs-dark .tfs-quote__rule{background:var(--accent-400)}
+.tfs a.tfs-btn--primary{color:var(--white)}
+.tfs-dark a.tfs-btn--primary,.tfs-inkbg a.tfs-btn--primary{color:var(--ink-950)}
+.tfs-dark .tfs-card--light a.tfs-btn--primary{color:var(--white)}
+.tfs a.tfs-btn--secondary:hover{color:var(--white)}
+.tfs-dark a.tfs-btn--secondary:hover{color:var(--ink-950)}
+
+/* Photos inside cards */
+.tfs-dark .tfs-service{overflow:hidden}
+.tfs-service__media{display:block;aspect-ratio:16/9;margin:calc(-1*var(--space-6)) calc(-1*var(--space-6)) var(--space-2);background:var(--ink-800) center/cover no-repeat}
+.tfs-dark .tfs-service__media{margin:calc(-1*var(--space-8)) calc(-1*var(--space-8)) var(--space-2)}
+.tfs-cta--photo{position:relative;overflow:hidden;background-size:cover!important;background-position:center!important}
+.tfs-cta--photo::before{content:"";position:absolute;inset:0;background:var(--ink-950);opacity:var(--tfs-overlay,.7)}
+.tfs-cta--photo>*{position:relative}
+.tfs-bento .tfs-photo{min-block-size:280px}
