@@ -358,31 +358,27 @@ revoke update on public.notifications from authenticated, anon;
 grant update (read_at) on public.notifications to authenticated;
 
 -- Company-wide visibility for quotes and shipments (colleagues share them).
-drop policy "quotes: read own or staff" on public.quotes;
-create policy "quotes: company, own or staff" on public.quotes
-  for select to authenticated using (
+alter policy "quotes: read own or staff" on public.quotes rename to "quotes: company, own or staff";
+alter policy "quotes: company, own or staff" on public.quotes using (
     customer_id = (select auth.uid())
     or (company_id is not null and company_id = (select public.my_company_id()))
     or (select public.is_staff())
   );
 
-drop policy "shipments: read own or staff" on public.shipments;
-create policy "shipments: company, own or staff" on public.shipments
-  for select to authenticated using (
+alter policy "shipments: read own or staff" on public.shipments rename to "shipments: company, own or staff";
+alter policy "shipments: company, own or staff" on public.shipments using (
     customer_id = (select auth.uid())
     or (company_id is not null and company_id = (select public.my_company_id()))
     or (select public.is_staff())
   );
 
 -- Events and documents follow their shipment's visibility.
-drop policy "events: read with shipment" on public.shipment_events;
-create policy "events: read with shipment" on public.shipment_events
-  for select to authenticated using (exists (select 1 from public.shipments s where s.id = shipment_id));
-drop policy "documents: read with shipment" on public.documents;
-create policy "documents: read with shipment" on public.documents
-  for select to authenticated using (exists (select 1 from public.shipments s where s.id = shipment_id));
+alter policy "events: read with shipment" on public.shipment_events
+  using (exists (select 1 from public.shipments s where s.id = shipment_id));
+alter policy "documents: read with shipment" on public.documents
+  using (exists (select 1 from public.shipments s where s.id = shipment_id));
 
-drop policy "documents bucket: customer read own" on storage.objects;
+-- Added next to the 0001 "customer read own" policy (storage policies can't be altered from a migration).
 create policy "documents bucket: customer read" on storage.objects
   for select to authenticated using (
     bucket_id = 'documents'
