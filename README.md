@@ -69,8 +69,8 @@ See `.env.example`.
 | `INBOX_EMAIL` | yes, in production | Where quote requests and messages arrive |
 | `EMAIL_FROM` | after a domain is verified | e.g. `Target Facility Service <noreply@domain.nl>` |
 | `SEND_CONFIRMATIONS` | after a domain is verified | `true` emails the customer a confirmation with their reference |
-| `NEXT_PUBLIC_SUPABASE_URL` | for login and the portal | Supabase project URL |
-| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | for login and the portal | Supabase publishable key (safe in the browser; row level security protects data) |
+| `NEXT_PUBLIC_SUPABASE_URL` | optional | Supabase project URL; defaults to the production project in `src/lib/supabase/config.ts` |
+| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | optional | Supabase publishable key (safe in the browser; row level security protects data); defaults as above |
 | `NEXT_PUBLIC_SITE_URL` | optional | Full site URL; defaults to Vercel's production domain |
 
 **No domain yet:** Resend's test sender can only deliver to the email address of the Resend account itself.
