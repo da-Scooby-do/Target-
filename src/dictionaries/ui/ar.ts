@@ -10,7 +10,8 @@ const ui: UiDictionary = {
     track: "تتبع",
     login: "تسجيل الدخول",
     getStarted: "ابدأ الآن",
-    openApp: "افتح التطبيق",
+    dashboard: "لوحة التحكم",
+    profile: "الملف الشخصي",
     marketplace: "السوق",
   },
   tabs: {

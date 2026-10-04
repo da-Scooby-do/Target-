@@ -10,7 +10,8 @@ const ui: UiDictionary = {
     track: "Volgen",
     login: "Inloggen",
     getStarted: "Aan de slag",
-    openApp: "App openen",
+    dashboard: "Dashboard",
+    profile: "Profiel",
     marketplace: "Marktplaats",
   },
   tabs: {

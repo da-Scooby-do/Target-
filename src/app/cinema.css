@@ -150,7 +150,7 @@ html[data-scrolled="1"] .tfs .cine .site-header {
   backdrop-filter: blur(16px);
   border-block-end: 1px solid rgba(255, 255, 255, 0.1);
 }
-.tfs .cine .mobile-menu a {
+.tfs .cine .mobile-menu a:not(.tfs-btn) {
   color: var(--white);
 }
 @media (max-width: 1023px) {
@@ -1602,4 +1602,56 @@ html[data-scrolled="1"] .tfs .cine .site-header {
   .tfs .cine .site-header__actions .header-link span {
     display: none;
   }
+}
+
+/* ---------------------------------------------------------------- header profile circle */
+
+.avatar-circle {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  overflow: hidden;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-400), var(--ink-700));
+  color: var(--white);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.85), 0 4px 14px rgba(0, 0, 0, 0.35);
+}
+.avatar-circle img {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+}
+.header-avatar,
+.tfs .cine .header-avatar {
+  display: inline-flex;
+  border-radius: 50%;
+  text-decoration: none;
+  transition: transform 0.2s ease;
+}
+.header-avatar:hover {
+  transform: scale(1.06);
+}
+.header-avatar:focus-visible {
+  outline: 2px solid var(--accent-400);
+  outline-offset: 3px;
+}
+.drawer-profile {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.06);
+  color: inherit;
+  text-decoration: none;
+}
+.drawer-profile span:last-child {
+  display: flex;
+  flex-direction: column;
+}
+.drawer-profile small {
+  opacity: 0.7;
 }

@@ -7,7 +7,7 @@ import { Icon } from "./Icon";
 import { LanguageMenu } from "./LanguageMenu";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { CartButton } from "./market/CartButton";
-import { useSignedIn } from "./useSignedIn";
+import { initialsOf, useAccount, type Account } from "./useAccount";
 import { href, type Locale } from "@/lib/i18n";
 import { site } from "@/lib/site";
 
@@ -24,17 +24,34 @@ type Labels = {
   track: string;
   login: string;
   getStarted: string;
-  openApp: string;
+  dashboard: string;
+  profile: string;
   marketplace: string;
   events: string;
   cart: string;
   cartCount: string;
 };
 
+/** Round profile picture: the Google photo when there is one, otherwise initials. */
+function Avatar({ account, size = 36 }: { account: Account; size?: number }) {
+  return (
+    <span className="avatar-circle" style={{ inlineSize: size, blockSize: size }} aria-hidden="true">
+      {account.avatar ? (
+        // eslint-disable-next-line @next/next/no-img-element -- external profile photo
+        <img src={account.avatar} alt="" referrerPolicy="no-referrer" />
+      ) : (
+        initialsOf(account.name) || <Icon name="user" size={18} />
+      )}
+    </span>
+  );
+}
+
 /** Public website header: one white row, account actions on the right. */
 export function SiteHeader({ locale, labels }: { locale: Locale; labels: Labels }) {
   const pathname = usePathname();
-  const signedIn = useSignedIn();
+  const account = useAccount();
+  const profileHref = href(locale, "/app/me");
+  const dashboardHref = href("en", "/app/admin");
   // The drawer remembers the page it was opened on, so navigating closes it.
   const [drawerOn, setDrawerOn] = useState<string | null>(null);
   const drawer = drawerOn !== null && drawerOn === pathname;
@@ -83,11 +100,22 @@ export function SiteHeader({ locale, labels }: { locale: Locale; labels: Labels 
           </Link>
           <LanguageMenu locale={locale} label={labels.language} />
           <CartButton href={href(locale, "/app/cart")} label={labels.cart} countLabel={labels.cartCount} />
-          {signedIn ? (
-            <Link className="tfs-btn tfs-btn--primary tfs-btn--sm" href={href(locale, "/app")}>
-              {labels.openApp}
-            </Link>
-          ) : (
+          {account ? (
+            <>
+              {account.isStaff ? (
+                <Link className="tfs-btn tfs-btn--primary tfs-btn--sm" href={dashboardHref}>
+                  <Icon name="grid" size={16} />
+                  {labels.dashboard}
+                </Link>
+              ) : null}
+              <Link href={profileHref} className="header-avatar" title={account.name}>
+                <Avatar account={account} />
+                <span className="visually-hidden">
+                  {labels.profile}: {account.name}
+                </span>
+              </Link>
+            </>
+          ) : account === null ? null : (
             <>
               <Link href={href(locale, "/login")} className="header-link header-link--text">
                 {labels.login}
@@ -129,11 +157,23 @@ export function SiteHeader({ locale, labels }: { locale: Locale; labels: Labels 
             </ul>
           </nav>
           <div className="drawer-actions">
-            {signedIn ? (
-              <Link className="tfs-btn tfs-btn--primary" href={href(locale, "/app")}>
-                {labels.openApp}
-              </Link>
-            ) : (
+            {account ? (
+              <>
+                <Link href={profileHref} className="drawer-profile">
+                  <Avatar account={account} size={44} />
+                  <span>
+                    <b>{account.name}</b>
+                    <small>{labels.profile}</small>
+                  </span>
+                </Link>
+                {account.isStaff ? (
+                  <Link className="tfs-btn tfs-btn--primary" href={dashboardHref}>
+                    <Icon name="grid" size={18} />
+                    {labels.dashboard}
+                  </Link>
+                ) : null}
+              </>
+            ) : account === null ? null : (
               <>
                 <Link className="tfs-btn tfs-btn--primary" href={href(locale, "/signup")}>
                   {labels.getStarted}

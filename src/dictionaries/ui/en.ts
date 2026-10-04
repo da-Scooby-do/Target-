@@ -12,7 +12,8 @@ const ui = {
     track: "Track",
     login: "Log in",
     getStarted: "Get started",
-    openApp: "Open app",
+    dashboard: "Dashboard",
+    profile: "Profile",
     marketplace: "Marketplace",
   },
   tabs: {
