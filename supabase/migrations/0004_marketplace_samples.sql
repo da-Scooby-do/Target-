@@ -1,4 +1,4 @@
--- Example catalogue sold by TFS so the marketplace isn't empty on day one.
+-- Example catalogue sold by TFS so the marketplace isn't empty on day one (prices are examples).
 -- Prices and details are placeholders: staff edit or hide them in Admin → Products.
 
 insert into public.products (category, name, description, unit, price, min_qty, origin_country, lead_time_days, specs, status) values
@@ -50,3 +50,21 @@ insert into public.products (category, name, description, unit, price, min_qty, 
    'Rock wool slabs for walls and roofs, non-combustible (Euroclass A1).',
    'm2', 7.40, 100, 'Netherlands', 7,
    '[{"label":"Thickness","value":"100 mm"},{"label":"Lambda","value":"0.035 W/mK"},{"label":"Fire class","value":"A1"}]', 'active');
+
+-- Product images for the examples ship with the website in /public/products.
+update public.products p set images = array[v.img]
+from (values
+  ('Pine planks, kiln dried (C24)', '/products/pine-planks.jpg'),
+  ('Oak boards, rustic grade', '/products/oak-boards.jpg'),
+  ('Birch plywood, 18 mm', '/products/birch-plywood.jpg'),
+  ('MDF boards, moisture resistant', '/products/mdf-boards.jpg'),
+  ('Interior door, white primed, flush', '/products/white-door.jpg'),
+  ('Solid oak interior door', '/products/oak-door.jpg'),
+  ('Steel security front door', '/products/steel-door.jpg'),
+  ('Porcelain floor tile 60×60, matt grey', '/products/porcelain-tile.jpg'),
+  ('Glazed wall tile 30×60, gloss white', '/products/wall-tile.jpg'),
+  ('Marble-look porcelain slab 120×60', '/products/marble-slab.jpg'),
+  ('Cement CEM II 42.5, 25 kg', '/products/cement-pallet.jpg'),
+  ('Rock wool insulation slabs', '/products/rock-wool.jpg')
+) as v(name, img)
+where p.name = v.name and p.supplier_id is null and cardinality(p.images) = 0;

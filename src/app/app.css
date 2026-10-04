@@ -2468,10 +2468,23 @@
 .tfs a.market-cat:hover {
   box-shadow: var(--shadow-card);
 }
-.market-cat .product-media {
-  inline-size: 56px;
-  block-size: 56px;
-  border-radius: var(--radius-md);
+.tfs a.market-cat {
+  padding: 0 0 var(--space-4);
+  overflow: hidden;
+  text-align: center;
+}
+.market-cat__img {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 3;
+  background: var(--mist-50);
+}
+.market-cat__img img {
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+.tfs a.market-cat:hover .market-cat__img img {
+  transform: scale(1.04);
 }
 
 .tfs .back-link {

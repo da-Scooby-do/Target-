@@ -162,7 +162,7 @@ const productSchema = z.object({
   specs: z
     .array(z.object({ label: z.string().trim().min(1).max(80), value: z.string().trim().min(1).max(200) }))
     .max(20),
-  images: z.array(z.string().max(300).regex(/^[a-z0-9-]+\/[a-z0-9-]+\.(jpg|png|webp)$/)).max(8),
+  images: z.array(z.string().max(300).regex(/^(\/products\/[a-z0-9-]+\.jpg|[a-z0-9-]+\/[a-z0-9-]+\.(jpg|png|webp))$/)).max(8),
   /** Staff choose the status; suppliers can only hide a product or submit it for review. */
   status: z.enum(["pending", "active", "hidden", "rejected"]),
   /** Staff only: the supplier a product belongs to; null for products TFS sells itself. */
@@ -191,7 +191,7 @@ export async function saveProduct(input: ProductInput): Promise<MarketResult> {
     ownSupplier = (data as string | null) ?? null;
     if (!ownSupplier) return { ok: false, error: "auth" };
     // Images must live in the supplier's own folder.
-    if (row.images.some((path) => !path.startsWith(`${ownSupplier}/`))) return { ok: false, error: "invalid" };
+    if (row.images.some((path) => !path.startsWith(`${ownSupplier}/`) && !path.startsWith("/products/"))) return { ok: false, error: "invalid" };
   }
 
   const result = id

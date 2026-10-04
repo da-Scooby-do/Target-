@@ -58,8 +58,9 @@ export const productColumns =
 
 export const categoryName = (c: Category, locale: Locale) => (locale === "nl" ? c.name_nl : locale === "ar" ? c.name_ar : c.name_en);
 
-/** Public URL of a product photo in the "products" bucket. */
-export const imageUrl = (path: string) => `${supabaseUrl}/storage/v1/object/public/products/${path}`;
+/** Public URL of a product photo: uploads live in the "products" bucket; built-in images ship with the site ("/products/..."). */
+export const imageUrl = (path: string) =>
+  path.startsWith("/") ? path : `${supabaseUrl}/storage/v1/object/public/products/${path}`;
 
 /** Icon shown when a product has no photo yet. */
 export const categoryIcon: Record<string, string> = {

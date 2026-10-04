@@ -5,7 +5,6 @@ import { Icon } from "@/components/Icon";
 import { TrackBox } from "@/components/TrackBox";
 import { getDictionary } from "@/dictionaries";
 import { hasLocale, href } from "@/lib/i18n";
-import { categoryIcon } from "@/lib/market";
 import { pageMetadata } from "@/lib/metadata";
 import { serviceMeta, serviceSlugs } from "@/lib/services";
 import { site } from "@/lib/site";
@@ -24,10 +23,10 @@ const featureIcons = ["file-text", "truck", "users"];
 
 /** The four marketplace categories, as in the database. */
 const marketCats = [
-  { slug: "wood", name_en: "Wood & timber", name_nl: "Hout", name_ar: "الأخشاب" },
-  { slug: "doors", name_en: "Doors", name_nl: "Deuren", name_ar: "الأبواب" },
-  { slug: "ceramics", name_en: "Ceramics & tiles", name_nl: "Keramiek & tegels", name_ar: "السيراميك والبلاط" },
-  { slug: "building", name_en: "Building materials", name_nl: "Bouwmaterialen", name_ar: "مواد البناء" },
+  { slug: "wood", img: "/products/pine-planks.jpg", name_en: "Wood & timber", name_nl: "Hout", name_ar: "الأخشاب" },
+  { slug: "doors", img: "/products/oak-door.jpg", name_en: "Doors", name_nl: "Deuren", name_ar: "الأبواب" },
+  { slug: "ceramics", img: "/products/marble-slab.jpg", name_en: "Ceramics & tiles", name_nl: "Keramiek & tegels", name_ar: "السيراميك والبلاط" },
+  { slug: "building", img: "/products/cement-pallet.jpg", name_en: "Building materials", name_nl: "Bouwmaterialen", name_ar: "مواد البناء" },
 ];
 
 export default async function HomePage({ params }: PageProps<"/[lang]">) {
@@ -146,8 +145,8 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
             {marketCats.map((c) => (
               <li key={c.slug}>
                 <Link href={href(lang, `/marketplace?category=${c.slug}`)} className="market-cat">
-                  <span className="product-media" data-category={c.slug}>
-                    <Icon name={categoryIcon[c.slug]} size={28} />
+                  <span className="market-cat__img">
+                    <Image src={c.img} alt="" fill sizes="(min-width: 900px) 300px, 50vw" />
                   </span>
                   {c[lang === "nl" ? "name_nl" : lang === "ar" ? "name_ar" : "name_en"]}
                 </Link>
