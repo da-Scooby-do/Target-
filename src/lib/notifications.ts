@@ -1,5 +1,6 @@
 import type { Dictionary } from "@/dictionaries/en";
 import type { UiDictionary } from "@/dictionaries/ui/en";
+import type { OrderStatus } from "./market";
 import type { QuoteStatus, ShipmentStatus } from "./types";
 
 export type NotificationRow = {
@@ -16,6 +17,7 @@ export function notificationText(
   n: NotificationRow,
   t: UiDictionary["app"]["notifications"],
   statuses: Dictionary["app"]["statuses"],
+  orderStatuses?: Record<OrderStatus, string>,
 ) {
   const template = t.kinds[n.kind] ?? n.kind;
   const status =
@@ -23,7 +25,9 @@ export function notificationText(
       ? statuses.shipment[n.data.status as ShipmentStatus]
       : n.kind === "staff_quote_answered"
         ? statuses.quote[n.data.status as QuoteStatus]
-        : undefined;
+        : n.kind === "order_update"
+          ? orderStatuses?.[n.data.status as OrderStatus]
+          : undefined;
   return template
     .replace("{ref}", n.data.ref ?? "")
     .replace("{name}", n.data.name ?? "")

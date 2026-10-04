@@ -5,6 +5,7 @@ import { Icon } from "@/components/Icon";
 import { TrackBox } from "@/components/TrackBox";
 import { getDictionary } from "@/dictionaries";
 import { hasLocale, href } from "@/lib/i18n";
+import { categoryIcon } from "@/lib/market";
 import { pageMetadata } from "@/lib/metadata";
 import { serviceMeta, serviceSlugs } from "@/lib/services";
 import { site } from "@/lib/site";
@@ -20,6 +21,14 @@ export async function generateMetadata({ params }: PageProps<"/[lang]">) {
 }
 
 const featureIcons = ["file-text", "truck", "users"];
+
+/** The four marketplace categories, as in the database. */
+const marketCats = [
+  { slug: "wood", name_en: "Wood & timber", name_nl: "Hout", name_ar: "الأخشاب" },
+  { slug: "doors", name_en: "Doors", name_nl: "Deuren", name_ar: "الأبواب" },
+  { slug: "ceramics", name_en: "Ceramics & tiles", name_nl: "Keramiek & tegels", name_ar: "السيراميك والبلاط" },
+  { slug: "building", name_en: "Building materials", name_nl: "Bouwmaterialen", name_ar: "مواد البناء" },
+];
 
 export default async function HomePage({ params }: PageProps<"/[lang]">) {
   const { lang } = await params;
@@ -113,6 +122,35 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
                 </span>
                 <h3 className="feature__title">{f.title}</h3>
                 <p>{f.text}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className="block" aria-labelledby="market-heading">
+        <div className="container market-band">
+          <div className="split__text">
+            <p className="tfs-eyebrow">{dict.market.landing.eyebrow}</p>
+            <h2 id="market-heading" className="block__title">
+              {dict.market.landing.heading}
+            </h2>
+            <p className="block__lead">{dict.market.landing.text}</p>
+            <div className="tfs-row">
+              <Link className="tfs-btn tfs-btn--primary" href={href(lang, "/marketplace")}>
+                {dict.market.landing.cta}
+              </Link>
+            </div>
+          </div>
+          <ul className="market-cats">
+            {marketCats.map((c) => (
+              <li key={c.slug}>
+                <Link href={href(lang, `/marketplace?category=${c.slug}`)} className="market-cat">
+                  <span className="product-media" data-category={c.slug}>
+                    <Icon name={categoryIcon[c.slug]} size={28} />
+                  </span>
+                  {c[lang === "nl" ? "name_nl" : lang === "ar" ? "name_ar" : "name_en"]}
+                </Link>
               </li>
             ))}
           </ul>

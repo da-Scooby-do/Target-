@@ -7,6 +7,7 @@ import { useDismiss } from "../useDismiss";
 import type { Dictionary } from "@/dictionaries/en";
 import type { UiDictionary } from "@/dictionaries/ui/en";
 import type { Locale } from "@/lib/i18n";
+import type { OrderStatus } from "@/lib/market";
 import { notificationText, timeAgo, type NotificationRow } from "@/lib/notifications";
 import { createClient } from "@/lib/supabase/client";
 
@@ -17,10 +18,12 @@ export function NotificationBell({
   locale,
   t,
   statuses,
+  orderStatuses,
 }: {
   locale: Locale;
   t: UiDictionary["app"]["notifications"];
   statuses: Dictionary["app"]["statuses"];
+  orderStatuses: Record<OrderStatus, string>;
 }) {
   const router = useRouter();
   const pathname = usePathname();
@@ -93,7 +96,7 @@ export function NotificationBell({
                 >
                   <span className="bell__dot" aria-hidden="true" />
                   <span className="bell__text">
-                    <span>{notificationText(n, t, statuses)}</span>
+                    <span>{notificationText(n, t, statuses, orderStatuses)}</span>
                     <small>{timeAgo(n.created_at, now, t)}</small>
                   </span>
                 </button>

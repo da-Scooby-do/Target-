@@ -21,6 +21,8 @@ export default async function SiteLayout({ children, params }: LayoutProps<"/[la
           language: dict.common.language,
           mainNav: dict.common.mainNav,
           ...dict.ui.site,
+          cart: dict.market.cart.open,
+          cartCount: dict.market.cart.count,
         }}
       />
       <main id="main" tabIndex={-1}>

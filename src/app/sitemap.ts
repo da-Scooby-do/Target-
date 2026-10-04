@@ -8,6 +8,7 @@ const paths = [
   "/services",
   ...serviceSlugs.map((s) => `/services/${s}`),
   "/quote",
+  "/marketplace",
   "/track",
   "/help",
   "/about",

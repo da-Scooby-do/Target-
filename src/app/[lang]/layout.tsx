@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 import { notFound } from "next/navigation";
+import { CartProvider } from "@/components/market/cart";
 import { getDictionary } from "@/dictionaries";
 import { dirFor, hasLocale, locales } from "@/lib/i18n";
 import { site } from "@/lib/site";
@@ -52,7 +53,7 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
         <a className="skip-link" href="#main">
           {dict.common.skipToContent}
         </a>
-        {children}
+        <CartProvider>{children}</CartProvider>
       </body>
     </html>
   );

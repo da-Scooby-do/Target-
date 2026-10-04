@@ -161,9 +161,9 @@ export default async function Dashboard({ params }: PageProps<"/[lang]/app">) {
                       <span className="activity__dot" data-unread={!n.read_at || undefined} aria-hidden="true" />
                       <div>
                         {n.link ? (
-                          <Link href={`/${lang}${n.link}`}>{notificationText(n, dict.ui.app.notifications, dict.app.statuses)}</Link>
+                          <Link href={`/${lang}${n.link}`}>{notificationText(n, dict.ui.app.notifications, dict.app.statuses, dict.market.orders.statuses)}</Link>
                         ) : (
-                          notificationText(n, dict.ui.app.notifications, dict.app.statuses)
+                          notificationText(n, dict.ui.app.notifications, dict.app.statuses, dict.market.orders.statuses)
                         )}
                         <small>{timeAgo(n.created_at, now, dict.ui.app.notifications)}</small>
                       </div>

@@ -7,9 +7,11 @@ import { Icon } from "../Icon";
 import { LanguageMenu } from "../LanguageMenu";
 import { useDismiss } from "../useDismiss";
 import { NotificationBell } from "./NotificationBell";
+import { CartButton } from "../market/CartButton";
 import type { Dictionary } from "@/dictionaries/en";
 import type { UiDictionary } from "@/dictionaries/ui/en";
 import { href, type Locale } from "@/lib/i18n";
+import type { OrderStatus } from "@/lib/market";
 import { site } from "@/lib/site";
 
 type User = { name: string; email: string; company: string | null; isStaff: boolean };
@@ -20,14 +22,18 @@ export function AppShell({
   locale,
   t,
   statuses,
+  orderStatuses,
   language,
+  cartLabels,
   user,
   children,
 }: {
   locale: Locale;
   t: UiDictionary["app"];
   statuses: Dictionary["app"]["statuses"];
+  orderStatuses: Record<OrderStatus, string>;
   language: string;
+  cartLabels: { open: string; count: string };
   user: User;
   children: ReactNode;
 }) {
@@ -49,14 +55,20 @@ export function AppShell({
     { href: a(""), label: t.nav.dashboard, icon: "grid", exact: true },
     { href: a("/quotes"), label: t.nav.quotes, icon: "file-text" },
     { href: a("/shipments"), label: t.nav.shipments, icon: "truck" },
+    { href: a("/shop"), label: t.nav.marketplace, icon: "store" },
+    { href: a("/orders"), label: t.nav.orders, icon: "cart" },
     { href: a("/addresses"), label: t.nav.addresses, icon: "map-pin" },
     { href: a("/team"), label: t.nav.team, icon: "users" },
     { href: a("/account"), label: t.nav.account, icon: "settings" },
+    { href: a("/supplier"), label: t.nav.sell, icon: "tag" },
   ];
   const admin: NavItem[] = [
     { href: a("/admin"), label: t.nav.adminOverview, icon: "shield", exact: true },
     { href: a("/admin/quotes"), label: t.nav.adminQuotes, icon: "file-text" },
     { href: a("/admin/shipments"), label: t.nav.adminShipments, icon: "truck" },
+    { href: a("/admin/orders"), label: t.nav.adminOrders, icon: "cart" },
+    { href: a("/admin/products"), label: t.nav.adminProducts, icon: "package" },
+    { href: a("/admin/suppliers"), label: t.nav.adminSuppliers, icon: "store" },
   ];
   const isActive = (item: NavItem) =>
     item.exact ? pathname === item.href : pathname === item.href || pathname.startsWith(`${item.href}/`);
@@ -135,7 +147,8 @@ export function AppShell({
           </Link>
           <div className="app-top__actions">
             <LanguageMenu locale={locale} label={language} />
-            <NotificationBell locale={locale} t={t.notifications} statuses={statuses} />
+            <CartButton href={a("/cart")} label={cartLabels.open} countLabel={cartLabels.count} />
+            <NotificationBell locale={locale} t={t.notifications} statuses={statuses} orderStatuses={orderStatuses} />
             <details className="account-menu" ref={accountRef}>
               <summary aria-label={t.nav.account}>
                 <span className="avatar" aria-hidden="true">

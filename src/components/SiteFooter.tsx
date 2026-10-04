@@ -51,6 +51,8 @@ export function SiteFooter({ locale, dict }: { locale: Locale; dict: Dictionary 
             <li><Link href={href(locale, "/login")}>{dict.ui.site.login}</Link></li>
             <li><Link href={href(locale, "/track")}>{dict.ui.site.track}</Link></li>
             <li><Link href={href(locale, "/quote")}>{dict.nav.quote}</Link></li>
+            <li><Link href={href(locale, "/marketplace")}>{dict.market.meta.title}</Link></li>
+            <li><Link href={href(locale, "/app/supplier")}>{dict.market.supplier.nav}</Link></li>
           </ul>
         </nav>
 

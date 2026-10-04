@@ -25,6 +25,8 @@ export async function proxy(request: NextRequest) {
     request.nextUrl.pathname = `/${preferredLocale(request)}${pathname === "/" ? "" : pathname}`;
     return NextResponse.redirect(request.nextUrl);
   }
+  // Layouts can't see the URL; pass it on so a login redirect can come back to this exact page.
+  request.headers.set("x-tfs-path", `${pathname}${request.nextUrl.search}`);
   // Keep the login session fresh for Server Components.
   return updateSession(request);
 }

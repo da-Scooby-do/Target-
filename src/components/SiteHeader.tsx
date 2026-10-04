@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { Icon } from "./Icon";
 import { LanguageMenu } from "./LanguageMenu";
 import { LanguageSwitcher } from "./LanguageSwitcher";
+import { CartButton } from "./market/CartButton";
 import { useSignedIn } from "./useSignedIn";
 import { href, type Locale } from "@/lib/i18n";
 import { site } from "@/lib/site";
@@ -24,6 +25,9 @@ type Labels = {
   login: string;
   getStarted: string;
   openApp: string;
+  marketplace: string;
+  cart: string;
+  cartCount: string;
 };
 
 /** Public website header: one white row, account actions on the right. */
@@ -43,6 +47,7 @@ export function SiteHeader({ locale, labels }: { locale: Locale; labels: Labels 
 
   const links = [
     { href: href(locale, "/services"), label: labels.services },
+    { href: href(locale, "/marketplace"), label: labels.marketplace },
     { href: href(locale, "/about"), label: labels.about },
     { href: href(locale, "/contact"), label: labels.contact },
     { href: href(locale, "/help"), label: labels.help },
@@ -75,6 +80,7 @@ export function SiteHeader({ locale, labels }: { locale: Locale; labels: Labels 
             <span>{labels.track}</span>
           </Link>
           <LanguageMenu locale={locale} label={labels.language} />
+          <CartButton href={href(locale, "/app/cart")} label={labels.cart} countLabel={labels.cartCount} />
           {signedIn ? (
             <Link className="tfs-btn tfs-btn--primary tfs-btn--sm" href={href(locale, "/app")}>
               {labels.openApp}
@@ -91,6 +97,9 @@ export function SiteHeader({ locale, labels }: { locale: Locale; labels: Labels 
           )}
         </div>
 
+        <span className="site-header__cart-mobile">
+          <CartButton href={href(locale, "/app/cart")} label={labels.cart} countLabel={labels.cartCount} />
+        </span>
         <button
           type="button"
           className="site-header__toggle"
