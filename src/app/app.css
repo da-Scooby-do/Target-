@@ -2516,3 +2516,72 @@
     font-size: 16px;
   }
 }
+
+/* Admin price editor */
+.price-editor {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+.bulk-form {
+  display: grid;
+  gap: var(--space-4);
+  align-items: end;
+}
+@media (min-width: 900px) {
+  .bulk-form {
+    grid-template-columns: 1fr 1fr 160px auto;
+  }
+}
+.price-editor__bar {
+  flex-wrap: wrap;
+}
+.price-editor__filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+.price-editor__filters .tfs-input {
+  inline-size: 240px;
+}
+.price-editor__filters .tfs-select {
+  inline-size: 200px;
+}
+.price-table td {
+  vertical-align: middle;
+}
+.price-table tr[data-changed] td {
+  background: #fffaf0;
+}
+.price-table__current {
+  white-space: nowrap;
+  font-weight: 500;
+}
+.price-table__current small {
+  color: var(--slate-600);
+  font-weight: 400;
+}
+.price-cell {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0;
+}
+.price-cell__input {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.price-cell__input .tfs-input {
+  inline-size: 120px;
+  min-block-size: 38px;
+  padding-block: 6px;
+}
+.price-cell__ok {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--status-green-fg);
+  font-size: 13px;
+  font-weight: 500;
+}

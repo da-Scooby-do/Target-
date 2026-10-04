@@ -143,6 +143,7 @@ const ui = {
       cart: "Cart",
       sell: "Sell on TFS",
       adminProducts: "Products",
+      adminPrices: "Prices",
       adminSuppliers: "Suppliers",
       adminOrders: "Orders",
     },

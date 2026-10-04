@@ -141,6 +141,7 @@ const ui: UiDictionary = {
       cart: "Winkelwagen",
       sell: "Verkopen via TFS",
       adminProducts: "Producten",
+      adminPrices: "Prijzen",
       adminSuppliers: "Leveranciers",
       adminOrders: "Bestellingen",
     },

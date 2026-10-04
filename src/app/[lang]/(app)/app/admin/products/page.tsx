@@ -27,9 +27,14 @@ export default async function AdminProducts({ searchParams }: PageProps<"/[lang]
     <div className="page">
       <div className="page-head">
         <h1 className="page-title">Products</h1>
-        <Link href="/en/app/admin/products/new" className="tfs-btn tfs-btn--primary">
-          Add product
-        </Link>
+        <div className="tfs-row">
+          <Link href="/en/app/admin/prices" className="tfs-btn tfs-btn--secondary">
+            Edit prices
+          </Link>
+          <Link href="/en/app/admin/products/new" className="tfs-btn tfs-btn--primary">
+            Add product
+          </Link>
+        </div>
       </div>
       {pending.length ? (
         <section className="panel">

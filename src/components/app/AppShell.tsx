@@ -68,6 +68,7 @@ export function AppShell({
     { href: a("/admin/shipments"), label: t.nav.adminShipments, icon: "truck" },
     { href: a("/admin/orders"), label: t.nav.adminOrders, icon: "cart" },
     { href: a("/admin/products"), label: t.nav.adminProducts, icon: "package" },
+    { href: a("/admin/prices"), label: t.nav.adminPrices, icon: "tag" },
     { href: a("/admin/suppliers"), label: t.nav.adminSuppliers, icon: "store" },
   ];
   const isActive = (item: NavItem) =>

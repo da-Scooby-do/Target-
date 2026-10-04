@@ -260,3 +260,60 @@ export async function updateOrder(input: z.input<typeof orderUpdateSchema>): Pro
   done();
   return { ok: true };
 }
+
+// ---------------------------------------------------------------- staff: prices
+
+const priceSchema = z.object({ id: z.uuid(), price: z.number().min(0).max(10_000_000) });
+
+/** Change one product's price. Applies to new orders; placed orders keep their price. */
+export async function updatePrice(input: z.input<typeof priceSchema>): Promise<MarketResult> {
+  const parsed = priceSchema.safeParse(input);
+  if (!parsed.success) return { ok: false, error: "invalid" };
+  const profile = await getProfile();
+  if (profile?.role !== "staff") return { ok: false, error: "auth" };
+  const supabase = await createClient();
+  const { error } = await supabase
+    .from("products")
+    .update({ price: Math.round(parsed.data.price * 100) / 100 })
+    .eq("id", parsed.data.id);
+  if (error) return { ok: false, error: "generic" };
+  done();
+  return { ok: true };
+}
+
+const bulkSchema = z.object({
+  category: z.enum(["all", "wood", "doors", "ceramics", "building"]),
+  supplier: z.string().max(40), // "all", "tfs" or a supplier id
+  percent: z.number().min(-90).max(500).refine((n) => n !== 0),
+});
+
+/** Raise or lower many prices at once by a percentage, rounded to cents. */
+export async function adjustPrices(input: z.input<typeof bulkSchema>): Promise<MarketResult & { count?: number }> {
+  const parsed = bulkSchema.safeParse(input);
+  if (!parsed.success) return { ok: false, error: "invalid" };
+  const profile = await getProfile();
+  if (profile?.role !== "staff") return { ok: false, error: "auth" };
+  const { category, supplier, percent } = parsed.data;
+  const supabase = await createClient();
+  let query = supabase.from("products").select("id, price").neq("status", "rejected").limit(1000);
+  if (category !== "all") query = query.eq("category", category);
+  if (supplier === "tfs") query = query.is("supplier_id", null);
+  else if (supplier !== "all") {
+    if (!z.uuid().safeParse(supplier).success) return { ok: false, error: "invalid" };
+    query = query.eq("supplier_id", supplier);
+  }
+  const { data, error } = await query;
+  if (error) return { ok: false, error: "generic" };
+  const factor = 1 + percent / 100;
+  const results = await Promise.all(
+    (data ?? []).map((p) =>
+      supabase
+        .from("products")
+        .update({ price: Math.max(0, Math.round(Number(p.price) * factor * 100) / 100) })
+        .eq("id", p.id),
+    ),
+  );
+  if (results.some((r) => r.error)) return { ok: false, error: "generic" };
+  done();
+  return { ok: true, count: data?.length ?? 0 };
+}
