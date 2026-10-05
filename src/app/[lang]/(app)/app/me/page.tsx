@@ -38,6 +38,7 @@ export default async function ProfileHub({ params }: PageProps<"/[lang]/app/me">
     { to: href("en", "/app/admin/quotes"), label: n.adminQuotes, icon: "file-text" },
     { to: href("en", "/app/admin/shipments"), label: n.adminShipments, icon: "truck" },
     { to: href("en", "/app/admin/events"), label: n.adminEvents, icon: "conference" },
+    { to: href("en", "/app/admin/messages"), label: n.adminMessages, icon: "mail" },
     { to: href("en", "/app/admin/prices"), label: n.adminPrices, icon: "tag" },
     { to: href("en", "/app/admin/products"), label: n.adminProducts, icon: "package" },
     { to: href("en", "/app/admin/suppliers"), label: n.adminSuppliers, icon: "store" },

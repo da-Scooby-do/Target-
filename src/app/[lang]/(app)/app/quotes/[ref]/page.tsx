@@ -60,7 +60,12 @@ export default async function PortalQuote({ params }: PageProps<"/[lang]/app/quo
             {q.origin} <span aria-hidden="true" className="route-arrow">→</span> {q.destination}
           </p>
         </div>
-        <span className={`tfs-badge tfs-badge--${quoteTone[status]}`}>{dict.app.statuses.quote[status]}</span>
+        <div className="tfs-row">
+          <span className={`tfs-badge tfs-badge--${quoteTone[status]}`}>{dict.app.statuses.quote[status]}</span>
+          <Link href={href(lang, `/app/quotes/${q.reference}/receipt`)} className="tfs-btn tfs-btn--secondary tfs-btn--sm">
+            {dict.ui.receipt.quote}
+          </Link>
+        </div>
       </div>
 
       <section className="panel price-panel" aria-labelledby="price-heading">

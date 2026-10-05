@@ -234,3 +234,39 @@ export async function deleteDocument(input: { id: string }): Promise<Result> {
   revalidatePath("/[lang]/app", "layout");
   return error ? { ok: false, error: "Could not delete." } : { ok: true };
 }
+
+// ------------------------------------------------------------------ quote status
+
+const quoteStatusSchema = z.object({
+  reference: z.string().max(40),
+  status: z.enum(["pending", "declined"]),
+});
+
+/** Close a request we won't price (declined), or reopen it (back to pending). */
+export async function setQuoteStatus(input: z.input<typeof quoteStatusSchema>): Promise<Result> {
+  const parsed = quoteStatusSchema.safeParse(input);
+  if (!parsed.success) return { ok: false, error: "invalid" };
+  const { supabase } = await staffClient();
+  const { reference, status } = parsed.data;
+  const { data, error } = await supabase
+    .from("quotes")
+    .update({ status })
+    .eq("reference", reference)
+    .in("status", status === "declined" ? ["pending", "quoted", "expired"] : ["declined"])
+    .select("id");
+  if (error || !data?.length) return { ok: false, error: "server" };
+  revalidatePath("/en/app/admin/quotes", "layout");
+  return { ok: true, reference };
+}
+
+// ------------------------------------------------------------------ contact messages
+
+export async function setMessageHandled(input: { id: string; handled: boolean }): Promise<Result> {
+  const parsed = z.object({ id: z.uuid(), handled: z.boolean() }).safeParse(input);
+  if (!parsed.success) return { ok: false, error: "invalid" };
+  const { supabase } = await staffClient();
+  const { error } = await supabase.from("contact_messages").update({ handled: parsed.data.handled }).eq("id", parsed.data.id);
+  if (error) return { ok: false, error: "server" };
+  revalidatePath("/en/app/admin/messages");
+  return { ok: true };
+}

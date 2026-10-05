@@ -73,6 +73,7 @@ export function AppShell({
     { href: href("en", "/app/admin/prices"), label: t.nav.adminPrices, icon: "tag" },
     { href: href("en", "/app/admin/suppliers"), label: t.nav.adminSuppliers, icon: "store" },
     { href: href("en", "/app/admin/events"), label: t.nav.adminEvents, icon: "conference" },
+    { href: href("en", "/app/admin/messages"), label: t.nav.adminMessages, icon: "mail" },
   ];
   const staffLinks: NavItem[] = [
     { href: a("/shop"), label: t.nav.marketplace, icon: "store" },

@@ -41,7 +41,12 @@ export default async function AdminOrder({ params }: PageProps<"/[lang]/app/admi
           <h1 className="page-title">{order.reference}</h1>
           <p className="page-sub">Placed {formatDateTime(order.created_at, "en")}</p>
         </div>
-        <span className={`tfs-badge tfs-badge--${orderTone[order.status]}`}>{t.orders.statuses[order.status]}</span>
+        <div className="tfs-row">
+          <span className={`tfs-badge tfs-badge--${orderTone[order.status]}`}>{t.orders.statuses[order.status]}</span>
+          <Link href={`/en/app/orders/${order.reference}/receipt`} className="tfs-btn tfs-btn--secondary">
+            Receipt / print
+          </Link>
+        </div>
       </div>
       <div className="dash-grid">
         <section className="panel">

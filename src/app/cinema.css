@@ -1845,3 +1845,9 @@ html[data-scrolled="1"] .tfs .cine .site-header {
   color: var(--ink-950);
   font-weight: 600;
 }
+/* Error notes on light form cards: dark red text so they stay readable. */
+.tfs .cine .form-error,
+.tfs .cine .tfs-card--light .form-error {
+  color: var(--status-red-fg, #9b1c1c);
+  font-weight: 500;
+}

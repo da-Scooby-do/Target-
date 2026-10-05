@@ -134,17 +134,21 @@ export async function submitQuote(input: QuoteInput): Promise<FormResult> {
   const adminLink = `${site.url}/en/app/admin/quotes/${reference}`;
   const internal = renderTable(`New quote request ${reference}`, supabaseConfigured ? [...rows, ["Price it", adminLink]] : rows);
 
+  // Stored requests appear in the admin dashboard, so a missing notification inbox is not an error then.
   if (!inbox) {
-    console.error("[quote] INBOX_EMAIL is not set");
-    if (process.env.NODE_ENV === "production") return { ok: false, error: "server" };
+    console.warn("[quote] INBOX_EMAIL is not set: no notification email sent");
+    if (!supabaseConfigured && process.env.NODE_ENV === "production") return { ok: false, error: "server" };
   }
 
-  const sent = await sendMail({
-    to: inbox ?? "dev@localhost",
-    replyTo: data.email,
-    subject: `Quote request ${reference}: ${data.from} → ${data.to}`,
-    ...internal,
-  });
+  const sent =
+    !inbox && supabaseConfigured
+      ? false
+      : await sendMail({
+          to: inbox ?? "dev@localhost",
+          replyTo: data.email,
+          subject: `Quote request ${reference}: ${data.from} → ${data.to}`,
+          ...internal,
+        });
   // Once stored in the database the request is safe even if the notification email fails.
   if (!sent && !supabaseConfigured) return { ok: false, error: "server" };
 
@@ -178,9 +182,23 @@ export async function submitContact(input: ContactInput): Promise<FormResult> {
   if (tooFast(data.startedAt)) return { ok: false, error: "tooFast" };
   if (rateLimited(await clientIp())) return { ok: false, error: "server" };
 
-  if (!inbox && process.env.NODE_ENV === "production") {
-    console.error("[contact] INBOX_EMAIL is not set");
-    return { ok: false, error: "server" };
+  const locale: Locale = hasLocale(data.locale) ? data.locale : "en";
+
+  // Store the message so staff see it under Admin, Messages, even without a notification inbox.
+  let stored = false;
+  if (supabaseConfigured) {
+    const supabase = await createClient();
+    const { error } = await supabase.rpc("send_contact_message", {
+      payload: { name: data.name, email: data.email, phone: data.phone, subject: data.subject, message: data.message, locale },
+    });
+    if (error) console.error("[contact] send_contact_message failed", error.message);
+    else stored = true;
+  }
+
+  if (!inbox) {
+    console.warn("[contact] INBOX_EMAIL is not set: no notification email sent");
+    if (stored) return { ok: true };
+    if (process.env.NODE_ENV === "production") return { ok: false, error: "server" };
   }
 
   const mail = renderTable(`New message: ${data.subject}`, [
@@ -189,7 +207,7 @@ export async function submitContact(input: ContactInput): Promise<FormResult> {
     ["Phone", data.phone || "-"],
     ["Subject", data.subject],
     ["Message", data.message],
-    ["Language", (hasLocale(data.locale) ? data.locale : "en").toUpperCase()],
+    ["Language", locale.toUpperCase()],
   ]);
 
   const sent = await sendMail({
@@ -198,5 +216,5 @@ export async function submitContact(input: ContactInput): Promise<FormResult> {
     subject: `Website message: ${data.subject}`,
     ...mail,
   });
-  return sent ? { ok: true } : { ok: false, error: "server" };
+  return sent || stored ? { ok: true } : { ok: false, error: "server" };
 }

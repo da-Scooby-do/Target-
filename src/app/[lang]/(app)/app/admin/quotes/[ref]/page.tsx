@@ -2,6 +2,7 @@ import { requireStaff } from "@/lib/auth";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { BookShipmentForm, PricingPanel } from "@/components/admin-forms";
+import { QuoteStatusButton } from "@/components/admin-buttons";
 import { modeLabel, serviceTitle, statusLabel } from "@/lib/admin-format";
 import { formatDateTime, formatDay, formatPrice } from "@/lib/format";
 import { localeLabels } from "@/lib/i18n";
@@ -102,9 +103,17 @@ export default async function AdminQuote({ params }: PageProps<"/[lang]/app/admi
                 note={q.price_note}
                 canEdit
               />
+            ) : q.status === "declined" && !q.responded_at ? (
+              <p className="state-text">This request is closed.</p>
             ) : (
               <p className="state-text">The customer {q.status} this price{q.responded_at ? ` on ${formatDay(q.responded_at, "en")}` : ""}.</p>
             )}
+            {canPrice || (q.status === "declined" && !q.responded_at) ? (
+              <QuoteStatusButton reference={q.reference} closed={q.status === "declined"} />
+            ) : null}
+            <Link href={`/en/app/quotes/${q.reference}/receipt`} className="tfs-btn tfs-btn--secondary">
+              Receipt / print
+            </Link>
           </section>
 
           {q.status === "accepted" ? (

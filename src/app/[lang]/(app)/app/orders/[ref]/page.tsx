@@ -18,8 +18,10 @@ export default async function OrderPage({ params, searchParams }: PageProps<"/[l
   const { lang, ref } = await params;
   if (!hasLocale(lang)) notFound();
   await requireProfile(lang, href(lang, `/app/orders/${ref}`));
-  const t = (await getDictionary(lang)).market;
+  const dict = await getDictionary(lang);
+  const t = dict.market;
   const o = t.orders;
+  const receipt = dict.ui.receipt.order;
   const supabase = await createClient();
   const { data } = await supabase.from("orders").select("*").eq("reference", ref).maybeSingle();
   if (!data) notFound();
@@ -47,7 +49,13 @@ export default async function OrderPage({ params, searchParams }: PageProps<"/[l
           </h1>
           <p className="page-sub">{o.placedOn.replace("{date}", formatDay(order.created_at, lang))}</p>
         </div>
-        <span className={`tfs-badge tfs-badge--${orderTone[order.status]}`}>{o.statuses[order.status]}</span>
+        <div className="tfs-row">
+          <span className={`tfs-badge tfs-badge--${orderTone[order.status]}`}>{o.statuses[order.status]}</span>
+          <Link href={href(lang, `/app/orders/${order.reference}/receipt`)} className="tfs-btn tfs-btn--secondary tfs-btn--sm">
+            <Icon name="file-text" size={16} />
+            {receipt}
+          </Link>
+        </div>
       </div>
       {order.staff_note ? (
         <div className="banner banner--blue">

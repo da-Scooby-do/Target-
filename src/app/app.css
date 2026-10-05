@@ -2702,3 +2702,204 @@
     border: 0;
   }
 }
+
+/* ---------------------------------------------------------------- admin: contact messages */
+
+.message-list {
+  display: grid;
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.message__head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+.message__body {
+  margin: 0;
+  white-space: pre-line;
+  color: var(--ink-950);
+  line-height: 1.6;
+}
+.message[data-handled] {
+  opacity: 0.7;
+}
+
+/* ---------------------------------------------------------------- receipts (screen and print) */
+
+.receipt-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+}
+.receipt {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  padding: var(--space-8);
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  color: var(--ink-950);
+}
+.receipt__head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-4);
+  padding-block-end: var(--space-6);
+  border-block-end: 2px solid var(--ink-950);
+}
+.receipt__brand {
+  margin: 0 0 var(--space-2);
+  font-size: 20px;
+  font-weight: 700;
+}
+.receipt__company {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--slate-600);
+}
+.receipt__title {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.receipt__meta,
+.receipt__details {
+  display: grid;
+  gap: var(--space-3) var(--space-6);
+  margin: 0;
+}
+.receipt__meta {
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+}
+.receipt__details {
+  grid-template-columns: minmax(120px, 1fr) 3fr;
+}
+.receipt__details div {
+  display: contents;
+}
+.receipt dt {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--slate-600);
+}
+.receipt dd {
+  margin: 0;
+  white-space: pre-line;
+}
+.receipt__meta dd {
+  font-weight: 600;
+}
+.receipt__parties {
+  display: grid;
+  gap: var(--space-6);
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+.receipt__parties h2 {
+  margin: 0 0 var(--space-2);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--slate-600);
+}
+.receipt__parties p {
+  margin: 0;
+  line-height: 1.6;
+}
+.receipt__table {
+  inline-size: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.receipt__table th,
+.receipt__table td {
+  padding: var(--space-2) var(--space-2);
+  text-align: start;
+  border-block-end: 1px solid var(--line);
+}
+.receipt__table thead th {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--slate-600);
+  border-block-end: 1px solid var(--ink-950);
+}
+.receipt__table td:last-child,
+.receipt__table th:last-child {
+  text-align: end;
+}
+.receipt__table tfoot th {
+  font-weight: 500;
+  text-align: end;
+}
+.receipt__total th,
+.receipt__total td {
+  font-size: 16px;
+  font-weight: 700;
+  border-block-start: 2px solid var(--ink-950);
+}
+.receipt__notes {
+  margin: 0;
+  white-space: pre-line;
+}
+.receipt__foot {
+  margin: 0;
+  padding-block-start: var(--space-4);
+  border-block-start: 1px solid var(--line);
+  font-size: 13px;
+  color: var(--slate-600);
+}
+@media (max-width: 599px) {
+  .receipt {
+    padding: var(--space-4);
+  }
+  .receipt__details {
+    grid-template-columns: 1fr;
+    gap: var(--space-1);
+  }
+  .receipt__details dd {
+    margin-block-end: var(--space-2);
+  }
+}
+@media print {
+  .app-top,
+  .app-side,
+  .app-scrim,
+  .tabbar,
+  .receipt-actions,
+  nextjs-portal {
+    display: none !important;
+  }
+  .app,
+  .app-main {
+    background: #fff !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  .app-body {
+    margin: 0 !important;
+  }
+  .receipt {
+    border: 0;
+    padding: 0;
+  }
+}
+@media (min-width: 1200px) {
+  .stat-grid--six {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

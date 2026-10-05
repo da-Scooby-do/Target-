@@ -15,7 +15,7 @@ export default async function AdminHome() {
   const dict = await getDictionary("en");
   const marketT = dict.market;
   const supabase = await createClient();
-  const [{ data: quotes }, { data: shipments }, { data: orders }, { data: signups }] = await Promise.all([
+  const [{ data: quotes }, { data: shipments }, { data: orders }, { data: signups }, { count: newMessages }] = await Promise.all([
     supabase
       .from("quotes")
       .select("id, reference, origin, destination, status, valid_until, price, currency, created_at, service")
@@ -40,6 +40,7 @@ export default async function AdminHome() {
       .gte("created_at", new Date(Date.now() - 14 * 864e5).toISOString())
       .order("created_at", { ascending: false })
       .limit(50),
+    supabase.from("contact_messages").select("id", { count: "exact", head: true }).eq("handled", false),
   ]);
   const q = (quotes ?? []) as Quote[];
   const s = (shipments ?? []) as Shipment[];
@@ -69,6 +70,7 @@ export default async function AdminHome() {
     { n: waiting.length, label: "Waiting on customer", href: "/en/app/admin/quotes?status=quoted" },
     { n: active.length, label: "Active shipments", href: "/en/app/admin/shipments" },
     { n: recentSignups.length, label: "New event sign-ups", href: "/en/app/admin/events" },
+    { n: newMessages ?? 0, label: "New messages", href: "/en/app/admin/messages" },
   ];
 
   return (
