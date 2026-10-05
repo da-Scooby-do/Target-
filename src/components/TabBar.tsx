@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { Icon } from "./Icon";
 import { href, type Locale } from "@/lib/i18n";
 
-export type TabLabels = { label: string; shipping: string; marketplace: string; events: string; profile: string };
+export type TabLabels = { label: string; home: string; shipping: string; marketplace: string; events: string; profile: string };
 
 /**
  * App-style bottom navigation on phones and tablets (hidden on desktop).
@@ -17,6 +17,13 @@ export function TabBar({ locale, labels, signedIn }: { locale: Locale; labels: T
   const rest = pathname.slice(locale.length + 1) || "/";
 
   const tabs = [
+    {
+      key: "home",
+      label: labels.home,
+      icon: "home",
+      to: href(locale),
+      active: rest === "/",
+    },
     {
       key: "shipping",
       label: labels.shipping,

@@ -16,6 +16,7 @@ const ui: UiDictionary = {
   },
   tabs: {
     label: "Hoofdmenu",
+    home: "Home",
     shipping: "Verzending",
     marketplace: "Marktplaats",
     events: "Evenementen",

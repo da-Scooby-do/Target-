@@ -18,6 +18,7 @@ const ui = {
   },
   tabs: {
     label: "Main",
+    home: "Home",
     shipping: "Shipping",
     marketplace: "Marketplace",
     events: "Events",

@@ -816,7 +816,7 @@ html[data-scrolled="1"] .tfs .cine .site-header {
   }
   .tabbar ul {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     margin: 0;
     padding: 0;
     list-style: none;
@@ -1850,4 +1850,15 @@ html[data-scrolled="1"] .tfs .cine .site-header {
 .tfs .cine .tfs-card--light .form-error {
   color: var(--status-red-fg, #9b1c1c);
   font-weight: 500;
+}
+/* Five tabs on small phones: keep long labels (Marktplaats, Evenementen) apart. */
+@media (max-width: 380px) {
+  .tabbar__label {
+    font-size: 10px;
+    letter-spacing: 0;
+    max-inline-size: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 }

@@ -16,6 +16,7 @@ const ui: UiDictionary = {
   },
   tabs: {
     label: "القائمة الرئيسية",
+    home: "الرئيسية",
     shipping: "الشحن",
     marketplace: "السوق",
     events: "الفعاليات",
