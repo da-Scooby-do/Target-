@@ -27,6 +27,7 @@ export function AppShell({
   language,
   cartLabels,
   tabLabels,
+  dashboardLabel,
   user,
   children,
 }: {
@@ -37,6 +38,7 @@ export function AppShell({
   language: string;
   cartLabels: { open: string; count: string };
   tabLabels: TabLabels;
+  dashboardLabel: string;
   user: User;
   children: ReactNode;
 }) {
@@ -55,7 +57,9 @@ export function AppShell({
 
   const a = (path: string) => href(locale, `/app${path}`);
   // Customers have no dashboard: a top bar with a few links. Staff get the admin sidebar.
-  const simple = !user.isStaff;
+  // The admin sidebar only on admin pages; everywhere else (profile, orders, shop) the simple top bar.
+  const inAdmin = user.isStaff && /\/app\/admin(\/|$)/.test(pathname);
+  const simple = !inAdmin;
   const home = simple ? a("/me") : href("en", "/app/admin");
   // Same four places as the phone tab bar.
   const customerLinks: NavItem[] = [
@@ -63,6 +67,7 @@ export function AppShell({
     { href: a("/shop"), label: tabLabels.marketplace, icon: "store" },
     { href: href(locale, "/events"), label: tabLabels.events, icon: "conference" },
     { href: a("/me"), label: tabLabels.profile, icon: "user" },
+    ...(user.isStaff ? [{ href: href("en", "/app/admin"), label: dashboardLabel, icon: "grid" }] : []),
   ];
   const admin: NavItem[] = [
     { href: href("en", "/app/admin"), label: t.nav.adminOverview, icon: "shield", exact: true },

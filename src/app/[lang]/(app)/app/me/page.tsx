@@ -32,21 +32,13 @@ export default async function ProfileHub({ params }: PageProps<"/[lang]/app/me">
     .map((w) => w[0]?.toUpperCase())
     .join("");
 
-  const admin: Item[] = [
-    { to: href("en", "/app/admin"), label: n.adminOverview, icon: "shield" },
-    { to: href("en", "/app/admin/orders"), label: n.adminOrders, icon: "cart" },
-    { to: href("en", "/app/admin/quotes"), label: n.adminQuotes, icon: "file-text" },
-    { to: href("en", "/app/admin/shipments"), label: n.adminShipments, icon: "truck" },
-    { to: href("en", "/app/admin/events"), label: n.adminEvents, icon: "conference" },
-    { to: href("en", "/app/admin/messages"), label: n.adminMessages, icon: "mail" },
-    { to: href("en", "/app/admin/prices"), label: n.adminPrices, icon: "tag" },
-    { to: href("en", "/app/admin/products"), label: n.adminProducts, icon: "package" },
-    { to: href("en", "/app/admin/suppliers"), label: n.adminSuppliers, icon: "store" },
-  ];
 
   // Customers get no dashboard: just their order history and their settings.
   const groups: { title: string; items: Item[] }[] = [
-    ...(profile.role === "staff" ? [{ title: t.sections.admin, items: admin }] : []),
+    // Admins reach every admin page from the dashboard; the profile just links to it.
+    ...(profile.role === "staff"
+      ? [{ title: t.sections.admin, items: [{ to: href("en", "/app/admin"), label: dict.ui.site.dashboard, icon: "grid" }] }]
+      : []),
     {
       title: t.sections.history,
       items: [
