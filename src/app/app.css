@@ -2903,3 +2903,44 @@
     grid-template-columns: repeat(4, 1fr);
   }
 }
+
+/* ---------------------------------------------------------------- list tables: the whole row opens the item */
+
+.tfs-table tbody tr:has(a.tfs-ref) {
+  position: relative;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+.tfs-table tbody tr:has(a.tfs-ref):hover {
+  background: var(--mist-50);
+}
+.tfs-table tbody a.tfs-ref {
+  color: var(--ink-950);
+  text-decoration: underline;
+  text-decoration-color: var(--accent-400);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+.tfs-table tbody a.tfs-ref::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+.tfs-table .row-open {
+  inline-size: 1%;
+  text-align: end;
+}
+.row-open__btn {
+  display: inline-grid;
+  place-items: center;
+  inline-size: 32px;
+  block-size: 32px;
+  border-radius: 50%;
+  background: var(--mist-100);
+  color: var(--ink-700);
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.tfs-table tbody tr:hover .row-open__btn {
+  background: var(--ink-950);
+  color: var(--white);
+}

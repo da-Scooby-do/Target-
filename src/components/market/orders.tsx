@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Icon } from "../Icon";
 import type { MarketDictionary } from "@/dictionaries/market/en";
 import { formatDay, formatPrice } from "@/lib/format";
 import { href, type Locale } from "@/lib/i18n";
@@ -16,6 +17,7 @@ export function OrderTable({ orders, locale, t, base }: { orders: Order[]; local
             <th scope="col">{o.date}</th>
             <th scope="col">{o.total}</th>
             <th scope="col">{o.status}</th>
+            <th scope="col" aria-hidden="true" />
           </tr>
         </thead>
         <tbody>
@@ -30,6 +32,9 @@ export function OrderTable({ orders, locale, t, base }: { orders: Order[]; local
               <td dir="ltr">{formatPrice(Number(x.subtotal) + Number(x.shipping ?? 0), x.currency, locale)}</td>
               <td>
                 <span className={`tfs-badge tfs-badge--${orderTone[x.status]}`}>{o.statuses[x.status]}</span>
+              </td>
+              <td className="row-open" aria-hidden="true">
+                <span className="row-open__btn"><Icon name="arrow-right" size={18} flipRtl /></span>
               </td>
             </tr>
           ))}

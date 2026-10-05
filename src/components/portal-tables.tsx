@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Icon } from "./Icon";
 import type { Dictionary } from "@/dictionaries";
 import { formatDay, formatPrice } from "@/lib/format";
 import { href, type Locale } from "@/lib/i18n";
@@ -18,6 +19,7 @@ export function QuoteTable({ quotes, locale, dict, base }: { quotes: QuoteRow[];
             <th scope="col">{t.created}</th>
             <th scope="col">{t.price}</th>
             <th scope="col">{t.status}</th>
+            <th scope="col" aria-hidden="true" />
           </tr>
         </thead>
         <tbody>
@@ -37,6 +39,9 @@ export function QuoteTable({ quotes, locale, dict, base }: { quotes: QuoteRow[];
                 <td>{q.price != null ? formatPrice(q.price, q.currency, locale) : "-"}</td>
                 <td>
                   <span className={`tfs-badge tfs-badge--${quoteTone[status]}`}>{dict.app.statuses.quote[status]}</span>
+                </td>
+                <td className="row-open" aria-hidden="true">
+                  <span className="row-open__btn"><Icon name="arrow-right" size={18} flipRtl /></span>
                 </td>
               </tr>
             );
@@ -61,6 +66,7 @@ export function ShipmentTable({ shipments, locale, dict, base }: { shipments: Sh
             <th scope="col">{t.mode}</th>
             <th scope="col">{t.eta}</th>
             <th scope="col">{t.status}</th>
+            <th scope="col" aria-hidden="true" />
           </tr>
         </thead>
         <tbody>
@@ -78,6 +84,9 @@ export function ShipmentTable({ shipments, locale, dict, base }: { shipments: Sh
               <td>{s.eta ? formatDay(s.eta, locale) : "-"}</td>
               <td>
                 <span className={`tfs-badge tfs-badge--${shipmentTone[s.status]}`}>{dict.app.statuses.shipment[s.status]}</span>
+              </td>
+              <td className="row-open" aria-hidden="true">
+                <span className="row-open__btn"><Icon name="arrow-right" size={18} flipRtl /></span>
               </td>
             </tr>
           ))}
